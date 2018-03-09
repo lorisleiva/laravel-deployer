@@ -1,10 +1,18 @@
 # 🚀 Laravel Deployer
-Laravel Deployer is a lightweight wrapper of [Deployer](https://github.com/deployphp/deployer) giving Artisan the power of zero-downtime deployment.
+Laravel Deployer is a lightweight wrapper of [Deployer.org](https://github.com/deployphp/deployer) giving Artisan the power of zero-downtime deployment.
 
 * [Documentation](docs)
 * Blog article (TODO)
 
 ![Console output example](https://user-images.githubusercontent.com/3642397/37216796-04ac518e-23bc-11e8-8f6b-58ef22e4d747.png)
+
+## ✨ Features
+* **Simple** setup process and a minimal learning curve
+* Ready to use recipes for **Laravel**
+* **Parallel** execution without extensions
+* Something went wrong? **Rollback** to the previous release
+* **Agentless**, it's just SSH
+* **Zero downtime** deployments
 
 ## 1️⃣ Installation
 
