@@ -4,7 +4,9 @@ Laravel Deployer is a lightweight wrapper of [Deployer](https://github.com/deplo
 * [Documentation](docs)
 * Blog article (TODO)
 
-## Installation
+![Console output example](https://user-images.githubusercontent.com/3642397/37216796-04ac518e-23bc-11e8-8f6b-58ef22e4d747.png)
+
+## 1️⃣ Installation
 
 ```bash
 composer require lorisleiva/laravel-deployer
@@ -16,7 +18,7 @@ As you know, from Laravel 5.5 it will automatically discover the package. Before
 Lorisleiva\LaravelDeployer\LaravelDeployerServiceProvider::class
 ```
 
-## Configuration
+## 2️⃣ Configuration
 In order to generate your deployment configuration file, simply run:
 
 ```bash
@@ -27,7 +29,7 @@ It will ask you a few questions to help you get started and generate a `deploy.p
 
 Read more about the available options, tasks, recipes; about how to customize your hosts, your deployment flow; about the gotchas of deploying an app that is already live and much more in the [documentation](docs).
 
-## Deployment
+## 3️⃣ Deployment
 When you’re ready to deploy, run:
 
 ```bash
@@ -40,7 +42,7 @@ Because we are using zero-downtime deployments, make sure your server’s root p
 
 If your project has already been deployed, before using Laravel Deployer, be sure to [read this](docs/first-deploy.md).
 
-## Available commands
+## 📜 Available commands
 
 ```bash
 deploy                # Deploy your Laravel application
