@@ -1,7 +1,7 @@
 # 📚 Documentation
 
 ## 🙃 Overwiew
-* Basic configurations (TODO)
+* [Basic configurations](basic-configurations.md)
 * Configure your hosts (TODO)
 * What does a deploy do? (TODO)
 * First deploy on a live project (gotchas) (TODO)
