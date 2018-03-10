@@ -7,9 +7,12 @@
 * [First deploy on a live project](first-deploy.md)
 
 ## 🤔 How-tos
-* [How to compile assets on deploy using npm](how-to-npm.md) (TODO)
-* [How to send slack notifications](how-to-slack.md) (TODO)
-* [How to deploy directly from server (or from Forge)](how-to-localhost.md) (TODO)
+* [How to compile assets on deploy using npm?](how-to-npm.md)
+* [How to send slack notifications?](how-to-slack.md) (TODO)
+* [How to deploy directly from server?](how-to-localhost.md)
+* [How to deploy with Laravel Forge?](how-to-forge.md)
+* [How to reload php-fpm?](how-to-reload-fpm.md)
+* [How to terminate horizon?](how-to-horizon.md)
 
 ## 🤓 Advanced documentation 
 * [Available options and defaults](all-options.md)

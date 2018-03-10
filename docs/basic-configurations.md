@@ -78,8 +78,8 @@ host('your.hostname.com')
     ->user('root');
 ```
 
-* By default, Deployer will access your server via SSH as the provided user.
-* More authentication methods can be found [here](host-configuration).
+* Deployer will access your server via SSH as the provided user.
+* More authentication configurations can be found [here](host-configuration).
 
 
 ## Check the tasks and the hooks
