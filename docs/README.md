@@ -3,8 +3,8 @@
 ## 🙃 Overwiew
 * [Basic configurations](basic-configurations.md)
 * [Configure your hosts](configure-hosts.md)
-* [What does a deploy do?](deploy-tasks.md)
-* [First deploy on a live project (gotchas)](first-deploy.md)
+* [What does a deploy do?](deploy-task.md)
+* [First deploy on a live project](first-deploy.md)
 
 ## 🤔 How-tos
 * [How to compile assets on deploy using npm](how-to-npm.md) (TODO)
