@@ -19,6 +19,6 @@
 * [Available tasks](all-tasks.md)
 * [Available recipes](all-recipes.md)
 * [Custom tasks and hooks](custom-tasks.md)
-* [Troubleshooting](troubleshooting.md) (TODO)
+* [Troubleshooting](troubleshooting.md)
 
 For more advanced documentation, please refer to the [Deployer documentation](https://deployer.org/docs).
