@@ -92,8 +92,8 @@ before('existing:task', 'mycustom:task');
 after('mycustom:task', 'myscustom:secondtask');
 ```
 
-* [Check out how to create you custom tasks and use hooks](custom-tasks).
-* [Check out all available tasks](all-tasks).
+* [Check out how to create you custom tasks and use hooks](custom-tasks.md).
+* [Check out all available tasks](all-tasks.md).
 
 If some of the tasks used by default during deployment are unecessary for you or you need to redefine the deployment flow completely, you can override the `deploy` task:
 
