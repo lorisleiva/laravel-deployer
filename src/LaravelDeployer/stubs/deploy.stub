@@ -85,4 +85,8 @@ before('deploy:symlink', 'artisan:migrate');}}
 {{hook_horizon:// Horizon
 {{hook_horizon_command}}('{{hook_horizon_other_hook}}', 'artisan:horizon:terminate');}}
 
+{{hook_fpm:// Reload php-fpm 
+set('php_fpm_service', '{{hook_fpm_version}}');
+after('cleanup', 'fpm:reload');}}
+
 {{hook_empty:// before('deploy:symlink', 'artisan:migrate');}}

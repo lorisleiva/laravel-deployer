@@ -177,13 +177,13 @@ class DeployFileGeneratorTest extends TestCase
         $stubNpm = (new DeployFileGenerator)->useNpm()->getParsedStub();
         $stubMigrate = (new DeployFileGenerator)->migrate()->getParsedStub();
         $stubHorizon = (new DeployFileGenerator)->terminateHorizon()->getParsedStub();
-        $stubFull = (new DeployFileGenerator)->useNpm()->migrate()->terminateHorizon()->getParsedStub();
+        $stubFpm = (new DeployFileGenerator)->reloadFpm()->getParsedStub();
 
         $this->assertContains("// before('deploy:symlink', 'artisan:migrate');", $stubEmpty);
         $this->assertNotContains("// before('deploy:symlink', 'artisan:migrate');", $stubNpm);
         $this->assertNotContains("// before('deploy:symlink', 'artisan:migrate');", $stubMigrate);
         $this->assertNotContains("// before('deploy:symlink', 'artisan:migrate');", $stubHorizon);
-        $this->assertNotContains("// before('deploy:symlink', 'artisan:migrate');", $stubFull);
+        $this->assertNotContains("// before('deploy:symlink', 'artisan:migrate');", $stubFpm);
     }
 
     /** @test */
@@ -252,5 +252,27 @@ EOD
             ->get('application');
 
         $this->assertEquals('Elegon', $appName);
+    }
+
+    /** @test */
+    function it_can_be_set_to_use_fpm_reloading()
+    {
+        $stub = (new DeployFileGenerator)
+            ->reloadFpm()
+            ->getParsedStub();
+
+        $this->assertContains("set('php_fpm_service', 'php7.1-fpm');", $stub);
+        $this->assertContains("after('cleanup', 'fpm:reload');", $stub);
+    }
+
+    /** @test */
+    function it_automatically_use_fpm_reloading_when_using_forge()
+    {
+        $stub = (new DeployFileGenerator)
+            ->useForge()
+            ->getParsedStub();
+
+        $this->assertContains("set('php_fpm_service', 'php7.1-fpm');", $stub);
+        $this->assertContains("after('cleanup', 'fpm:reload');", $stub);
     }
 }

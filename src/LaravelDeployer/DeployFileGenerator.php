@@ -24,6 +24,7 @@ class DeployFileGenerator
         'npm_build' => 'production',
         'hook_horizon_command' => 'before',
         'hook_horizon_other_hook' => 'deploy:symlink',
+        'hook_fpm_version' => 'php7.1-fpm',
     ];
 
     protected $blocks = [
@@ -35,6 +36,7 @@ class DeployFileGenerator
         'hook_npm' => false,
         'hook_migrations' => false,
         'hook_horizon' => false,
+        'hook_fpm' => false,
         'hook_empty' => true,
     ];
 
@@ -231,8 +233,22 @@ class DeployFileGenerator
     {
         $this->useForge = true;
         $this->localhost();
+        $this->reloadFpm();
         $this->user('forge');
         $this->updateUnchangedDeploymentPathForForge();
+
+        return $this;
+    }
+
+    /**
+     * Set up to reload php-fpm when deploying.
+     *
+     * @return DeployFileGenerator
+     */
+    public function reloadFpm()
+    {
+        $this->blocks['hook_fpm'] = true;
+        $this->blocks['hook_empty'] = false;
 
         return $this;
     }
