@@ -8,7 +8,7 @@
 
 ## 🤔 How-tos
 * [How to compile assets on deploy using npm?](how-to-npm.md)
-* [How to send slack notifications?](how-to-slack.md) (TODO)
+* [How to send Slack notifications?](how-to-slack.md)
 * [How to deploy directly from server?](how-to-localhost.md)
 * [How to deploy with Laravel Forge?](how-to-forge.md)
 * [How to reload php-fpm?](how-to-reload-fpm.md)
