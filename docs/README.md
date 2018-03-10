@@ -14,7 +14,7 @@
 ## 🤓 Advanced documentation 
 * [Available options and defaults](all-options.md)
 * [Available tasks](all-tasks.md)
-* [Available recipes](all-recipes.md) (TODO)
+* [Available recipes](all-recipes.md)
 * [Custom tasks and hooks](custom-tasks.md)
 * [Troubleshooting](troubleshooting.md) (TODO)
 
