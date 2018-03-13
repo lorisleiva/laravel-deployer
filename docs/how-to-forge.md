@@ -27,18 +27,21 @@ localhost()
 * Combine with the `-a` (`--all`) option to skip any console interaction whilst using a maximum of features — npm, migrations, horizon, etc.
 
 ## Update web directory
-
 Go to the *Meta* tab of your application page on Forge and change it to the `/current/public` directory.
 
 ![Enter `/current/public` on Meta > Update Web Directory](https://user-images.githubusercontent.com/3642397/37337948-320f3ea0-26b6-11e8-902f-f4b185c609c7.png)
 
-## Allow symlinks on nginx
+## Make OPcache work with symlinks
+Next, you need to pass the real application path instead of the symlink path to PHP FPM. Otherwise, PHP's OPcache may not properly detect changes to your PHP files. Add the following lines after the rest of your `fastcgi` configurations in the `location` block of your nginx configurations.
 
-Because the `current` directory is a symlink, you need to allow symlinks on nginx by adding `disable_symlinks off;` to your server block.
+```nginx
+fastcgi_param SCRIPT_FILENAME $realpath_root$fastcgi_script_name;
+fastcgi_param DOCUMENT_ROOT $realpath_root;
+```
 
 ![Edit your nginx configuration file](https://user-images.githubusercontent.com/3642397/37338252-30323c08-26b7-11e8-85d5-db49d5c4abbe.png)
 
-![Add `disable_symlinks off;` to your server block](https://user-images.githubusercontent.com/3642397/37338263-41bb0144-26b7-11e8-9234-fc980198060f.png)
+![Add more fastcgi configs to your location block](https://user-images.githubusercontent.com/3642397/37346220-11785cb2-26cf-11e8-906e-30da2bfbe847.png)
 
 ## Edit your deploy script
 Your deploy script in Forge is now unnecessary since your whole deployment logic is define by Laravel Deployer. Replace it with the following script to deploy using Laravel Deployer when you deloy in Forge.

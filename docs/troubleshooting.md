@@ -17,7 +17,7 @@ Since Deployer uses `acl` by default to set up permissions for writable director
 sudo apt-get install acl
 ```
 
-## My changes don't show after a deployment.
+## My changes don't show up after a deployment.
 
 **Problem:**
 
@@ -25,10 +25,16 @@ You push some new commits and run `php artisan deploy` successfully but the chan
 
 **Solution:**
 
-It is likely that your server configurations do not allow symlinks. Since the `current` folder is a symlink, it will not see it as linked to the newest release. To allow symlinks in your nginx configuration, add `disable_symlinks off;` to your server block.
+Since we are using symlinks to link the `current` folder to the current release of your application, it is likely that OPcache does not properly detect changes to your PHP files. To fix this, you should pass the real application path instead of the path to the symlink to PHP FPM. Add the following lines after the rest of your `fastcgi` configuration in the `location` block of your nginx configurations.
 
-
+```nginx
+fastcgi_param SCRIPT_FILENAME $realpath_root$fastcgi_script_name;
+fastcgi_param DOCUMENT_ROOT $realpath_root;
 ```
+
+If this doesn't fix the problem, make sure that your nginx configurations allow symbolic links by adding `disable_symlinks off;` to your server block.
+
+```nginx
 server {
     # ...
     disable_symlinks off;

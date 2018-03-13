@@ -20,7 +20,12 @@ Start by deploying using `php artisan deploy`. Unless you have some folders call
 ## 2️⃣ Point root path to current directory
 Make sure your server's root path points to the `current` symlink. For example if your `deploy_path` is `var/www/domain.com`, your server configurations should point to `var/www/domain.com/current`.
 
-Because the `current` directory is a symlink, you need to allow symlinks on nginx by adding `disable_symlinks off;` to your server block.
+If you're using OPcache, you need to pass the realpath of the application instead of its symbolic link. Otherwise, PHP's OPcache may not properly detect changes to your PHP files. Add the following lines after the rest of your `fastcgi` configurations in the `location` block of your nginx configurations.
+
+```nginx
+fastcgi_param SCRIPT_FILENAME $realpath_root$fastcgi_script_name;
+fastcgi_param DOCUMENT_ROOT $realpath_root;
+```
 
 Are you using Laravel Forge? [You can do this directly from the web interface](how-to-forge.md#update-web-directory).
 
