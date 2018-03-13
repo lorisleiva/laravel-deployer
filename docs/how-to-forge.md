@@ -26,6 +26,20 @@ localhost()
   will generate an appropriate localhost configuration, use the `forge` user and provide better default values when asking you questions.
 * Combine with the `-a` (`--all`) option to skip any console interaction whilst using a maximum of features — npm, migrations, horizon, etc.
 
+## Update web directory
+
+Go to the *Meta* tab of your application page on Forge and change it to the `/current/public` directory.
+
+![Enter `/current/public` on Meta > Update Web Directory](https://user-images.githubusercontent.com/3642397/37337948-320f3ea0-26b6-11e8-902f-f4b185c609c7.png)
+
+## Allow symlinks on nginx
+
+Because the `current` directory is a symlink, you need to allow symlinks on nginx by adding `disable_symlinks off;` to your server block.
+
+![Edit your nginx configuration file](https://user-images.githubusercontent.com/3642397/37338252-30323c08-26b7-11e8-85d5-db49d5c4abbe.png)
+
+![Add `disable_symlinks off;` to your server block](https://user-images.githubusercontent.com/3642397/37338263-41bb0144-26b7-11e8-9234-fc980198060f.png)
+
 ## Edit your deploy script
 Your deploy script in Forge is now unnecessary since your whole deployment logic is define by Laravel Deployer. Replace it with the following script to deploy using Laravel Deployer when you deloy in Forge.
 
