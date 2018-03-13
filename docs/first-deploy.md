@@ -20,6 +20,10 @@ Start by deploying using `php artisan deploy`. Unless you have some folders call
 ## 2️⃣ Point root path to current directory
 Make sure your server's root path points to the `current` symlink. For example if your `deploy_path` is `var/www/domain.com`, your server configurations should point to `var/www/domain.com/current`.
 
+Because the `current` directory is a symlink, you need to allow symlinks on nginx by adding `disable_symlinks off;` to your server block.
+
+Are you using Laravel Forge? [You can do this directly from the web interface](how-to-forge.md#update-web-directory).
+
 ## 3️⃣ Cleanup old code.
 Now that your application is pointing to the `current` symlink, you do not need any of the files and folders at the root of your deployment path that aren't part of the Deployer folders, i.e. `.dep`, `current`, `releases`, `shared`.
 
