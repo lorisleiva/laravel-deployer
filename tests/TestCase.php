@@ -25,12 +25,12 @@ class TestCase extends \Orchestra\Testbench\TestCase
 
     public function runInRepository($command)
     {
-        $this->exec("cd " . static::REPOSITORY . " && $command");
+        return $this->exec("cd " . static::REPOSITORY . " && $command");
     }
 
     public function runInRoot($command)
     {
-        $this->exec("cd " . static::TMP . " && $command");
+        return $this->exec("cd " . static::TMP . " && $command");
     }
 
     public function exec($command)

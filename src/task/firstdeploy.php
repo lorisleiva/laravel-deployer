@@ -29,7 +29,7 @@ task('firstdeploy:cleanup', function () {
     writeln("<info>Make sure that \"{{deploy_path}}/current\" is your new server root path!</info>");
     
     $question = "Are you sure you want to delete the following elements?\n$filesToDelete";
-    if (askConfirmation($question, false)) {
+    if (get('debug', false) || askConfirmation($question, false)) {
         run("cd {{deploy_path}} && rm -rf $filesToDelete");
     }
 });
