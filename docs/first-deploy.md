@@ -15,7 +15,7 @@ Start by deploying using `php artisan deploy`. Unless you have some folders call
 > 
 > If some of your shared files or directories are included in your `.gitignore`, the native `deploy:shared` task will not be able to retrieve them from your repository. This is typically the case for our `.env` file and the `storage` folder. If you already have a `.env` file and a `storage` folder in your live deployment path, you might want to use them in your shared folder.
 > 
-> By default Laravel Deployer provides a `firstdeploy:shared` task (executed right before the `deploy:shared` task) that will copy any shared files and folders present in the `deploy_path` (but absent in the `release_path`) into the shared folder.
+> By default Laravel Deployer provides a `firstdeploy:shared` task (executed right after the `deploy:shared` task) that will copy any shared files and folders from the `deploy_path` into the shared folder (if not already in the shared folder).
 
 ## 2️⃣ Point root path to current directory
 Make sure your server's root path points to the `current` symlink. For example if your `deploy_path` is `var/www/domain.com`, your server configurations should point to `var/www/domain.com/current`.

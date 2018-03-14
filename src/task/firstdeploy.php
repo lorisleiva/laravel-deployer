@@ -7,24 +7,16 @@ task('firstdeploy:shared', function () {
     $sharedPath = "{{deploy_path}}/shared";
 
     foreach (get('shared_dirs') as $dir) {
-        if (
-            ! test("[ -d $sharedPath/$dir ]") && 
-            ! test("[ -d {{release_path}}/$dir ]") && 
-            test("[ -d {{deploy_path}}/$dir ]")
-        ) {
+        if (test("[ -d {{deploy_path}}/$dir ]")) {
             run("mkdir -p $sharedPath/$dir");
-            run("cp -rv {{deploy_path}}/$dir $sharedPath/" . dirname(parse($dir)));
+            run("rsync -r --ignore-existing {{deploy_path}}/$dir $sharedPath/" . dirname(parse($dir)));
         }
     }
 
     foreach (get('shared_files') as $file) {
-        if (
-            ! test("[ -f $sharedPath/$file ]") && 
-            ! test("[ -f {{release_path}}/$file ]") && 
-            test("[ -f {{deploy_path}}/$file ]")
-        ) {
+        if (test("[ -f {{deploy_path}}/$file ]")) {
             run("mkdir -p $sharedPath/" . dirname(parse($file)));
-            run("cp -rv {{deploy_path}}/$file $sharedPath/$file");
+            run("rsync -r --ignore-existing {{deploy_path}}/$file $sharedPath/$file");
         }
     }
 });
