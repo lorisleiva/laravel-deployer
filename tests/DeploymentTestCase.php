@@ -54,4 +54,19 @@ class DeploymentTestCase extends TestCase
             $this->exec("cp $recipeFile $deployFile");
         }
     }
+
+    public function runInRepository($command)
+    {
+        return $this->exec("cd " . static::REPOSITORY . " && $command");
+    }
+
+    public function runInRoot($command)
+    {
+        return $this->exec("cd " . static::TMP . " && $command");
+    }
+
+    public function runInCurrent($command)
+    {
+        return $this->exec("cd " . static::TMP . "/current && $command");
+    }
 }
