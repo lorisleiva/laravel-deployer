@@ -7,6 +7,9 @@ use Symfony\Component\Process\Process;
 
 class TestCase extends \Orchestra\Testbench\TestCase
 {
+    const BASE_REPOSITORY = __DIR__ . '/fixtures/repository';
+    const RECIPES = __DIR__ . '/fixtures/recipes';
+
     protected function getPackageProviders($app)
     {
         return ['Lorisleiva\LaravelDeployer\LaravelDeployerServiceProvider'];
@@ -14,7 +17,7 @@ class TestCase extends \Orchestra\Testbench\TestCase
 
     protected function getEnvironmentSetUp($app)
     {
-        $app->setBasePath(__DIR__ . '/fixtures/repository');
+        $app->setBasePath(static::BASE_REPOSITORY);
     }
 
     public function artisan($command, $parameters = [])

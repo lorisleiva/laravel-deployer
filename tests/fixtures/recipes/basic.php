@@ -2,12 +2,14 @@
 
 namespace Deployer;
 
+use Lorisleiva\LaravelDeployer\Test\DeploymentTestCase;
+
 require 'recipe/laravel-deployer.php';
 
 set('http_user', getenv('USER'));
-set('repository', __DIR__ . '/../repository');
+set('repository', DeploymentTestCase::REPOSITORY);
 set('branch', null);
 set('debug', true);
 
 localhost()
-    ->set('deploy_path', __DIR__ . '/../tmp');
+    ->set('deploy_path', DeploymentTestCase::SERVER);
