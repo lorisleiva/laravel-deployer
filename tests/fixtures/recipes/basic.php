@@ -11,9 +11,3 @@ set('debug', true);
 
 localhost()
     ->set('deploy_path', __DIR__ . '/../tmp');
-
-// Mock composer install
-task('deploy:vendor', function() {
-    $vendorFolder = realpath(__DIR__ . '../../../vendor');
-    run("ln -s $vendorFolder {{release_path}}/vendor");
-});
