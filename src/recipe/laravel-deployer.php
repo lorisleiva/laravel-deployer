@@ -27,6 +27,8 @@ require 'recipe/laravel.php';
 |
 */
 
+require 'task/helpers.php';
+
 require 'task/firstdeploy.php';
 require 'task/horizon.php';
 require 'task/fpm.php';
