@@ -276,4 +276,24 @@ EOD
         $this->assertContains("set('php_fpm_service', 'php7.1-fpm');", $stub);
         $this->assertContains("after('cleanup', 'fpm:reload');", $stub);
     }
+
+    /** @test */
+    function it_defaults_to_laravel_deployer_recipe()
+    {
+        $stub = (new DeployFileGenerator)->getParsedStub();
+
+        $this->assertContains("require 'recipe/laravel-deployer.php';", $stub);
+        $this->assertNotContains("require 'recipe/lumen-deployer.php';", $stub);
+    }
+
+    /** @test */
+    function it_can_use_lumen_deployer_recipe()
+    {
+        $stub = (new DeployFileGenerator)
+            ->recipe('lumen-deployer')
+            ->getParsedStub();
+
+        $this->assertContains("require 'recipe/lumen-deployer.php';", $stub);
+        $this->assertNotContains("require 'recipe/laravel-deployer.php';", $stub);
+    }
 }

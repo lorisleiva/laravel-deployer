@@ -3,7 +3,6 @@
 namespace Lorisleiva\LaravelDeployer\Test\Commands;
 
 use Lorisleiva\LaravelDeployer\Test\DeploymentTestCase;
-use Lorisleiva\LaravelDeployer\Test\TestCase;
 
 class DeployListTest extends DeploymentTestCase
 {

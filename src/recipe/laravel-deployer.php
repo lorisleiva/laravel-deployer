@@ -45,7 +45,7 @@ require 'task/npm.php';
 |
 */
 
-desc('Deploy your project');
+desc('Deploy your Laravel application');
 task('deploy', [
     'deploy:info',
     'deploy:prepare',

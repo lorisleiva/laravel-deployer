@@ -31,6 +31,8 @@ class DeployInit extends BaseCommand
 
     public function configureGenerator()
     {
+        $this->resolveRecipe();
+
         if ($this->option('all')) {
             return $this->allOptions();
         }
@@ -42,6 +44,13 @@ class DeployInit extends BaseCommand
         $this->defineForgeAndLocalhosts();
         $this->defineDeployementPath();
         $this->defineAdditionalHooks();
+    }
+
+    public function resolveRecipe()
+    {
+        if (preg_match('/Lumen/', app()->version())) {
+            $this->generator->recipe('lumen-deployer');
+        }
     }
 
     public function allOptions()

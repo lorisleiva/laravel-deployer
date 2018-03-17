@@ -15,3 +15,9 @@ function artisan($command, $showOutput = false) {
         }
     };
 }
+
+/**
+ * Set up default values for our options.
+ */
+
+set('lumen', false);

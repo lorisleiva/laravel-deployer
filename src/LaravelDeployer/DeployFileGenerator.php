@@ -11,6 +11,7 @@ class DeployFileGenerator
     protected $useForge = false;
 
     protected $replacements = [
+        'recipe' => 'laravel-deployer',
         'shared_files_add_or_set' => 'add',
         'shared_dirs_add_or_set' => 'add',
         'writable_dirs_add_or_set' => 'add',
@@ -42,7 +43,7 @@ class DeployFileGenerator
 
     public function __construct()
     {
-        $this->filesystem = resolve(Filesystem::class);
+        $this->filesystem = app(Filesystem::class);
 
         $basePath = base_path();
         $defaultApplicationName = env('APP_NAME', 'Application');
@@ -249,6 +250,20 @@ class DeployFileGenerator
     {
         $this->blocks['hook_fpm'] = true;
         $this->blocks['hook_empty'] = false;
+
+        return $this;
+    }
+
+    /**
+     * Set up to use a particular type of recipe
+     * instead of the default 'laravel-deployer'.
+     *
+     * @param string $recipe
+     * @return DeployFileGenerator
+     */
+    public function recipe($recipe)
+    {
+        $this->replacements['recipe'] = $recipe;
 
         return $this;
     }

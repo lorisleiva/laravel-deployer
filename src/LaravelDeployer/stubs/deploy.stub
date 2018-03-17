@@ -2,7 +2,7 @@
 
 namespace Deployer;
 
-require 'recipe/laravel-deployer.php';
+require 'recipe/{{recipe}}.php';
 
 /*
 |--------------------------------------------------------------------------
