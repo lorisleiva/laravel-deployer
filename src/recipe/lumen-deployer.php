@@ -11,6 +11,7 @@ task('deploy', [
     'deploy:info',
     'deploy:prepare',
     'deploy:lock',
+    'deploy:failed',
     'deploy:release',
     'deploy:update_code',
     'hook:build',
@@ -25,7 +26,27 @@ task('deploy', [
     'deploy:unlock',
     'cleanup',
     'hook:done',
+    'success',
 ]);
 
-after('deploy:failed', 'deploy:unlock');
-after('deploy', 'success');
+desc('Deploy your Lumen application with local build');
+task('deploy:local', [
+    'deploy:info',
+    'local:build',
+    'deploy:prepare',
+    'deploy:lock',
+    'deploy:release',
+    'local:upload',
+    'deploy:shared',
+    'firstdeploy:shared',
+    'deploy:writable',
+    'artisan:cache:clear',
+    'artisan:optimize',
+    'hook:ready',
+    'deploy:symlink',
+    'deploy:unlock',
+    'cleanup',
+    'local:cleanup',
+    'hook:done',
+    'success',
+]);

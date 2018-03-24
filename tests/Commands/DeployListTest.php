@@ -18,6 +18,9 @@ class DeployListTest extends DeploymentTestCase
         $this->assertContains('horizon:terminate', $output);
         $this->assertContains('npm:development', $output);
         $this->assertContains('npm:production', $output);
+        $this->assertContains('local:build', $output);
+        $this->assertContains('local:upload', $output);
+        $this->assertContains('local:cleanup', $output);
 
         // Npm recipe
         $this->assertContains('npm:install', $output);

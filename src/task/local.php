@@ -4,7 +4,7 @@ namespace Deployer;
 
 set('local_deploy_path', __DIR__ . '/../../.build');
 set('local_upload_options', [
-    'exclude' => [ 'node_modules' ],
+    'options' => [ '--exclude=node_modules' ],
 ]);
 
 desc('Build your application locally');
@@ -13,6 +13,7 @@ task('local:build', function() {
     invoke('deploy:prepare');
     invoke('deploy:release');
     invoke('deploy:update_code');
+    invoke('hook:build');
     invoke('deploy:vendors');
     invoke('deploy:symlink');
 })->local();
