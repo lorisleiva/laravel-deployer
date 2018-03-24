@@ -102,18 +102,26 @@ class DeploymentTestCase extends TestCase
         ]);
 
         if (file_exists(self::SERVER . '/current/node_modules')) {
-            $this->assertServerHas([ 'node_modules/vendor/package' ]);
-            $this->assertServerFilesEquals([
-                'public/css/app.css' => 'compiled app.css',
-                'public/js/app.js' => 'compiled app.js',
-            ]);
+            $this->assertServerHas('node_modules/vendor/package');
+            $this->assertServerAssetsAreCompiled();
         }
     }
 
-    public function assertServerHas($files)
+    public function assertServerHas(...$files)
     {
+        $files = is_array($files[0]) ? $files[0] : $files;
+
         foreach ($files as $file) {
             $this->assertFileExists(self::SERVER . '/current/' . $file);
+        }
+    }
+
+    public function assertServerMiss(...$files)
+    {
+        $files = is_array($files[0]) ? $files[0] : $files;
+
+        foreach ($files as $file) {
+            $this->assertFileNotExists(self::SERVER . '/current/' . $file);
         }
     }
 
@@ -125,5 +133,13 @@ class DeploymentTestCase extends TestCase
                 "$expectedContent\n"
             );
         }
+    }
+
+    public function assertServerAssetsAreCompiled()
+    {
+        $this->assertServerFilesEquals([
+            'public/css/app.css' => 'compiled app.css',
+            'public/js/app.js' => 'compiled app.js',
+        ]);
     }
 }
