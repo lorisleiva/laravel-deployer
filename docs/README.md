@@ -4,6 +4,7 @@
 * [Basic configurations](basic-configurations.md)
 * [Configure your hosts](configure-hosts.md)
 * [What does a deploy do?](deploy-task.md)
+* [Shallow hooks](shallow-hooks.md)
 * [First deploy on a live project](first-deploy.md)
 
 ## 🤔 How-tos

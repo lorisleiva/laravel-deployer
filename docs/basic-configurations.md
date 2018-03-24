@@ -13,7 +13,7 @@ php artisan deploy:init
 You should end up with a `deploy.php` file at the root of your project.
 
 **:fire: Pro tips:**
-* Runing `php artisan deploy your.hostname.com -a`, will set you up with everything without asking you any questions.
+* Runing `php artisan deploy:init your.hostname.com -a`, will set you up with everything without asking you any questions.
 * Using the `-f` option will optimize the configuration file for servers that are maintained by Laravel Forge.
 * You can combine the two above.
 
@@ -107,22 +107,25 @@ task('deploy', [
     'deploy:lock',
     'deploy:release',
     'deploy:update_code',
-    'firstdeploy:shared',
+    'hook:build',
     'deploy:shared',
+    'firstdeploy:shared',
     'deploy:vendors',
     'deploy:writable',
-    'artisan:storage:link',
-    'artisan:view:clear',
+    'artisan:storage:link', // Not in Lumen applications
+    'artisan:view:clear',   // Not in Lumen applications
     'artisan:cache:clear',
-    'artisan:config:cache',
+    'artisan:config:cache', // Not in Lumen applications
     'artisan:optimize',
+    'hook:ready',
     'deploy:symlink',
     'deploy:unlock',
     'cleanup',
+    'hook:done',
+    'success',
 ]);
 
 after('deploy:failed', 'deploy:unlock');
-after('deploy', 'success');
 ```
 
 **:fire: Pro tips:**

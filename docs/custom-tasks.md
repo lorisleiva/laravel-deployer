@@ -45,6 +45,8 @@ before('existing:task', 'mycustom:task');
 after('mycustom:task', 'myscustom:secondtask');
 ```
 
+Laravel Deployer provides shallow hooks to help you hook tasks into more strategic places of your deployment flow. [Read more](shallow-hooks).
+
 ## Filtering
 
 You can define tasks to only run under a certain stage, role or hostname using the following methods.
