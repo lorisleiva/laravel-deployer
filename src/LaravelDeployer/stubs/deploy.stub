@@ -76,17 +76,17 @@ task('{{application_snake_case}}:helloworld', 'echo "hello world!"');
 */
 
 {{hook_npm:// Npm 
-after('deploy:update_code', 'npm:install');
-after('npm:install', 'npm:{{npm_build}}');}}
+after('hook:build', 'npm:install');
+after('hook:build', 'npm:{{npm_build}}');}}
 
 {{hook_migrations:// Migrations
-before('deploy:symlink', 'artisan:migrate');}}
+after('hook:ready', 'artisan:migrate');}}
 
 {{hook_horizon:// Horizon
-{{hook_horizon_command}}('{{hook_horizon_other_hook}}', 'artisan:horizon:terminate');}}
+after('hook:ready', 'artisan:horizon:terminate');}}
 
 {{hook_fpm:// Reload php-fpm 
 set('php_fpm_service', '{{hook_fpm_version}}');
-after('cleanup', 'fpm:reload');}}
+after('hook:done', 'fpm:reload');}}
 
-{{hook_empty:// before('deploy:symlink', 'artisan:migrate');}}
+{{hook_empty:// before('hook:ready', 'artisan:migrate');}}

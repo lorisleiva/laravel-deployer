@@ -125,8 +125,8 @@ class DeployFileGeneratorTest extends TestCase
             ->useNpm('development')
             ->getParsedStub();
 
-        $this->assertContains("after('deploy:update_code', 'npm:install');", $stub);
-        $this->assertContains("after('npm:install', 'npm:development');", $stub);
+        $this->assertContains("after('hook:build', 'npm:install');", $stub);
+        $this->assertContains("after('hook:build', 'npm:development');", $stub);
     }
 
     /** @test */
@@ -136,7 +136,7 @@ class DeployFileGeneratorTest extends TestCase
             ->migrate()
             ->getParsedStub();
 
-        $this->assertContains("before('deploy:symlink', 'artisan:migrate');", $stub);
+        $this->assertContains("after('hook:ready', 'artisan:migrate');", $stub);
     }
 
     /** @test */
@@ -146,29 +146,19 @@ class DeployFileGeneratorTest extends TestCase
             ->terminateHorizon()
             ->getParsedStub();
 
-        $this->assertContains("before('deploy:symlink', 'artisan:horizon:terminate')", $stub);
+        $this->assertContains("after('hook:ready', 'artisan:horizon:terminate')", $stub);
     }
 
     /** @test */
     function when_set_to_migrate_and_terminate_horizon_it_hooks_horizon_after_migrate()
     {
-        // From one way...
-        $stub = (new DeployFileGenerator)
-            ->migrate()
-            ->terminateHorizon()
-            ->getParsedStub();
-
-        $this->assertContains("before('deploy:symlink', 'artisan:migrate');", $stub);
-        $this->assertContains("after('artisan:migrate', 'artisan:horizon:terminate')", $stub);
-
-        // ... or another.
         $stub = (new DeployFileGenerator)
             ->terminateHorizon()
             ->migrate()
             ->getParsedStub();
 
-        $this->assertContains("before('deploy:symlink', 'artisan:migrate');", $stub);
-        $this->assertContains("after('artisan:migrate', 'artisan:horizon:terminate')", $stub);
+        $this->assertContains("after('hook:ready', 'artisan:migrate');", $stub);
+        $this->assertContains("after('hook:ready', 'artisan:horizon:terminate')", $stub);
     }
 
     /** @test */
@@ -180,11 +170,11 @@ class DeployFileGeneratorTest extends TestCase
         $stubHorizon = (new DeployFileGenerator)->terminateHorizon()->getParsedStub();
         $stubFpm = (new DeployFileGenerator)->reloadFpm()->getParsedStub();
 
-        $this->assertContains("// before('deploy:symlink', 'artisan:migrate');", $stubEmpty);
-        $this->assertNotContains("// before('deploy:symlink', 'artisan:migrate');", $stubNpm);
-        $this->assertNotContains("// before('deploy:symlink', 'artisan:migrate');", $stubMigrate);
-        $this->assertNotContains("// before('deploy:symlink', 'artisan:migrate');", $stubHorizon);
-        $this->assertNotContains("// before('deploy:symlink', 'artisan:migrate');", $stubFpm);
+        $this->assertContains("// before('hook:ready', 'artisan:migrate');", $stubEmpty);
+        $this->assertNotContains("// before('hook:ready', 'artisan:migrate');", $stubNpm);
+        $this->assertNotContains("// before('hook:ready', 'artisan:migrate');", $stubMigrate);
+        $this->assertNotContains("// before('hook:ready', 'artisan:migrate');", $stubHorizon);
+        $this->assertNotContains("// before('hook:ready', 'artisan:migrate');", $stubFpm);
     }
 
     /** @test */
@@ -263,7 +253,7 @@ EOD
             ->getParsedStub();
 
         $this->assertContains("set('php_fpm_service', 'php7.1-fpm');", $stub);
-        $this->assertContains("after('cleanup', 'fpm:reload');", $stub);
+        $this->assertContains("after('hook:done', 'fpm:reload');", $stub);
     }
 
     /** @test */
@@ -274,7 +264,7 @@ EOD
             ->getParsedStub();
 
         $this->assertContains("set('php_fpm_service', 'php7.1-fpm');", $stub);
-        $this->assertContains("after('cleanup', 'fpm:reload');", $stub);
+        $this->assertContains("after('hook:done', 'fpm:reload');", $stub);
     }
 
     /** @test */

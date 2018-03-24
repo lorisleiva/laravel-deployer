@@ -30,8 +30,9 @@ require 'recipe/laravel.php';
 require 'task/helpers.php';
 
 require 'task/firstdeploy.php';
-require 'task/horizon.php';
 require 'task/fpm.php';
+require 'task/hook.php';
+require 'task/horizon.php';
 require 'task/npm.php';
 
 /*
@@ -52,6 +53,7 @@ task('deploy', [
     'deploy:lock',
     'deploy:release',
     'deploy:update_code',
+    'hook:build',
     'deploy:shared',
     'firstdeploy:shared',
     'deploy:vendors',
@@ -61,9 +63,11 @@ task('deploy', [
     'artisan:cache:clear',
     'artisan:config:cache',
     'artisan:optimize',
+    'hook:ready',
     'deploy:symlink',
     'deploy:unlock',
     'cleanup',
+    'hook:done',
 ]);
 
 after('deploy:failed', 'deploy:unlock');

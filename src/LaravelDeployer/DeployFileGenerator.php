@@ -23,8 +23,6 @@ class DeployFileGenerator
         'host_deploy_path' => '/var/www/html',
         'host_user' => 'root',
         'npm_build' => 'production',
-        'hook_horizon_command' => 'before',
-        'hook_horizon_other_hook' => 'deploy:symlink',
         'hook_fpm_version' => 'php7.1-fpm',
     ];
 
@@ -183,11 +181,6 @@ class DeployFileGenerator
         $this->blocks['hook_migrations'] = true;
         $this->blocks['hook_empty'] = false;
 
-        if ($this->blocks['hook_horizon']) {
-            $this->replacements['hook_horizon_command'] = 'after';
-            $this->replacements['hook_horizon_other_hook'] = 'artisan:migrate';
-        }
-
         return $this;
     }
 
@@ -200,11 +193,6 @@ class DeployFileGenerator
     {
         $this->blocks['hook_horizon'] = true;
         $this->blocks['hook_empty'] = false;
-
-        if ($this->blocks['hook_migrations']) {
-            $this->replacements['hook_horizon_command'] = 'after';
-            $this->replacements['hook_horizon_other_hook'] = 'artisan:migrate';
-        }
 
         return $this;
     }
