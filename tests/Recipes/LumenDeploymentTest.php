@@ -12,7 +12,8 @@ class LumenDeploymentTest extends DeploymentTestCase
     function it_should_not_execute_artisan_commands_not_included_in_lumen_by_default()
     {
         $output = $this->artisan('deploy');
-
+        
+        $this->assertSuccessfulDeployment();
         $this->assertNotContains('Executing task artisan:storage:link', $output);
         $this->assertNotContains('Executing task artisan:view:clear', $output);
         $this->assertNotContains('Executing task artisan:config:cache', $output);

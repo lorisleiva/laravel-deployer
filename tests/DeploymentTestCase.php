@@ -81,4 +81,49 @@ class DeploymentTestCase extends TestCase
     {
         return $this->exec("cd " . static::SERVER . "/current && $command");
     }
+
+    public function assertSuccessfulDeployment()
+    {
+        $this->assertServerHas([
+            'app/User.php',
+            'app/Http/Controllers/Controller.php',
+            'bootstrap',
+            'config',
+            'database',
+            'public/css/app.css',
+            'public/js/app.js',
+            'public/index.php',
+            'resources',
+            'routes',
+            'storage/app/public/magic.gif',
+            'tests',
+            '.env',
+            'artisan',
+        ]);
+
+        if (file_exists(self::SERVER . '/current/node_modules')) {
+            $this->assertServerHas([ 'node_modules/vendor/package' ]);
+            $this->assertServerFilesEquals([
+                'public/css/app.css' => 'compiled app.css',
+                'public/js/app.js' => 'compiled app.js',
+            ]);
+        }
+    }
+
+    public function assertServerHas($files)
+    {
+        foreach ($files as $file) {
+            $this->assertFileExists(self::SERVER . '/current/' . $file);
+        }
+    }
+
+    public function assertServerFilesEquals($files)
+    {
+        foreach ($files as $file => $expectedContent) {
+            $this->assertStringEqualsFile(
+                self::SERVER . '/current/' . $file, 
+                "$expectedContent\n"
+            );
+        }
+    }
 }

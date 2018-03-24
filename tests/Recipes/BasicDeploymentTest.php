@@ -13,6 +13,7 @@ class BasicDeploymentTest extends DeploymentTestCase
     {
         $output = $this->artisan('deploy');
 
+        $this->assertSuccessfulDeployment();
         $this->assertContains('Deploying HEAD on localhost', $output);
         $this->assertContains('Executing task deploy:prepare', $output);
         $this->assertContains('Executing task deploy:lock', $output);
