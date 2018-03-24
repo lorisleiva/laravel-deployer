@@ -44,6 +44,12 @@ When you’re ready to deploy, run:
 php artisan deploy
 ```
 
+Or if you'd rather use a deployment strategy that builds your assets locally (see [doc](docs/how-to-deploy-local.md)), run:
+
+```bash
+php artisan deploy:local
+```
+
 If anything goes wrong during the deployment flow, the release will be discarded just like nothing happened.
 
 Because we are using zero-downtime deployments, make sure your server’s root path point to `{{deploy_path}}/current`.
@@ -53,13 +59,14 @@ If your project has already been deployed, before using Laravel Deployer, be sur
 ## 📜 Available commands
 
 ```bash
-deploy                # Deploy your Laravel application
+deploy                # Deploy your application
 deploy:configs        # Print host configuration
 deploy:current        # Show current paths
 deploy:dump <task>    # Display the task-tree for a given task
 deploy:hosts          # Print all hosts
 deploy:init           # Generate deploy.php configuration file
 deploy:list           # Lists available tasks
+deploy:local          # Deploy your application with local build
 deploy:run <task>     # Execute a given task on your hosts
 ssh                   # Connect to host through ssh
 ```
