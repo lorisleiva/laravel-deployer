@@ -46,8 +46,8 @@ task('local:build', function() {
     invoke('deploy:prepare');
     invoke('deploy:release');
     invoke('deploy:update_code');
-    invoke('hook:build');       // Any tasks hooked to `hook:build` will be called locally
     invoke('deploy:vendors');
+    invoke('hook:build');       // Any tasks hooked to `hook:build` will be called locally
     invoke('deploy:symlink');
 })->local();
 ```

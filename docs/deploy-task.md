@@ -9,10 +9,10 @@ The following table describes the default deployment tasks in their execution or
 | `deploy:lock` | Lock the host to ensure we won't try to redeploy before its done. |
 | `deploy:release` | Clean up unfinished releases and prepare next release. |
 | `deploy:update_code` | Update code by running `git clone` on the new release folder. |
-| `hook:build` | *(Shallow hook)* |
 | `deploy:shared` | Creating symlinks for shared files and directories. If shared files or directories are not present in the `shared` folder, it will try to resolve then from the `{{release_path}}`. |
 | `firstdeploy:shared` | It will try to copy the shared files directly from the `{{deploy_path}}` if not already on the shared folder. This ensures we do not lose shared files or directories that are git-ignored when deploying for the first time on a live server. [Read more here](first-deploy.md). |
 | `deploy:vendors` | Installing vendors. Basically running `composer install`. |
+| `hook:build` | *(Shallow hook)* |
 | `deploy:writable` | Make directories in `{{writable_dirs}}` writable. |
 | `artisan:storage:link` | Execute artisan `storage:link`. |
 | `artisan:view:clear` | Execute artisan `view:clear`. |

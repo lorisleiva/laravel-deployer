@@ -13,8 +13,8 @@ task('local:build', function() {
     invoke('deploy:prepare');
     invoke('deploy:release');
     invoke('deploy:update_code');
-    invoke('hook:build');
     invoke('deploy:vendors');
+    invoke('hook:build');
     invoke('deploy:symlink');
 })->local();
 

@@ -3,7 +3,7 @@
 Laravel Deployer provides 3 shallow tasks that don't execute any code at all but help you hook tasks in more strategic places of your deployment flow.
 
 ```bash
-hook:build  # The code is ready but nothing is built
+hook:build  # Code and composer vendors are ready but nothing is built
 hook:ready  # Deployment is done but not live yet (before symlink)
 hook:done   # Deployment is done and live
 ```

@@ -107,10 +107,10 @@ task('deploy', [
     'deploy:lock',
     'deploy:release',
     'deploy:update_code',
-    'hook:build',
     'deploy:shared',
     'firstdeploy:shared',
     'deploy:vendors',
+    'hook:build',
     'deploy:writable',
     'artisan:storage:link', // Not in Lumen applications
     'artisan:view:clear',   // Not in Lumen applications
