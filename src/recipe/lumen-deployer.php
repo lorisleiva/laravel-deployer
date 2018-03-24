@@ -13,15 +13,18 @@ task('deploy', [
     'deploy:lock',
     'deploy:release',
     'deploy:update_code',
+    'hook:build',
     'deploy:shared',
     'firstdeploy:shared',
     'deploy:vendors',
     'deploy:writable',
     'artisan:cache:clear',
     'artisan:optimize',
+    'hook:ready',
     'deploy:symlink',
     'deploy:unlock',
     'cleanup',
+    'hook:done',
 ]);
 
 after('deploy:failed', 'deploy:unlock');
