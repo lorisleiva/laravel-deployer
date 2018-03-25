@@ -99,7 +99,7 @@ class BaseCommand extends Command
     {
         $process = new Process($command);
         $process->setTimeout(3600);
-        $process->setIdleTimeout(300);
+        $process->setIdleTimeout(600);
         $process->run(function($type, $buffer) {
             $this->output->write($buffer);
         });
