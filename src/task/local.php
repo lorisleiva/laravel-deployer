@@ -3,28 +3,34 @@
 namespace Deployer;
 
 set('local_deploy_path', __DIR__ . '/../../.build');
+set('keep_releases', 2);
 set('local_upload_options', [
-    'options' => [ '--exclude=node_modules' ],
+    'options' => [ 
+        '--exclude=node_modules',
+        '--exclude=.git',
+    ],
 ]);
 
 desc('Build your application locally');
 task('local:build', function() {
     set('deploy_path', get('local_deploy_path'));
+    set('keep_releases', get('keep_releases'));
     invoke('deploy:prepare');
     invoke('deploy:release');
     invoke('deploy:update_code');
     invoke('deploy:vendors');
     invoke('hook:build');
     invoke('deploy:symlink');
+    invoke('cleanup');
 })->local();
 
 desc('Upload your locally-built application to your hosts');
 task('local:upload', function () {
-    upload(
-        '{{local_deploy_path}}/current/',   // From local path
-        '{{release_path}}',                 // To server release
-        get('local_upload_options')         // With upload options
-    );
+    $configs = array_merge_recursive(get('local_upload_options'), [
+        'options' => ['--delete']
+    ]);
+
+    upload('{{local_deploy_path}}/current/', '{{release_path}}', $configs);
 });
 
 desc('Remove locally-built application');
