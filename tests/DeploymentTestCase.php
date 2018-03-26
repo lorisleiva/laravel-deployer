@@ -72,6 +72,11 @@ class DeploymentTestCase extends TestCase
         return $this->exec("cd " . static::REPOSITORY . " && $command");
     }
 
+    public function commitChanges()
+    {
+        $this->runInRepository('git add --all && git commit -m "changes"');
+    }
+
     public function runInRoot($command)
     {
         return $this->exec("cd " . static::SERVER . " && $command");

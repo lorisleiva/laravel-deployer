@@ -67,6 +67,7 @@ deploy:hosts          # Print all hosts
 deploy:init           # Generate deploy.php configuration file
 deploy:list           # Lists available tasks
 deploy:local          # Deploy your application with local build
+deploy:rollback       # Rollback to previous release
 deploy:run <task>     # Execute a given task on your hosts
 ssh                   # Connect to host through ssh
 ```
