@@ -104,6 +104,7 @@ task('deploy:local', [
     'deploy:symlink',
     'deploy:unlock',
     'cleanup',
+    'local:cleanup',
     'hook:done',
     'success',
 ]);

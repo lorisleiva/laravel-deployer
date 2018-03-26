@@ -3,7 +3,9 @@
 namespace Deployer;
 
 set('local_deploy_path', __DIR__ . '/../../.build');
-set('keep_releases', 2);
+set('local_cache_repository', __DIR__ . '/../../../../..');
+set('local_keep_releases', 1);
+
 set('local_upload_options', [
     'options' => [ 
         '--exclude=.git',
@@ -15,7 +17,9 @@ set('local_upload_options', [
 desc('Build your application locally');
 task('local:build', function() {
     set('deploy_path', get('local_deploy_path'));
-    set('keep_releases', get('keep_releases'));
+    set('previous_release', get('local_cache_repository'));
+    set('keep_releases', get('local_keep_releases'));
+
     invoke('deploy:prepare');
     invoke('deploy:release');
     invoke('deploy:update_code');
