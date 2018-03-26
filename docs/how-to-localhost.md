@@ -1,13 +1,12 @@
 # How to deploy directly from server?
 
-When deploying directly from a host, it will still try to connect to itself via SSH which can lead to some extra unecessary burden. To make it easier for ourselves, we can define a `localhost` that will be used when the host matches the current server. You can set up the `localhost` just like any other hosts. Make sure to turn off `git_tty` if you plan on making the server deploying itself, e.g. on repository updates.
+When deploying directly from a host, it will still try to connect to itself via SSH which can lead to some extra unecessary burden. To make it easier for ourselves, we can define a `localhost` that will be used when the host matches the current server. You can set up the `localhost` just like any other hosts.
 
 ```php
 localhost()
     ->stage('local')
     ->set('deploy_path', '/var/www/your.domain.com')
-    ->user('root')
-    ->set('git_tty', false);
+    ->user('root');
 ```
 
 When running `php artisan deploy local` from your server it will use your localhost configurations and will not try to SSH connect to itself. If you'd rather not use any stage, you can also run `php artisan deploy localhost`.

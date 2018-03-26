@@ -28,12 +28,6 @@ set('application', 'Your Application Name');
 // The repository of your application
 set('repository', 'ssh://git@bitbucket.org/vendor/repository.git');
 
-// Whether or not you allow Deployer to receive anonymous statistics from you.
-set('allow_anonymous_stats', false);
-
-// Allocate TTY for git clone command.
-set('git_tty', true); 
-
 // Default shared files are: `.env`. You can add more here.
 add('shared_files', []);
 

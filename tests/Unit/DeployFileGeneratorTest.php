@@ -199,8 +199,7 @@ EOD
 localhost()
     ->stage('local')
     ->set('deploy_path', '/var/www/html')
-    ->user('root')
-    ->set('git_tty', false);
+    ->user('root');
 EOD
         , $stub);
     }
@@ -229,8 +228,7 @@ EOD
 localhost()
     ->stage('local')
     ->set('deploy_path', '/home/forge/elegon.io')
-    ->user('forge')
-    ->set('git_tty', false);
+    ->user('forge');
 EOD
         , $stub);
     }

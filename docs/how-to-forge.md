@@ -14,8 +14,7 @@ host('your.domain.com')
 localhost()
     ->stage('local')
     ->set('deploy_path', '/home/forge/your.domain.com')
-    ->user('forge')
-    ->set('git_tty', false);
+    ->user('forge');
 ```
 
 **:fire: Pro tips:**
