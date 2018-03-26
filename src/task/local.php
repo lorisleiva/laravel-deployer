@@ -6,8 +6,9 @@ set('local_deploy_path', __DIR__ . '/../../.build');
 set('keep_releases', 2);
 set('local_upload_options', [
     'options' => [ 
-        '--exclude=node_modules',
         '--exclude=.git',
+        '--exclude=vendor',
+        '--exclude=node_modules',
     ],
 ]);
 
