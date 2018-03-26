@@ -6,7 +6,7 @@ use Lorisleiva\LaravelDeployer\Test\DeploymentTestCase;
 
 class LocalDeploymentTest extends DeploymentTestCase
 {
-    protected $recipe = 'local';
+    protected $recipe = 'basic';
 
     /** @test */
     function a_local_deployment_should_execute_all_local_tasks()
