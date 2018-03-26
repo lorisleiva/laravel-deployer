@@ -108,4 +108,5 @@ task('deploy:local', [
     'success',
 ]);
 
+fail('deploy:local', 'deploy:failed');
 after('deploy:failed', 'deploy:unlock');
