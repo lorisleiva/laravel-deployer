@@ -5,7 +5,8 @@ namespace Lorisleiva\LaravelDeployer\Test\Unit;
 use Lorisleiva\LaravelDeployer\Commands\BaseCommand;
 use Lorisleiva\LaravelDeployer\Test\TestCase;
 use Symfony\Component\Console\Input\StringInput;
-use Symfony\Component\Console\Output\NullOutput;
+use Symfony\Component\Console\Output\ConsoleOutput;
+use Symfony\Component\Console\Output\OutputInterface;
 
 class ParseParametersTest extends TestCase
 {
@@ -84,13 +85,44 @@ class ParseParametersTest extends TestCase
         $this->assertContains("--option='branch=develop'", $params);
     }
 
-    protected function simulateAndParseParameters($commandAsString)
+    /** @test */
+    function it_should_conserve_verbose_levels()
+    {
+        $paramsV = $this->simulateAndParseParameters('dummyTask', '-v');
+        $paramsVV = $this->simulateAndParseParameters('dummyTask', '-vv');
+        $paramsVVV = $this->simulateAndParseParameters('dummyTask', '-vvv');
+
+        $this->assertContains("-v", $paramsV);
+        $this->assertNotContains("-vv", $paramsV);
+        $this->assertNotContains("--verbose", $paramsV);
+
+        $this->assertContains("-vv", $paramsVV);
+        $this->assertNotContains("-vvv", $paramsVV);
+        
+        $this->assertContains("-vvv", $paramsVVV);
+    }
+
+    protected function simulateAndParseParameters($commandAsString, $verbosity = null)
     {
         $command = new DummyCommand;
         $command->setLaravel(app());
-        $command->run(new StringInput($commandAsString), new NullOutput);
+        $command->run(
+            new StringInput($commandAsString), 
+            new ConsoleOutput($this->parseVerbosity($verbosity))
+        );
 
         return $command->parseParameters();
+    }
+
+    protected function parseVerbosity($verbosity)
+    {
+        switch ($verbosity) {
+            case '-q': return OutputInterface::VERBOSITY_QUIET;
+            case '-v': return OutputInterface::VERBOSITY_VERBOSE;
+            case '-vv': return OutputInterface::VERBOSITY_VERY_VERBOSE;
+            case '-vvv': return OutputInterface::VERBOSITY_DEBUG;
+            default: return OutputInterface::VERBOSITY_NORMAL;
+        }
     }
 }
 

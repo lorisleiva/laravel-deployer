@@ -51,11 +51,19 @@ class BaseCommand extends Command
 
     public function parseParameters()
     {
-        $parameters = $this->parseArguments()
-            ->merge($this->parseOptions())
-            ->toArray();
+        $parameters = $this->parseArguments()->merge($this->parseOptions());
 
-        return (string) new ArrayInput($parameters, null);
+        if ($this->getOutput()->isDebug()) {
+            $parameters->push('-vvv');
+        } elseif ($this->getOutput()->isVeryVerbose()) {
+            $parameters->push('-vv');
+        } elseif ($this->getOutput()->isVerbose()) {
+            $parameters->push('-v');
+        } elseif ($this->getOutput()->isQuiet()) {
+            $parameters->push('-q');
+        }
+
+        return (string) new ArrayInput($parameters->toArray(), null);
     }
 
     public function parseArguments()
