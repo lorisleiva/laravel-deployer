@@ -71,3 +71,7 @@ task('custom:task', function () {
 | `php_fpm_command` | `echo "" \| sudo -S /usr/sbin/service {{php_fpm_service}} reload` | Command used to reload the php-fpm service. |
 | `application` | | Application name. |
 | `allow_anonymous_stats` | | Whether or not you allow Deployer to receive anonymous statistics from you. |
+| `local_deploy_path` | `vendor/lorisleiva/laravel-deploy/.build` | Temporary folder used for building assets locally when running `deploy:local`. |
+| `local_cache_repository` | root directory | Additional git reference when cloning locally using `deploy:local` to reduce network downloads and improve performances. Defaults to the root of your application. |
+| `local_keep_releases` | `1` | Number of releases to keep locally when running `deploy:local`. Defaults to 1 since the entire `local_deploy_path` is removed after deploy by default. |
+| `local_upload_options` | `['options' => ['--exclude=.git', '--exclude=vendor', '--exclude=node_modules']]` | Additional `rsync` options when uploading the local release to your host whilst running `deploy:local`. |

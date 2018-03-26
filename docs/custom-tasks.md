@@ -45,7 +45,7 @@ before('existing:task', 'mycustom:task');
 after('mycustom:task', 'myscustom:secondtask');
 ```
 
-Laravel Deployer provides shallow hooks to help you hook tasks into more strategic places of your deployment flow. [Read more](shallow-hooks).
+Laravel Deployer provides shallow hooks to help you hook tasks into more strategic places of your deployment flow. [Read more](shallow-hooks.md).
 
 ## Filtering
 

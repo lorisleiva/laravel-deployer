@@ -3,13 +3,9 @@
 The recipe `recipe/npm.php` is already required within Laravel Deployer's recipe. Therefore, all you need to do is hook the `npm` tasks in you deployment flow.
 
 ```php
-// Already imports 'recipe/npm.php'
-require 'recipe/laravel-deployer.php';
-
-// ...
-
-after('deploy:update_code', 'npm:install');
-after('npm:install', 'npm:production');
+// deploy.php
+after('hook:build', 'npm:install');
+after('hook:build', 'npm:production');
 ```
 
 # Available tasks

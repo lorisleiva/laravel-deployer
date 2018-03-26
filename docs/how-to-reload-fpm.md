@@ -4,7 +4,7 @@ In order to reload php-fpm after each deployment, you will need to add the `fpm:
 
 ```php
 set('php_fpm_service', 'php7.1-fpm');
-after('cleanup', 'fpm:reload');
+after('hook:done', 'fpm:reload');
 ```
 
 If you wish to customize the command executed by `fpm:reload`, you can override the `php_fpm_command` option.

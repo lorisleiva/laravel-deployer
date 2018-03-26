@@ -39,6 +39,7 @@ php artisan deploy:list namespace  # List all tasks starting with `namespace:`
 | `debug:task`                | Display the task-tree for a given task |
 | `deploy:clear_paths`        | Cleaning up files and/or directories |
 | `deploy:copy_dirs`          | Copy directories |
+| `deploy:local`              | Deploy your application with local build |
 | `deploy:lock`               | Lock deploy |
 | `deploy:prepare`            | Preparing host for deploy |
 | `deploy:public_disk`        | Make symlink for public disk |
@@ -52,6 +53,9 @@ php artisan deploy:list namespace  # List all tasks starting with `namespace:`
 | `firstdeploy:cleanup`       | Deletes everything from deploy path that isn't from deployer |
 | `firstdeploy:shared`        | Copying the shared folder from the deploy path if possible |
 | `fpm:reload`                | Reload the php-fpm service |
+| `local:build`               | Build your application locally |
+| `local:cleanup`             | Remove locally-built application |
+| `local:upload`              | Upload your locally-built application to your hosts |
 | `npm:development`           | Execute npm run development |
 | `npm:install`               | Install npm packages |
 | `npm:production`            | Execute npm run production |

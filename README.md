@@ -9,7 +9,7 @@ Laravel Deployer is a lightweight wrapper of [Deployer.org](https://github.com/d
 ## ✨ Features
 * **Simple** setup process and a minimal learning curve
 * Ready to use recipes for **Laravel**
-* **Parallel** execution without extensions
+* **Locally built** deployment strategy
 * Something went wrong? **Rollback** to the previous release
 * **Agentless**, it's just SSH
 * **Zero downtime** deployments
@@ -44,7 +44,7 @@ When you’re ready to deploy, run:
 php artisan deploy
 ```
 
-Or if you'd rather use a deployment strategy that builds your assets locally (see [doc](docs/how-to-deploy-local.md)), run:
+Or if you'd rather use a deployment strategy that [builds your assets locally](docs/how-to-deploy-local.md), run:
 
 ```bash
 php artisan deploy:local

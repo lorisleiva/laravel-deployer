@@ -71,7 +71,7 @@ host('your.hostname.com')
     // Can be useful to distinguish a production server and a staging server.
     ->stage('prod')
     
-    // The deploy path. Where you code is.
+    // The deploy path. Where the code resides in your host.
     ->set('deploy_path', '/var/www/html/your.hostname.com')
     
     // (Optional) Who should Deployer connect as during deployment. 
