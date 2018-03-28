@@ -12,6 +12,7 @@ require 'recipe/slack.php';
 
 set('slack_webhook', 'YOUR_SLACK_WEBHOOK');
 before('deploy', 'slack:notify');
+before('deploy:local', 'slack:notify');
 after('success', 'slack:notify:success');
 after('deploy:failed', 'slack:notify:failure');
 ```
