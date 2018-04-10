@@ -2,92 +2,35 @@
 
 namespace Deployer;
 
-require 'recipe/{{recipe}}.php';
+require 'recipe/laravel-deployer.php';
 
 /*
-|--------------------------------------------------------------------------
-| Define your options
-|--------------------------------------------------------------------------
-|
-| Here, you can edit the name of your application, change your repository URL, 
-| customize which files and folders should be shared between releases, 
-| customize which directories should be writable and much more.
-|
-*/
+ * Includes
+ */
 
-set('application', '{{application}}');
-set('repository', '{{repository}}');
-
-{{shared_files_add_or_set}}('shared_files', [{{shared_files_comment}}]);
-{{shared_dirs_add_or_set}}('shared_dirs', [{{shared_dirs_comment}}]);
-{{writable_dirs_add_or_set}}('writable_dirs', [{{writable_dirs_comment}}]);
+{{includes}}
 
 /*
-|--------------------------------------------------------------------------
-| Configure your hosts
-|--------------------------------------------------------------------------
-|
-| This is what Deployer will use to connect to your servers. You can set up
-| multiple hosts including localhosts to enable deployment directly from 
-| the server (useful if you are using Laravel Forge for example).
-|
-*/
+ * Strategies
+ */
 
-{{default_stage:set('default_stage', '{{host_stage}}');}}
-
-host('{{hostname}}'){{host_block_stage:
-    ->stage('{{host_stage}}')}}{{host_block_deploy_path:
-    ->set('deploy_path', '{{host_deploy_path}}')}}{{host_block_user:
-    ->user('{{host_user}}')}};
-
-{{localhost:localhost()
-    ->stage('local')
-    ->set('deploy_path', '{{host_deploy_path}}')
-    ->user('{{host_user}}');}}
+{{strategies}}
 
 /*
-|--------------------------------------------------------------------------
-| Write your own tasks
-|--------------------------------------------------------------------------
-|
-| A handful of helpful tasks are already available for you to use - check out
-| `php artisan deploy:list`. Here you can define your own ones to automate
-| any kind of custom deployment logic. Read more on the documentation.
-|
-*/
+ * Options
+ */
 
-desc('Example task');
-task('{{application_snake_case}}:helloworld', 'echo "hello world!"');
+{{options}}
 
 /*
-|--------------------------------------------------------------------------
-| Add more to your deployments with hooks
-|--------------------------------------------------------------------------
-|
-| Hooks enable you to attach new tasks before or after the execution of other 
-| tasks. Run `php artisan deploy:dump deploy` to checkout where to hook on
-| the deployment flow. To redefine the deployment process entirely, you
-| may directly override the `deploy` task - check out documentation.
-| 
-| The following shallow hooks are made available to faciliate this process:
-| - hook:build    Code and composer vendors are ready but nothing is built
-| - hook:ready    Deployment is done but not live yet (before symlink)
-| - hook:done     Deployment is done and live
-|
-*/
+ * Hosts and localhost
+ */
 
-{{hook_npm:// Npm 
-after('hook:build', 'npm:install');
-after('hook:build', 'npm:{{npm_build}}');}}
+{{hosts}}
+{{localhost}}
 
-{{hook_migrations:// Migrations
-after('hook:ready', 'artisan:migrate');}}
+/*
+ * Hooks
+ */
 
-{{hook_horizon:// Horizon
-after('hook:ready', 'artisan:horizon:terminate');}}
-
-{{hook_fpm:// Reload php-fpm 
-set('php_fpm_service', '{{hook_fpm_version}}');
-after('hook:done', 'fpm:reload');}}
-
-{{hook_empty:// before('hook:ready', 'artisan:migrate');}}
+{{hooks}}

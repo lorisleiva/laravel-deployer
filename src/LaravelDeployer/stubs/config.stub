@@ -25,7 +25,7 @@ return [
     */
 
     'strategies' => {{strategies}},
-    
+
     /*
     |--------------------------------------------------------------------------
     | Hooks
@@ -36,22 +36,22 @@ return [
     */
 
     'hooks' => [
-        // TODO
+        // Right before we start deploying.
         'start' => {{hooks.start}},
         
-        // TODO
+        // Code and composer vendors are ready but nothing is built.
         'build' => {{hooks.build}},
         
-        // TODO
+        // Deployment is done but not live yet (before symlink)
         'ready' => {{hooks.ready}},
         
-        // TODO
+        // Deployment is done and live
         'done' => {{hooks.done}},
         
-        // TODO
+        // Deployment failed.
         'fail' => {{hooks.fail}},
         
-        // TODO
+        // Deployment succeeded.
         'success' => {{hooks.success}},
     ],
 

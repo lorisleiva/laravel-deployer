@@ -27,8 +27,8 @@ class ConfigFileBuilder
             'build'   => [],
             'ready'   => [],
             'done'    => [],
-            'fail'    => [],
             'success' => [],
+            'fail'    => [],
         ],
         'options' => [
             'application' => "env('APP_NAME', 'Laravel')",

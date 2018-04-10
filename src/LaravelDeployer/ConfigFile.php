@@ -4,9 +4,12 @@ namespace Lorisleiva\LaravelDeployer;
 
 use Illuminate\Contracts\Support\Arrayable;
 use Illuminate\Filesystem\Filesystem;
+use Lorisleiva\LaravelDeployer\Concerns\RendersCode;
 
 class ConfigFile implements Arrayable
 {
+    use RendersCode;
+
     const REPLACEMENT_KEYS = [
         'default',
         'strategies',
@@ -14,8 +17,8 @@ class ConfigFile implements Arrayable
         'hooks.build',
         'hooks.ready',
         'hooks.done',
-        'hooks.fail',
         'hooks.success',
+        'hooks.fail',
         'options',
         'hosts',
         'localhost',
@@ -69,40 +72,5 @@ class ConfigFile implements Arrayable
         };
 
         return $stub;
-    }
-
-    protected function render($value, $indent = 1)
-    {
-        switch (gettype($value)) {
-            case 'array':
-                return $this->renderArray($value, $indent);
-            case 'string':
-                return starts_with($value, 'env(') ? $value : "'$value'";
-            case 'boolean':
-                return $value ? 'true' : 'false';
-            default:
-                return is_null($value) ? 'null' : $value;
-        }
-    }
-
-    protected function renderArray($value, $indent)
-    {
-        $indentParent = str_repeat('    ', $indent);
-        $indentChildren = str_repeat('    ', $indent + 1);
-
-        if (empty($value)) {
-            return "[\n$indentChildren//\n$indentParent]";
-        }
-
-        $arrayContent = collect($value)
-            ->map(function ($v, $k) use ($indent, $indentChildren) {
-                $v = $this->render($v, $indent + 1);
-                return is_string($k) 
-                    ? "$indentChildren'$k' => $v"
-                    : "$indentChildren$v";
-            })
-            ->implode(",\n");
-
-        return "[\n$arrayContent,\n$indentParent]";
     }
 }

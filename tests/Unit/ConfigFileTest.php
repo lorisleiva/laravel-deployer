@@ -9,7 +9,8 @@ use Lorisleiva\LaravelDeployer\Test\TestCase;
 class ConfigFileTest extends TestCase
 {
     /** @test */
-    function it_can_render_a_config_file_that_is_equivalent_to_its_content() {
+    function it_can_render_a_config_file_that_is_equivalent_to_its_content()
+    {
         $config = new ConfigFile([
             'default' => 'basic',
             'strategies' => [],
