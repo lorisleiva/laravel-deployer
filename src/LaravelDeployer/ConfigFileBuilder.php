@@ -2,14 +2,10 @@
 
 namespace Lorisleiva\LaravelDeployer;
 
-use Illuminate\Filesystem\Filesystem;
+use Lorisleiva\LaravelDeployer\ConfigFile;
 
-class ConfigFileGenerator
+class ConfigFileBuilder
 {
-    protected $filesystem;
-
-    protected $lumen = false;
-
     protected $laravelHooks = [
         'artisan:storage:link',
         'artisan:view:clear',
@@ -52,12 +48,10 @@ class ConfigFileGenerator
     public function __construct()
     {
         $basePath = base_path();
-
-        $this->filesystem = app(Filesystem::class);
         $this->set('options.repository', exec("cd $basePath && git config --get remote.origin.url") ?? '');
         
-        $this->lumen = preg_match('/Lumen/', app()->version());
-        $this->set('hooks.ready', $this->lumen ? $this->lumenHooks : $this->laravelHooks);
+        $lumen = preg_match('/Lumen/', app()->version());
+        $this->set('hooks.ready', $lumen ? $this->lumenHooks : $this->laravelHooks);
     }
 
     /**
@@ -91,13 +85,11 @@ class ConfigFileGenerator
     {
         $array = array_get($this->configs, $key);
 
-        if (! is_array($array)) {
-            return $this;
+        if (is_array($array)) {
+            $array[] = $value;
+            array_set($this->configs, $key, $array);
         }
 
-        $array[] = $value;
-
-        array_set($this->configs, $key, $array);
 
         return $this;
     }
@@ -163,92 +155,13 @@ class ConfigFileGenerator
     }
 
     /**
-     * Return the content of the raw config.stub file.
-     *
-     * @return string content of `stubs/config.stub`.
+     * Build a config file object based on the information
+     * collected so far.
+     * 
+     * @return ConfigFile
      */
-    public function getStub()
+    public function build()
     {
-        return $this->filesystem->get(__DIR__ . '/stubs/config.stub');
-    }
-    
-    /**
-     * Parse the `config.stub` file and copy its content onto a new 
-     * `deploy.php` file in the config folder of the Laravel project.
-     */
-    public function generate()
-    {
-        if ($this->lumen && ! is_dir(base_path('config'))) {
-            mkdir(base_path('config'));
-        }
-
-        $this->filesystem->put(base_path('config/deploy.php'), $this->getParsedStub());
-    }
-
-    /**
-     * Return the config.stub file as a string after it has been 
-     * parsed with the information provided by the setters.
-     *
-     * @return string the parsed content of `stubs/config.stub`.
-     */
-    public function getParsedStub()
-    {
-        $stub = $this->getStub();
-
-        foreach ($this->getReplacementKeys() as $key) {
-            $stub = $this->replace($key, $stub);
-        };
-
-        return $stub;
-    }
-
-    protected function getReplacementKeys()
-    {
-        $hooks = collect($this->configs['hooks'])->keys()->map(function ($key) {
-            return 'hooks.' . $key;
-        });
-
-        return collect($this->configs)
-            ->except('hooks')
-            ->keys()
-            ->merge($hooks)
-            ->toArray();
-    }
-
-    protected function replace($key, $stub)
-    {
-        $indent = substr_count($key, '.') + 1;
-        $value = $this->parseReplacement(array_get($this->configs, $key), $indent);
-
-        return preg_replace('/{{' . $key . '}}/', $value, $stub);
-    }
-
-    protected function parseReplacement($value, $indentationLevel = 1)
-    {
-        if (is_array($value)) {
-            $indentationParent = str_repeat('    ', $indentationLevel);
-            $indentationChildren = str_repeat('    ', $indentationLevel + 1);
-
-            $arrayContent = empty($value) ? "$indentationChildren//" : collect($value)
-                ->map(function ($v, $k) use ($indentationLevel, $indentationChildren) {
-                    $v = $this->parseReplacement($v, $indentationLevel + 1);
-                    return is_string($k) 
-                        ? "$indentationChildren'$k' => $v"
-                        : "$indentationChildren$v";
-                })
-                ->implode(",\n");
-
-            return "[\n$arrayContent,\n$indentationParent]";
-        } 
-        
-        if (is_string($value)) {
-            return starts_with($value, 'env(') ? $value : "'$value'";
-        } 
-        
-        if (is_bool($value)) {
-            return $value ? 'true' : 'false';
-        }
-            
-        return is_null($value) ? 'null' : $value;
+        return new ConfigFile($this->configs);
     }
 }
