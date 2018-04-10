@@ -8,7 +8,9 @@ class ConfigFileGenerator
 {
     protected $filesystem;
 
-    protected $defaultLaravelReadyHooks = [
+    protected $lumen = false;
+
+    protected $laravelHooks = [
         'artisan:storage:link',
         'artisan:view:clear',
         'artisan:cache:clear',
@@ -16,7 +18,7 @@ class ConfigFileGenerator
         'artisan:optimize',
     ];
 
-    protected $defaultLumenReadyHooks = [
+    protected $lumenHooks = [
         'artisan:cache:clear',
         'artisan:optimize',
     ];
@@ -37,7 +39,7 @@ class ConfigFileGenerator
         ],
         'hosts' => [
             'example.com' => [
-                'deploy_path' => '/var/www/html',
+                'deploy_path' => '/var/www/example.com',
                 'user' => 'root',
             ]
         ],
@@ -54,11 +56,8 @@ class ConfigFileGenerator
         $this->filesystem = app(Filesystem::class);
         $this->set('options.repository', exec("cd $basePath && git config --get remote.origin.url") ?? '');
         
-        $defaultReadyHooks = preg_match('/Lumen/', app()->version())
-            ? $this->defaultLumenReadyHooks 
-            : $this->defaultLaravelReadyHooks;
-
-        $this->set('hooks.ready', $defaultReadyHooks);
+        $this->lumen = preg_match('/Lumen/', app()->version());
+        $this->set('hooks.ready', $this->lumen ? $this->lumenHooks : $this->laravelHooks);
     }
 
     /**
@@ -143,6 +142,8 @@ class ConfigFileGenerator
 
         $this->configs['hosts'][$value] = $this->configs['hosts'][$hostname];
         unset($this->configs['hosts'][$hostname]);
+        $this->setHost('deploy_path', "/var/www/$value");
+        
         return $this;
     }
 
@@ -177,7 +178,11 @@ class ConfigFileGenerator
      */
     public function generate()
     {
-        $this->filesystem->put(config_path('deploy.php'), $this->getParsedStub());
+        if ($this->lumen && ! is_dir(base_path('config'))) {
+            mkdir(base_path('config'));
+        }
+
+        $this->filesystem->put(base_path('config/deploy.php'), $this->getParsedStub());
     }
 
     /**

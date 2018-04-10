@@ -2,7 +2,7 @@
 
 namespace Lorisleiva\LaravelDeployer\Commands;
 
-use Lorisleiva\LaravelDeployer\DeployFileGenerator;
+use Lorisleiva\LaravelDeployer\ConfigFileGenerator;
 
 class DeployInit extends BaseCommand
 {
@@ -17,7 +17,7 @@ class DeployInit extends BaseCommand
     protected $useDeployerOptions = false;
     protected $description = 'Generate deploy.php configuration file';
 
-    public function __construct(DeployFileGenerator $generator)
+    public function __construct(ConfigFileGenerator $generator)
     {
         parent::__construct();
         $this->generator = $generator;
@@ -25,47 +25,39 @@ class DeployInit extends BaseCommand
 
     public function handle()
     {
+        // dd(app()->version());
         $this->configureGenerator();
         $this->generator->generate();
     }
 
     public function configureGenerator()
     {
-        $this->resolveRecipe();
-
         if ($this->option('all')) {
             return $this->allOptions();
         }
 
         $this->welcomeMessage('🚀',  'Let\'s configure your deployment!');
-        $this->defineApplicationName();
         $this->defineRepositoryUrl();
         $this->defineHostname();
-        $this->defineForgeAndLocalhosts();
+        $this->defineForge();
         $this->defineDeployementPath();
         $this->defineAdditionalHooks();
-    }
-
-    public function resolveRecipe()
-    {
-        if (preg_match('/Lumen/', app()->version())) {
-            $this->generator->recipe('lumen-deployer');
-        }
     }
 
     public function allOptions()
     {
         if ($hostname = $this->argument('hostname')) {
-            $this->generator->hostname($hostname);
+            $this->generator->setHost('name', $hostname);
         }
 
-        $this->option('forge')
-            ? $this->generator->useForge()
-            : $this->generator->localhost();
+        if ($this->option('forge')) {
+            $this->generator->useForge();
+        }
 
-        $this->generator->useNpm('production');
-        $this->generator->migrate();
-        $this->generator->terminateHorizon();
+        $this->generator->add('hooks.build', 'npm:install');
+        $this->generator->add('hooks.build', 'npm:production');
+        $this->generator->add('hooks.ready', 'artisan:migrate');
+        $this->generator->add('hooks.ready', 'artisan:horizon:terminate');
     }
 
     public function welcomeMessage($emoji, $message)
@@ -81,45 +73,33 @@ class DeployInit extends BaseCommand
         $this->output->newLine();
     }
 
-    public function defineApplicationName()
-    {
-        $app = $this->ask(
-            'Application name', 
-            $this->generator->get('application')
-        );
-
-        $this->generator->application($app);
-    }
-
     public function defineRepositoryUrl()
     {
         $repository = $this->ask(
             'Repository URL', 
-            $this->generator->get('repository')
+            $this->generator->get('options.repository')
         );
 
-        $this->generator->repository($repository);
+        $this->generator->set('options.repository', $repository);
     }
 
     public function defineHostname()
     {
         if (! $hostname = $this->argument('hostname')) {
-            $hostname = $this->ask('Hostname of your deployment server', 'example.com');
+            $hostname = $this->ask(
+                'Hostname of your deployment server', 
+                $this->generator->getHostname()
+            );
         }
 
-        $this->generator->hostname($hostname);
+        $this->generator->setHost('name', $hostname);
     }
 
-    public function defineForgeAndLocalhosts()
+    public function defineForge()
     {
         $question = 'Do you use Laravel Forge to maintain your server?';
         if ($this->option('forge') || $this->confirm($question)) {
             return $this->generator->useForge();
-        }
-
-        $question = 'Do you want to enable deployment directly from the server?';
-        if ($this->confirm($question)) {
-            return $this->generator->localhost();
         }
     }
 
@@ -127,10 +107,10 @@ class DeployInit extends BaseCommand
     {
         $path = $this->ask(
             'Deployment path (absolute to the server)', 
-            $this->generator->get('host_deploy_path')
+            $this->generator->getHost('deploy_path')
         );
 
-        $this->generator->deploymentPath($path);
+        $this->generator->setHost('deploy_path', $path);
     }
 
     public function defineAdditionalHooks()
@@ -141,19 +121,17 @@ class DeployInit extends BaseCommand
         );
 
         if ($npm !== 'No') {
-            $this->generator->useNpm(
-                $npm === 'Yes using `npm run production`' 
-                    ? 'production' 
-                    : 'development'
-            );
+            $build = $npm === 'Yes using `npm run production`' ? 'production' : 'development';
+            $this->generator->add('hooks.build', 'npm:install');
+            $this->generator->add('hooks.build', "npm:$build");
         }
-
+        
         if ($this->confirm('Do you want to migrate during deployment?', true)) {
-            $this->generator->migrate();
+            $this->generator->add('hooks.ready', 'artisan:migrate');
         }
-
+        
         if ($this->confirm('Do you want to terminate horizon after each deployment?')) {
-            $this->generator->terminateHorizon();
+            $this->generator->add('hooks.ready', 'artisan:horizon:terminate');
         }
     }
 }

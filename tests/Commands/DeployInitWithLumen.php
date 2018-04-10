@@ -8,34 +8,58 @@ use Lorisleiva\LaravelDeployer\Test\DeploymentTestCase;
 class DeployInitWithLumenTest extends DeploymentTestCase
 {
     /** @test */
-    function it_requires_lumen_deployer_recipe_for_lumen_applications()
+    function it_generates_a_config_file_without_artisan_tasks_not_supported_by_lumen()
     {
         $this->artisan('deploy:init', [ '-n' ]);
 
-        $deployFile = $this->runInRepository('cat deploy.php');
+        $configs = include static::REPOSITORY . '/config/deploy.php';
 
-        $this->assertContains("require 'recipe/lumen-deployer.php';", $deployFile);
+        $this->assertEquals([
+            "default" => "basic",
+            "strategies" => [],
+            "hooks" => [
+                "start" => [],
+                "build" => [
+                    "npm:install",
+                    "npm:production",
+                ],
+                "ready" => [
+                    "artisan:cache:clear",
+                    "artisan:optimize",
+                    "artisan:migrate",
+                ],
+                "done" => [],
+                "fail" => [],
+                "success" => [],
+            ],
+            "options" => [
+                "application" => "Laravel",
+                "repository" => "",
+            ],
+            "hosts" => [
+                "example.com" => [
+                    "deploy_path" => "/var/www/example.com",
+                    "user" => "root",
+                ],
+            ],
+            "localhost" => [],
+            "include" => [],
+            "custom_deployer_file" => false,
+        ], $configs);
     }
 
-    /**
-     * @override
-     */
-    protected function resolveApplicationConsoleKernel($app)
+    protected function resolveApplication()
     {
-        $app->singleton(Kernel::class, LumenKernel::class);
+        return tap(new LumenApplication($this->getBasePath()), function ($app) {
+            $app->bind(
+                'Illuminate\Foundation\Bootstrap\LoadConfiguration',
+                'Orchestra\Testbench\Bootstrap\LoadConfiguration'
+            );
+        });
     }
 }
 
-class LumenKernel extends \Orchestra\Testbench\Console\Kernel implements Kernel
+class LumenApplication extends \Illuminate\Foundation\Application
 {
-    protected function getArtisan()
-    {
-        if (is_null($this->artisan)) {
-            return $this->artisan = (new \Illuminate\Console\Application(
-                $this->app, $this->events, 'Lumen (5.6.2)'
-            ))->resolveCommands($this->commands);
-        }
-
-        return $this->artisan;
-    }
+    const VERSION = 'Lumen (5.6.2)';
 }
