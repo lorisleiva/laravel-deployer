@@ -104,13 +104,33 @@ class ConfigFileGenerator
     }
 
     /**
+     * Return current host configurations at the given key.
+     * 
+     * @return mixed
+     */
+    public function getHost($key)
+    {
+        return array_get(head($this->configs['hosts']), $key);
+    }
+
+    /**
+     * Return the name of the first host in the configurations.
+     * 
+     * @return string
+     */
+    public function getHostname()
+    {
+        return array_search(head($this->configs['hosts']), $this->configs['hosts']);
+    }
+
+    /**
      * Update the host configurations with the given key/value pair.
      * 
      * @return ConfigFileGenerator
      */
     public function setHost($key, $value)
     {
-        $hostname = $this->gethostname();
+        $hostname = $this->getHostname();
 
         if ($key !== 'name') {
             $this->configs['hosts'][$hostname][$key] = $value;
@@ -127,16 +147,6 @@ class ConfigFileGenerator
     }
 
     /**
-     * Return the name of the first host in the configurations.
-     * 
-     * @return ConfigFileGenerator
-     */
-    public function gethostname()
-    {
-        return array_search(head($this->configs['hosts']), $this->configs['hosts']);
-    }
-
-    /**
      * Set up defaults values more suitable for forge servers.
      *
      * @return ConfigFileGenerator
@@ -145,12 +155,11 @@ class ConfigFileGenerator
     {
         $this->add('hooks.done', 'fpm:reload');
         $this->set('options.php_fpm_service', 'php7.1-fpm');
-        $this->setHost('deploy_path', '/home/forge/' . $this->gethostname());
+        $this->setHost('deploy_path', '/home/forge/' . $this->getHostname());
         $this->setHost('user', 'forge');
 
         return $this;
     }
-
 
     /**
      * Return the content of the raw config.stub file.
@@ -160,6 +169,15 @@ class ConfigFileGenerator
     public function getStub()
     {
         return $this->filesystem->get(__DIR__ . '/stubs/config.stub');
+    }
+    
+    /**
+     * Parse the `config.stub` file and copy its content onto a new 
+     * `deploy.php` file in the config folder of the Laravel project.
+     */
+    public function generate()
+    {
+        $this->filesystem->put(config_path('deploy.php'), $this->getParsedStub());
     }
 
     /**
