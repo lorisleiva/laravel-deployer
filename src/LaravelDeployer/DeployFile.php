@@ -31,7 +31,14 @@ class DeployFile
 
     public function get($key)
     {
-        return collect(array_get($this->data, $key, []));
+        return collect($this->data->get($key, []));
+    }
+
+    public function updateStrategy($strategy)
+    {
+        $this->data->put('default', $strategy);
+
+        return $this;
     }
 
     public function store()
@@ -68,7 +75,7 @@ class DeployFile
 
     protected function renderDefault()
     {
-        $default = array_get($this->data, 'default', 'basic');
+        $default = $this->data->get('default', 'basic');
         return "set('strategy', '$default');";
     }
 

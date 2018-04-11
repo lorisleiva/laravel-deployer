@@ -19,6 +19,7 @@ class BaseCommand extends Command
         $this->depBinary = base_path('vendor/bin/dep');
 
         $deployerOptions = "
+            {--s|strategy : Default deployement strategy}
             {--p|parallel : Run tasks in parallel}
             {--l|limit= : How many host to run in parallel?}
             {--no-hooks : Run task without after/before hooks}
@@ -67,9 +68,18 @@ class BaseCommand extends Command
             return $customDeployFile;
         }
 
-        if ($configFile = $this->getConfigFile()) {
-            return $configFile->toDeployFile()->store();
+        if (! $configFile = $this->getConfigFile()) {
+            return;
         }
+
+        $deployFile = $configFile->toDeployFile();
+
+        if ($parameters->has('--strategy')) {
+            $deployFile->updateStrategy($parameters->get('--strategy'));
+            $parameters->forget('--strategy');
+        }
+
+        return  $deployFile->store();
     }
 
     public function getConfigFile()
