@@ -8,7 +8,7 @@ class DeploymentTestCase extends TestCase
     const REPOSITORY = __DIR__ . '/fixtures/tmp/repository';
     const SERVER = __DIR__ . '/fixtures/tmp/server';
 
-    protected $recipe = 'basic';
+    protected $configs = 'basic';
 
     protected function getEnvironmentSetUp($app)
     {
@@ -52,8 +52,8 @@ class DeploymentTestCase extends TestCase
         $this->runInRepository('ln -s ' . __DIR__ . '/../vendor/bin/dep vendor/bin/dep');
 
         // Add deploy.php file.
-        if ($recipeFile = realpath(static::RECIPES . '/' . $this->recipe . '.php')) {
-            $this->runInRepository("cp $recipeFile deploy.php");
+        if ($configFile = realpath(static::CONFIGS . '/' . $this->configs . '.php')) {
+            $this->runInRepository("cp $configFile config/deploy.php");
         }
     }
 

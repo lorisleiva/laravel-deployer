@@ -8,7 +8,7 @@ use Symfony\Component\Process\Process;
 class TestCase extends \Orchestra\Testbench\TestCase
 {
     const BASE_REPOSITORY = __DIR__ . '/fixtures/repository';
-    const RECIPES = __DIR__ . '/fixtures/recipes';
+    const CONFIGS = __DIR__ . '/fixtures/configs';
 
     protected function getPackageProviders($app)
     {

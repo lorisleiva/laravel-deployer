@@ -38,8 +38,8 @@ class BaseCommand extends Command
 
     public function dep($command)
     {
-        if (! $this->hasDeployFile()) {
-            $this->error("deploy.php file not found.");
+        if (! $this->hasConfigFile()) {
+            $this->error("config/deploy.php file not found.");
             $this->error("Please run `php artisan deploy:init` to get started.");
             return;
         }
@@ -98,9 +98,13 @@ class BaseCommand extends Command
             });
     }
 
-    public function hasDeployFile()
+    public function hasConfigFile()
     {
-        return file_exists(base_path('deploy.php'));
+        // Check that the deploy.php config file exists.
+        return file_exists(base_path('config/deploy.php'))
+
+        // Or that the project has its own deployer file. 
+            || file_exists(base_path('deploy.php'));
     }
 
     public function process($command)
