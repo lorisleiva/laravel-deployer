@@ -1,18 +1,16 @@
 <?php
 
-use Lorisleiva\LaravelDeployer\Test\DeploymentTestCase;
-
 return [
 
     'options' => [
         'application' => env('APP_NAME', 'Laravel'),
-        'repository' => DeploymentTestCase::REPOSITORY,
+        'repository' => '{{repo}}',
         'branch' => null,
         'debug' => true,
     ],
 
     'localhost' => [
-        'deploy_path' => DeploymentTestCase::SERVER,
+        'deploy_path' => '{{server}}',
     ],
 
     'hooks' => [

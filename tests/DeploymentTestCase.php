@@ -56,9 +56,13 @@ class DeploymentTestCase extends TestCase
         $this->runInRepository('mkdir -p vendor/bin');
         $this->runInRepository('ln -s ' . __DIR__ . '/../vendor/bin/dep vendor/bin/dep');
 
-        // Add deploy.php file.
+        // Add and parse config/deploy.php file.
         if ($configFile = realpath(static::CONFIGS . '/' . $this->configs . '.php')) {
             $this->runInRepository("cp $configFile config/deploy.php");
+            $content = file_get_contents(static::REPOSITORY . '/config/deploy.php');
+            $content = str_replace('{{repo}}', static::REPOSITORY, $content);
+            $content = str_replace('{{server}}', static::SERVER, $content);
+            file_put_contents(static::REPOSITORY . '/config/deploy.php', $content);
         }
     }
 
