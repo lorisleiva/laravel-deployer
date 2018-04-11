@@ -13,6 +13,10 @@ class DeploymentTestCase extends TestCase
     protected function getEnvironmentSetUp($app)
     {
         $app->setBasePath(static::REPOSITORY);
+
+        if (file_exists(base_path('config/deploy.php'))) {
+            $app['config']->set('deploy', include base_path('config/deploy.php'));
+        }
     }
 
     public function setUp()

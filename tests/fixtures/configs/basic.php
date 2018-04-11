@@ -5,6 +5,7 @@ use Lorisleiva\LaravelDeployer\Test\DeploymentTestCase;
 return [
 
     'options' => [
+        'application' => env('APP_NAME', 'Laravel'),
         'repository' => DeploymentTestCase::REPOSITORY,
         'branch' => null,
         'debug' => true,

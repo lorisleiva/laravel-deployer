@@ -3,6 +3,7 @@
 namespace Lorisleiva\LaravelDeployer\Commands;
 
 use Illuminate\Console\Command;
+use Lorisleiva\LaravelDeployer\ConfigFile;
 use Symfony\Component\Console\Input\ArrayInput;
 use Symfony\Component\Process\Process;
 
@@ -38,18 +39,22 @@ class BaseCommand extends Command
 
     public function dep($command)
     {
-        if (! $this->hasConfigFile()) {
+        $configFile = $this->getConfigFile();
+        $customDeployFile = $this->getCustomDeployFile();
+
+        if (! $configFile && ! $customDeployFile) {
             $this->error("config/deploy.php file not found.");
             $this->error("Please run `php artisan deploy:init` to get started.");
             return;
         }
 
+        $deployFile = $customDeployFile ?? $configFile->toDeployFile()->store();
+        $parameters = $this->parseParameters($deployFile);
         $basePath = base_path();
-        $parameters = $this->parseParameters();
         $this->process("cd $basePath && $this->depBinary $command $parameters");
     }
 
-    public function parseParameters()
+    public function parseParameters($deployFile)
     {
         $parameters = $this->parseArguments()->merge($this->parseOptions());
 
@@ -61,6 +66,10 @@ class BaseCommand extends Command
             $parameters->push('-v');
         } elseif ($this->getOutput()->isQuiet()) {
             $parameters->push('-q');
+        }
+
+        if (! $parameters->has('--file')) {
+            $parameters->put('--file', $deployFile);
         }
 
         return (string) new ArrayInput($parameters->toArray(), null);
@@ -98,13 +107,28 @@ class BaseCommand extends Command
             });
     }
 
-    public function hasConfigFile()
+    public function getConfigFile()
     {
-        // Check that the deploy.php config file exists.
-        return file_exists(base_path('config/deploy.php'))
+        if (! file_exists(base_path('config/deploy.php'))) {
+            return null;
+        }
 
-        // Or that the project has its own deployer file. 
-            || file_exists(base_path('deploy.php'));
+        return new ConfigFile(
+            config('deploy') ?? include base_path('config/deploy.php')
+        );
+    }
+    
+    public function getCustomDeployFile()
+    {
+        if (! $configFile = $this->getConfigFile()) {
+            return file_exists(base_path('deploy.php')) ? base_path('deploy.php') : null;
+        }
+
+        $customDeployFile = array_get($configFile->toArray(), 'custom_deployer_file');
+
+        if (is_string($customDeployFile)) {
+            return file_exists(base_path($customDeployFile)) ? base_path($customDeployFile) : null;
+        }
     }
 
     public function process($command)

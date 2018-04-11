@@ -40,19 +40,28 @@ class ConfigFile implements Arrayable
         return $this->configs->toArray();
     }
 
+    public function toDeployFile()
+    {
+        return new DeployFile($this->configs);
+    }
+
     /**
      * Parse the `config.stub` file and copy its content onto a new 
      * `deploy.php` file in the config folder of the Laravel project.
+     * 
+     * @return string
      */
     public function store($path = 'config/deploy.php')
     {
-        $dir = dirname(base_path($path));
+        $path = base_path($path);
 
-        if (! is_dir($dir)) {
-            mkdir($dir, 0777, true);
+        if (! is_dir(dirname($path))) {
+            mkdir(dirname($path), 0777, true);
         }
 
-        $this->filesystem->put(base_path($path), (string) $this);
+        $this->filesystem->put($path, (string) $this);
+
+        return $path;
     }
 
     /**

@@ -43,6 +43,8 @@ class DeployFile
         }
 
         $this->filesystem->put($path, (string) $this);
+
+        return $path;
     }
 
     public function __toString()
