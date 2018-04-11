@@ -28,7 +28,7 @@ class DeployFileBuilderTest extends TestCase
     function it_adds_custom_includes()
     {
         $deployFile = (string) new DeployFile([
-            'includes' => [
+            'include' => [
                 'recipe/foo.php',
                 'recipe/bar.php'
             ]

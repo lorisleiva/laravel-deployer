@@ -8,7 +8,7 @@ require 'recipe/laravel-deployer.php';
  * Includes
  */
 
-{{includes}}
+{{include}}
 
 /*
  * Strategies

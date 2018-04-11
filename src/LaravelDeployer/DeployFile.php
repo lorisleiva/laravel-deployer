@@ -11,7 +11,7 @@ class DeployFile
     use RendersCode;
     
     const REPLACEMENT_KEYS = [
-        'includes',
+        'include',
         'strategies',
         'options',
         'hosts',
@@ -65,9 +65,9 @@ class DeployFile
         return $stub;
     }
 
-    protected function renderIncludes()
+    protected function renderInclude()
     {
-        return $this->get('includes')
+        return $this->get('include')
             ->map(function ($include) {
                 return "require '$include';";
             })
