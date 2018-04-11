@@ -3,12 +3,14 @@
 namespace Lorisleiva\LaravelDeployer\Commands;
 
 use Illuminate\Console\Command;
+use Lorisleiva\LaravelDeployer\Concerns\ParsesCliParameters;
 use Lorisleiva\LaravelDeployer\ConfigFile;
-use Symfony\Component\Console\Input\ArrayInput;
 use Symfony\Component\Process\Process;
 
 class BaseCommand extends Command
 {
+    use ParsesCliParameters;
+    
     protected $depBinary;
     protected $useDeployerOptions = true;
 
@@ -39,72 +41,30 @@ class BaseCommand extends Command
 
     public function dep($command)
     {
-        $configFile = $this->getConfigFile();
-        $customDeployFile = $this->getCustomDeployFile();
+        $parameters = $this->parseParameters();
+        $deployFile = $this->getDeployFile($parameters);
 
-        if (! $configFile && ! $customDeployFile) {
+        if (! $deployFile) {
             $this->error("config/deploy.php file not found.");
             $this->error("Please run `php artisan deploy:init` to get started.");
             return;
         }
 
-        $deployFile = $customDeployFile ?? $configFile->toDeployFile()->store();
-        $parameters = $this->parseParameters($deployFile);
         $basePath = base_path();
-        $this->process("cd $basePath && $this->depBinary $command $parameters");
+        $parameters = $this->parseParametersAsString($parameters);
+        $this->process("cd $basePath && $this->depBinary --file='$deployFile' $command $parameters");
     }
 
-    public function parseParameters($deployFile)
+    public function getDeployFile($parameters)
     {
-        $parameters = $this->parseArguments()->merge($this->parseOptions());
-
-        if ($this->getOutput()->isDebug()) {
-            $parameters->push('-vvv');
-        } elseif ($this->getOutput()->isVeryVerbose()) {
-            $parameters->push('-vv');
-        } elseif ($this->getOutput()->isVerbose()) {
-            $parameters->push('-v');
-        } elseif ($this->getOutput()->isQuiet()) {
-            $parameters->push('-q');
+        if ($parameters->has('--file')) {
+            $deployFile = $parameters->get('--file');
+            $parameters->forget('--file');
+            return $deployFile;
         }
 
-        if (! $parameters->has('--file')) {
-            $parameters->put('--file', $deployFile);
-        }
-
-        return (string) new ArrayInput($parameters->toArray(), null);
-    }
-
-    public function parseArguments()
-    {
-        return collect($this->arguments())
-            ->reject(function ($value) {
-                return ! $value && ! is_string($value) && ! is_numeric($value);
-            })
-            ->pipe(function ($arguments) {
-                $command = $arguments->get('command');
-                return $command && $arguments->get(0) === $command
-                    ? $arguments->forget(0)
-                    : $arguments;
-            })
-            ->forget('command');
-    }
-
-    public function parseOptions()
-    {
-        $i = 0;
-        return collect($this->options())
-            ->reject(function ($value) {
-                return ! $value && ! is_string($value) && ! is_numeric($value);
-            })
-            ->mapWithKeys(function ($value, $key) use (&$i) {
-                return is_bool($value) ? [ $i++ => "--$key" ] : [ "--$key" => $value ];
-            })
-            ->pipe(function ($options) {
-                return ! $options->contains('--no-ansi')
-                    ? $options->push('--ansi')
-                    : $options;
-            });
+        return $this->getCustomDeployFile() 
+            ?? $this->getConfigFile()->toDeployFile()->store();
     }
 
     public function getConfigFile()

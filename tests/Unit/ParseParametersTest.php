@@ -88,9 +88,12 @@ class ParseParametersTest extends TestCase
     /** @test */
     function it_should_conserve_verbose_levels()
     {
+        $params = $this->simulateAndParseParameters('dummyTask');
         $paramsV = $this->simulateAndParseParameters('dummyTask', '-v');
         $paramsVV = $this->simulateAndParseParameters('dummyTask', '-vv');
         $paramsVVV = $this->simulateAndParseParameters('dummyTask', '-vvv');
+
+        $this->assertNotContains("-v", $params);
 
         $this->assertContains("-v", $paramsV);
         $this->assertNotContains("-vv", $paramsV);
@@ -111,7 +114,7 @@ class ParseParametersTest extends TestCase
             new ConsoleOutput($this->parseVerbosity($verbosity))
         );
 
-        return $command->parseParameters();
+        return $command->parseParametersAsString();
     }
 
     protected function parseVerbosity($verbosity)

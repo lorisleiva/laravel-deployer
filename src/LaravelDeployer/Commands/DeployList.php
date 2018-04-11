@@ -10,7 +10,6 @@ class DeployList extends BaseCommand
         {--format=txt : The output format (txt, xml, json, or md)}
     ';
 
-    protected $useDeployerOptions = false;
     protected $description = 'Lists available tasks';
 
     public function handle()

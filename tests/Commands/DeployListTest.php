@@ -64,4 +64,14 @@ class DeployListTest extends DeploymentTestCase
         $this->assertContains('deploy:vendors', $output);
         $this->assertContains('deploy:writable', $output);
     }
+
+    /** @test */
+    function it_should_prioritize_the_given_deploy_file()
+    {
+        $output = $this->artisan('deploy:list', [
+            '--file' => 'inexisting/deploy.php',
+        ]);
+
+        $this->assertNotContains('deploy:update_code', $output);
+    }
 }
