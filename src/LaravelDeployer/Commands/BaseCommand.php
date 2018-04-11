@@ -63,8 +63,13 @@ class BaseCommand extends Command
             return $deployFile;
         }
 
-        return $this->getCustomDeployFile() 
-            ?? $this->getConfigFile()->toDeployFile()->store();
+        if ($customDeployFile = $this->getCustomDeployFile()) {
+            return $customDeployFile;
+        }
+
+        if ($configFile = $this->getConfigFile()) {
+            return $configFile->toDeployFile()->store();
+        }
     }
 
     public function getConfigFile()

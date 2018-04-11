@@ -6,7 +6,7 @@ use Lorisleiva\LaravelDeployer\Test\DeploymentTestCase;
 
 class BasicDeploymentTest extends DeploymentTestCase
 {
-    protected $recipe = 'basic';
+    protected $configs = 'basic';
 
     /** @test */
     function a_basic_deployment_should_execute_all_default_tasks()

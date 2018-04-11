@@ -6,7 +6,7 @@ use Lorisleiva\LaravelDeployer\Test\DeploymentTestCase;
 
 class RollbackTest extends DeploymentTestCase
 {
-    protected $recipe = 'basic';
+    protected $configs = 'basic';
 
     /** @test */
     function a_rollback_with_no_previous_release_should_do_nothing_but_warn_user()

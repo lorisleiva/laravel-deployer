@@ -6,7 +6,7 @@ use Lorisleiva\LaravelDeployer\Test\DeploymentTestCase;
 
 class FirstDeployTest extends DeploymentTestCase
 {
-    protected $recipe = 'basic';
+    protected $configs = 'basic';
 
     /** @test */
     function firstdeploy_shared_copies_items_from_rootpath_if_exists()
