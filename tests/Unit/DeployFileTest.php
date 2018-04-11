@@ -25,6 +25,24 @@ class DeployFileBuilderTest extends TestCase
     }
 
     /** @test */
+    function it_adds_the_default_strategy_as_an_option()
+    {
+        $deployFile = (string) new DeployFile([
+            'default' => 'docker'
+        ]);
+
+        $this->assertContains("set('strategy', 'docker');", $deployFile);
+    }
+
+    /** @test */
+    function it_use_the_basic_strategy_if_no_default_strategy_is_given()
+    {
+        $deployFile = (string) new DeployFile();
+
+        $this->assertContains("set('strategy', 'basic');", $deployFile);
+    }
+
+    /** @test */
     function it_adds_custom_includes()
     {
         $deployFile = (string) new DeployFile([

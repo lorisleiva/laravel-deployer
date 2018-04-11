@@ -42,7 +42,7 @@ class ConfigFile implements Arrayable
 
     public function toDeployFile()
     {
-        return new DeployFile($this->configs);
+        return new DeployFile($this->configs->toArray());
     }
 
     /**

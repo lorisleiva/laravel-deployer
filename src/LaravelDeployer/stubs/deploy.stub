@@ -11,15 +11,10 @@ require 'recipe/laravel-deployer.php';
 {{include}}
 
 /*
- * Strategies
- */
-
-{{strategies}}
-
-/*
  * Options
  */
 
+{{default}}
 {{options}}
 
 /*
@@ -28,6 +23,12 @@ require 'recipe/laravel-deployer.php';
 
 {{hosts}}
 {{localhost}}
+
+/*
+ * Strategies
+ */
+
+{{strategies}}
 
 /*
  * Hooks

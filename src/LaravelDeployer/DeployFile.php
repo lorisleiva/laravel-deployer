@@ -12,10 +12,11 @@ class DeployFile
     
     const REPLACEMENT_KEYS = [
         'include',
-        'strategies',
+        'default',
         'options',
         'hosts',
         'localhost',
+        'strategies',
         'hooks',
     ];
 
@@ -63,6 +64,12 @@ class DeployFile
         $stub = preg_replace('/\n{3,}/', "\n\n", $stub);
 
         return $stub;
+    }
+
+    protected function renderDefault()
+    {
+        $default = array_get($this->data, 'default', 'basic');
+        return "set('strategy', '$default');";
     }
 
     protected function renderInclude()
