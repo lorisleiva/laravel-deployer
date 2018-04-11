@@ -59,10 +59,10 @@ class DeploymentTestCase extends TestCase
         // Add and parse config/deploy.php file.
         if ($configFile = realpath(static::CONFIGS . '/' . $this->configs . '.php')) {
             $this->runInRepository("cp $configFile config/deploy.php");
-            $content = file_get_contents(static::REPOSITORY . '/config/deploy.php');
-            $content = str_replace('{{repo}}', static::REPOSITORY, $content);
-            $content = str_replace('{{server}}', static::SERVER, $content);
-            file_put_contents(static::REPOSITORY . '/config/deploy.php', $content);
+            $this->updateConfigFile(function ($content) {
+                $content = str_replace('{{repo}}', static::REPOSITORY, $content);
+                return str_replace('{{server}}', static::SERVER, $content);
+            });
         }
     }
 
@@ -74,6 +74,13 @@ class DeploymentTestCase extends TestCase
         $this->runInRepository("git config user.name 'John Smith'");
         $this->runInRepository("git config user.email 'john.smith@example.com'");
         $this->runInRepository("git commit -m 'init commit'");
+    }
+
+    public function updateConfigFile($callback)
+    {
+        $content = file_get_contents(static::REPOSITORY . '/config/deploy.php');
+        $content = $callback($content);
+        file_put_contents(static::REPOSITORY . '/config/deploy.php', $content);
     }
 
     public function runInRepository($command)
