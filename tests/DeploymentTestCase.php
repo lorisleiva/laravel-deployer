@@ -44,6 +44,7 @@ class DeploymentTestCase extends TestCase
     public function cleanupTempDirectory()
     {
         $this->exec('rm -rf ' . static::TMP);
+        $this->exec('rm -rf ' . __DIR__ . '/../.build');
     }
 
     public function createRepository()
