@@ -36,69 +36,43 @@ require 'task/horizon.php';
 require 'task/local.php';
 require 'task/npm.php';
 
-/*
-|--------------------------------------------------------------------------
-| Main deploy task
-|--------------------------------------------------------------------------
-|
-| This define the `deploy` task, responsible for the entire deployment flow
-| of your application. You can either overidde it by copying and editing 
-| this task in your deploy.php file or by using hooks to alter it.
-|
-*/
-
-desc('Deploy your Laravel application');
-task('deploy', [
-    'deploy:info',
-    'deploy:prepare',
-    'deploy:lock',
-    'deploy:release',
-    'deploy:update_code',
-    'deploy:shared',
-    'firstdeploy:shared',
-    'deploy:vendors',
-    'hook:build',
-    'deploy:writable',
-    'hook:ready',
-    'deploy:symlink',
-    'deploy:unlock',
-    'cleanup',
-    'hook:done',
-    'success',
-]);
 
 /*
 |--------------------------------------------------------------------------
-| Locally-built deploy task
+| Available strategies
 |--------------------------------------------------------------------------
 |
-| This define the `deploy:local` task, responsible for deploying your app
-| without bothering your hosts with asset building. This task will build 
-| your release locally and upload it to your server when it's ready.
+| TODO: Document strategies.
 |
 */
 
-desc('Deploy your Laravel application with local build');
-task('deploy:local', [
-    'deploy:info',
-    'local:build',
-    'deploy:prepare',
-    'deploy:lock',
-    'deploy:release',
-    'deploy:update_code',
-    'local:upload',
-    'deploy:shared',
-    'firstdeploy:shared',
-    'deploy:vendors',
-    'deploy:writable',
-    'hook:ready',
-    'deploy:symlink',
-    'deploy:unlock',
-    'cleanup',
-    'local:cleanup',
-    'hook:done',
-    'success',
-]);
+require 'strategy/basic.php';
+require 'strategy/local.php';
 
-fail('deploy:local', 'deploy:failed');
+/*
+|--------------------------------------------------------------------------
+| Deploy task
+|--------------------------------------------------------------------------
+|
+| This define the `deploy` task, responsible for the entire deployment flow of
+| your application. You can either overidde it by copying/editing this task
+| into your deploy.php file or by using strategies and hooks to alter it.
+|
+*/
+
+desc('Deploy your application');
+task('deploy', function() {
+    $strategy = 'strategy:' . get('strategy', 'basic');
+    
+    if (! task($strategy)) {
+        writeln('<error>Strategy not found</error>');
+        return invoke('deploy:fail');
+    }
+    
+    invoke('deploy:info');
+    invoke($strategy);
+    invoke('success');
+});
+
+fail('deploy', 'deploy:failed');
 after('deploy:failed', 'deploy:unlock');

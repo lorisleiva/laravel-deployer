@@ -52,7 +52,6 @@ class DeployListTest extends DeploymentTestCase
         // Deploy
         $this->assertContains('deploy:clear_paths', $output);
         $this->assertContains('deploy:copy_dirs', $output);
-        $this->assertContains('deploy:local', $output);
         $this->assertContains('deploy:lock', $output);
         $this->assertContains('deploy:prepare', $output);
         $this->assertContains('deploy:public_disk', $output);

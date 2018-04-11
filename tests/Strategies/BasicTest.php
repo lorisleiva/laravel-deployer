@@ -1,6 +1,6 @@
 <?php
 
-namespace Lorisleiva\LaravelDeployer\Test\Recipes;
+namespace Lorisleiva\LaravelDeployer\Test\Strategies;
 
 use Lorisleiva\LaravelDeployer\Test\DeploymentTestCase;
 
