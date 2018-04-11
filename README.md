@@ -38,9 +38,8 @@ In order to generate your deployment configuration file, simply run:
 php artisan deploy:init
 ```
 
-It will ask you a few questions to help you get started and generate a `config/deploy.php` file.
-
-Read more about the available options, tasks, strategies; about how to customize your hosts, your deployment flow and much more in the [documentation](docs/README.md).
+* It will ask you a few questions to help you get started and generate a `config/deploy.php` file.
+* Read more about the available options, tasks, strategies; about how to customize your hosts, your deployment flow and much more in the [documentation](docs/README.md).
 
 ## 3️⃣ Deployment
 When you’re ready to deploy, run:
@@ -49,11 +48,9 @@ When you’re ready to deploy, run:
 php artisan deploy
 ```
 
-If anything goes wrong during the deployment flow, the release will be discarded just like nothing happened.
-
-Because we are using zero-downtime deployments, make sure your server’s root path points to the `{{deploy_path}}/current` symlink.
-
-If your project has already been deployed, before using Laravel Deployer, you might be interested in this [first deployment strategy](docs/strategy-firstdeploy.md).
+* If anything goes wrong during the deployment flow, the release will be discarded just like nothing happened.
+* Because we are using zero-downtime deployments, make sure your server’s root path points to the `{{deploy_path}}/current` symlink.
+* If your project has already been deployed, before using Laravel Deployer, you might be interested in this [first deployment strategy](docs/strategy-firstdeploy.md).
 
 ## 📜 Available commands
 
