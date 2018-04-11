@@ -12,9 +12,9 @@ Laravel Deployer is a lightweight wrapper of [Deployer.org](https://github.com/d
 </p>
 
 ## ✨ Features
-* **Simple** setup process and a minimal learning curve
-* Ready to use recipes for **Laravel**
-* **Locally built** deployment strategy
+* **Simple** setup process and minimal learning curve
+* Ready to use tasks for **Laravel**
+* Choose your **deployment strategy**
 * Something went wrong? **Rollback** to the previous release
 * **Agentless**, it's just SSH
 * **Zero downtime** deployments
@@ -25,7 +25,7 @@ Laravel Deployer is a lightweight wrapper of [Deployer.org](https://github.com/d
 composer require lorisleiva/laravel-deployer
 ```
 
-As you know, from Laravel 5.5 it will automatically discover the package. Before that register it manually.
+As you know, from Laravel 5.5 it will automatically discover the package. Before that, register it manually.
 
 ```php
 Lorisleiva\LaravelDeployer\LaravelDeployerServiceProvider::class
@@ -38,9 +38,9 @@ In order to generate your deployment configuration file, simply run:
 php artisan deploy:init
 ```
 
-It will ask you a few questions to help you get started and generate a `deploy.php` file at the root of your project.
+It will ask you a few questions to help you get started and generate a `config/deploy.php` file.
 
-Read more about the available options, tasks, recipes; about how to customize your hosts, your deployment flow; about the gotchas of deploying an app that is already live and much more in the [documentation](docs).
+Read more about the available options, tasks, strategies; about how to customize your hosts, your deployment flow and much more in the [documentation](docs/README.md).
 
 ## 3️⃣ Deployment
 When you’re ready to deploy, run:
@@ -49,17 +49,11 @@ When you’re ready to deploy, run:
 php artisan deploy
 ```
 
-Or if you'd rather use a deployment strategy that [builds your assets locally](docs/how-to-deploy-local.md), run:
-
-```bash
-php artisan deploy:local
-```
-
 If anything goes wrong during the deployment flow, the release will be discarded just like nothing happened.
 
-Because we are using zero-downtime deployments, make sure your server’s root path point to `{{deploy_path}}/current`.
+Because we are using zero-downtime deployments, make sure your server’s root path points to the `{{deploy_path}}/current` symlink.
 
-If your project has already been deployed, before using Laravel Deployer, be sure to [read this](docs/first-deploy.md).
+If your project has already been deployed, before using Laravel Deployer, you might be interested in this [first deployment strategy](docs/strategy-firstdeploy.md).
 
 ## 📜 Available commands
 
@@ -69,9 +63,8 @@ deploy:configs        # Print host configuration
 deploy:current        # Show current paths
 deploy:dump <task>    # Display the task-tree for a given task
 deploy:hosts          # Print all hosts
-deploy:init           # Generate deploy.php configuration file
+deploy:init           # Generate a deploy.php configuration file
 deploy:list           # Lists available tasks
-deploy:local          # Deploy your application with local build
 deploy:rollback       # Rollback to previous release
 deploy:run <task>     # Execute a given task on your hosts
 ssh                   # Connect to host through ssh

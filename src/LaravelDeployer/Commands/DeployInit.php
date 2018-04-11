@@ -15,7 +15,7 @@ class DeployInit extends BaseCommand
     ";
     
     protected $useDeployerOptions = false;
-    protected $description = 'Generate deploy.php configuration file';
+    protected $description = 'Generate a deploy.php configuration file';
 
     public function __construct(ConfigFileBuilder $builder)
     {
