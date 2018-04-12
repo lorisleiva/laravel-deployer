@@ -2,14 +2,14 @@
 
 ## Basic configurations
 
-When defining a host, you need to provide it with a hostname. It can be the domain of your server or its IP address.
+When defining a host, you need to provide it with a hostname. It can be the domain of your server or its IP address. You also need to provide a `deploy_path` to your host which tells Laravel Deployer where your application should be deployed within your host.
 
 ```php
 // config/deploy.php
 
 'hosts' => [
     'domain.com' => [
-        //
+        'deploy_path' => '/var/www/acme',
     ],
 ],
 ```
@@ -21,6 +21,7 @@ You can also give your hosts a stage and/or several roles.
 
 'hosts' => [
     'domain.com' => [
+        // ...
         'stage' => 'production',
         'roles' => 'app',
     ],
@@ -45,6 +46,7 @@ Finally, you can set up and override any options locally within a host. In the f
 ],
 'hosts' => [
     'domain.com' => [
+        // ...
         'key' => 'local',
     ],
 ],
@@ -59,6 +61,7 @@ By default, deployer will use your `~/.ssh/id_rsa` key. If you want a custom SSH
 
 'hosts' => [
     'domain.com' => [
+        // ...
         'user'         => 'root',
         'configFile'   => '~/.ssh/config',
         'identityFile' => '~/.ssh/id_rsa',
