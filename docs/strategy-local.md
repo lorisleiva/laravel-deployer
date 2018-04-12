@@ -39,7 +39,7 @@ task('local:build', function() {
 
     invoke('deploy:shared');
     invoke('deploy:vendors');
-    invoke('hook:build');       // Any tasks hooked to `hook:build` will be called locally
+    invoke('hook:build');       // Any tasks hooked to `build` will be called locally
     invoke('deploy:symlink');
     invoke('cleanup');
 })->local();
