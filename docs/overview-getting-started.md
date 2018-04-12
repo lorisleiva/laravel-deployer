@@ -64,23 +64,6 @@ Before starting you first deployment, you should go check your `config/deploy.ph
 * Deployer will access your server via SSH as the provided user.
 * More authentication configurations can be found [here](host-configuration).
 
-You can also override any global options within a particular host to give it its own key/value pair. In the example below, the `key` option will be equals to `local_value` for the host `your.hostname.com`, but it will be equals to `global_value` for all other hosts.
-
-
-```php
-// config/deploy.php
-
-'options' => [
-    'key' => 'global_value',
-],
-'hosts' => [
-    'your.hostname.com' => [
-        'key' => 'local_value',
-    ],
-],
-```
-
-
 ## Check the tasks and the hooks
 
 Hooks let you easily customize your deployment by adding tasks into strategic places of the deployment flow. Each of the various strategies call those hooks in deferent way to implement their logic. For example, the `local` strategy calls the `build` hook in a task that is ran locally whereas the `basic` strategy calls the `build` hook directly on the host.
