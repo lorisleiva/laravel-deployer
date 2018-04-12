@@ -3,17 +3,15 @@
 ## 🙃 Overwiew
 * [Getting started](overview-getting-started.md)
 * [Configure your hosts](overview-configure-hosts.md)
-* [What does a deploy do?](overview-deploy-task.md) (TODO)
-* [Deployment hooks](overview-hooks.md) (TODO)
+* [Choose the right strategy](overview-strategy-choose.md) (TODO)
+* [Create your own strategy](overview-strategy-create.md) (TODO)
 * [Troubleshooting](troubleshooting.md)
 
 ## 🤔 Strategies
-* [Choose the right strategy](strategy-choose.md) (TODO)
-    * [Basic strategy](strategy-basic.md) (TODO)
-    * [Locally-built strategy](strategy-local.md) (TODO)
-    * [First deploy strategy](strategy-first-deploy.md) (TODO)
-    * [Git pull only strategy](strategy-git-pull.md) (TODO)
-* [Create your own strategy](strategy-create-your-own.md) (TODO)
+* [Basic strategy](strategy-basic.md) (TODO)
+* [Locally-built strategy](strategy-local.md) (TODO)
+* [First deploy strategy](strategy-first-deploy.md) (TODO)
+* [Git pull only strategy](strategy-git-pull.md) (TODO)
 
 ## 🤓 How-tos
 
