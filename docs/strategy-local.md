@@ -1,46 +1,16 @@
 # Locally-built strategy
 
-TODO
+Building assets directly on your server can bring its performances down during deployments. If you'd rather build your application locally and then upload it to your hosts as the next release, you can use the `local` strategy.
 
-Building assets directly on your server can bring its performances down during deployments. If you'd rather build your application locally and then upload it to your hosts as the next release, you can use the *local deployment strategy* by running:
+![Local strategy diagram](https://user-images.githubusercontent.com/3642397/38677820-a775c720-3e5f-11e8-8d75-f0f3db60b246.png)
 
-```bash
-php artisan deploy:local
-```
+Note that this deployment strategy generates two releases (one locally and one on the server). Thus, it tend to be a longuer deployment process.
 
-Since this deployment strategy generates two releases (one locally and one on the server), it tend to be a longuer deployment process.
+More information about available tasks can be found [here](all-tasks.md).
 
-## Task tree of deploy:local
+## Tasks specific to the local strategy
 
-```php
-task('deploy:local', [
-    'deploy:info',
-    'local:build',          // Build your application locally
-    'deploy:prepare',
-    'deploy:lock',
-    'deploy:release',
-    'deploy:update_code',
-    'local:upload',         // Synchronize your locally-built application with your host
-    'deploy:shared',
-    'firstdeploy:shared',
-    'deploy:vendors',
-    'deploy:writable',
-    'artisan:storage:link', // Not in Lumen applications
-    'artisan:view:clear',   // Not in Lumen applications
-    'artisan:cache:clear',
-    'artisan:config:cache', // Not in Lumen applications
-    'artisan:optimize',
-    'hook:ready',
-    'deploy:symlink',
-    'deploy:unlock',
-    'cleanup',
-    'local:cleanup',        // Remove locally-built application
-    'hook:done',
-    'success',
-]);
-```
-
-## Local:build
+### Local:build
 
 The `local:build` task generates a release locally and uses the shallow hook `hook:build` to let you attach any necessary building tasks (like `npm:install` and `npm:production`).
 
@@ -53,6 +23,21 @@ task('local:build', function() {
     invoke('deploy:prepare');
     invoke('deploy:release');
     invoke('deploy:update_code');
+    
+    foreach (get('shared_dirs') as $dir) {
+        if (test("[ -d {{previous_release}}/$dir ]")) {
+            run("mkdir -p {{release_path}}/$dir");
+            run("rsync -r --ignore-existing {{previous_release}}/$dir {{release_path}}/" . dirname(parse($dir)));
+        }
+    }
+    foreach (get('shared_files') as $file) {
+        if (test("[ -f {{previous_release}}/$file ]")) {
+            run("mkdir -p {{release_path}}/" . dirname(parse($file)));
+            run("rsync --ignore-existing {{previous_release}}/$file {{release_path}}/$file");
+        }
+    }
+
+    invoke('deploy:shared');
     invoke('deploy:vendors');
     invoke('hook:build');       // Any tasks hooked to `hook:build` will be called locally
     invoke('deploy:symlink');
@@ -63,14 +48,20 @@ task('local:build', function() {
 * By default the local release will be built in `vendor/lorisleiva/laravel-deployer/.build`. You can change this by overriding the `local_deploy_path` option.
 
   ```php
-  set('local_deploy_path', 'my/custom/path');
+  // config/deploy.php
+  
+  'options' => [
+      'local_deploy_path' => 'my/custom/path',
+  ],
   ```
 
 * By default the root of your application will be used as the local `previous_release`. This enables better performances when locally cloning your git repository or installing node_modules. You can change this by overriding the `local_cache_repository` option.
 
 * By default the local build of your application will only keep one release since the entire `local_deploy_path` will be deleted after deployment. You can change this by overriding the `local_keep_releases` option.
 
-## Local:upload
+* Between the `deploy:update_code` and the `deploy:shared` tasks, we try to populate the shared folder with the `local_cache_repository`'s content. This is particularly helpful for shared files and folders that are gitignored, e.g. `.env` and `storage/`.
+
+### Local:upload
 
 The `local:upload` task uses `rsync -azP --delete` to synchronize the local release with the server's release. By default, it excludes the following folders:
 * The `.git` folder since its irrelevant to the server's release.
@@ -78,15 +69,19 @@ The `local:upload` task uses `rsync -azP --delete` to synchronize the local rele
 * The `node_modules` folder since the assets have been already compiled locally.
 
 ```php
-set('local_upload_options', [
-    'options' => [ 
-        '--exclude=.git',
-        '--exclude=vendor',
-        '--exclude=node_modules',
+// config/deploy.php
+
+'options' => [
+    'local_upload_options' => [
+        'options' => [ 
+            '--exclude=.git',
+            '--exclude=vendor',
+            '--exclude=node_modules',
+        ],
     ],
-]);
+],
 ```
 
-## Local:cleanup
+### Local:cleanup
 
 The `local:cleanup` task will remove the entire folder used to build the release locally, i.e. the `local_deploy_path` folder.
