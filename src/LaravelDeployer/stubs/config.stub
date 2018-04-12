@@ -48,11 +48,11 @@ return [
         // Deployment is done and live
         'done' => {{hooks.done}},
         
-        // Deployment failed.
-        'fail' => {{hooks.fail}},
-        
         // Deployment succeeded.
         'success' => {{hooks.success}},
+        
+        // Deployment failed.
+        'fail' => {{hooks.fail}},
     ],
 
     /*
