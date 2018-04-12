@@ -1,11 +1,11 @@
 # 🚀 Laravel Deployer
 Laravel Deployer is a lightweight wrapper of [Deployer.org](https://github.com/deployphp/deployer) giving Artisan the power of zero-downtime deployment.
 
-![Console showing php artisan deploy](https://user-images.githubusercontent.com/3642397/38671770-8e320b2e-3e4c-11e8-8fa1-21a0f2b2e4c2.png)
+![Console showing php artisan deploy](https://user-images.githubusercontent.com/3642397/38672390-50ad0194-3e4e-11e8-93c2-d28de8659117.png)
 
 <p align="center">
-  <a href="docs/README.md"><img src="https://user-images.githubusercontent.com/3642397/38671022-9c1a33c6-3e4a-11e8-87e6-60ce2739d6af.png" alt="Documentation button" height="50"></a>   
-  <a href="http://lorisleiva.com/zero-downtime-deployment"><img src="https://user-images.githubusercontent.com/3642397/38671021-9bf5be88-3e4a-11e8-9440-a121190992ac.png" alt="Blog article button" height="50"></a>
+  <a href="docs/README.md"><img src="https://user-images.githubusercontent.com/3642397/38672391-50caf9e2-3e4e-11e8-862f-465d55e7e8d9.png" alt="Documentation button" height="50"></a>   
+  <a href="http://lorisleiva.com/zero-downtime-deployment"><img src="https://user-images.githubusercontent.com/3642397/38672387-508e6f9a-3e4e-11e8-862c-3fc42b54f6d4.png" alt="Blog article button" height="50"></a>
 </p>
 
 ## ✨ Features
