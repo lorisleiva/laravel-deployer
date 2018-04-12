@@ -1,4 +1,6 @@
-# Shallow hooks
+# Deployment hooks
+
+TODO
 
 Laravel Deployer provides 3 shallow tasks that don't execute any code at all but help you hook tasks in more strategic places of your deployment flow.
 

@@ -3,9 +3,14 @@
 The recipe `recipe/npm.php` is already required within Laravel Deployer's recipe. Therefore, all you need to do is hook the `npm` tasks in you deployment flow.
 
 ```php
-// deploy.php
-after('hook:build', 'npm:install');
-after('hook:build', 'npm:production');
+// config/deploy.php
+    
+'hooks' => [
+    'build' => [
+        'npm:install',
+        'npm:production',
+    ],
+],
 ```
 
 # Available tasks

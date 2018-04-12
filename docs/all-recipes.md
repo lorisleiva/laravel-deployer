@@ -1,12 +1,26 @@
 # Available recipes
 
-Recipes are simple PHP files that you `require` in your `deploy.php`, to provide additional tasks and options. Whilst Laravel Deployer provides its own recipe — `recipe/laravel-deployer.php` — it also includes official recipes from Deployer that you can make use of.
+Recipes are simple PHP files that you can add in the `include` array of your `config/deploy.php` file, in order to provide additional tasks and options. Whilst Laravel Deployer provides its own set of tasks and options, it also includes official recipes from Deployer that you can make use of.
 
 ## Recipes from deployphp/recipes
 
 Deployer has an entire [github repository](https://github.com/deployphp/recipes) full of useful recipes.
 
-To use any of them, simply add `require 'recipe/<recipe_name>.php'` to your `deploy.php` file and hook the provided tasks to existing tasks. Based on which recipe, you might also configure some options. Checkout the recipe's documentation provided by Deployer.org for more information.
+To use any of them, simply add `'recipe/<recipe_name>.php'` to your includes and add the provided tasks to your hooks. Based on which recipe, you might also configure some options. Checkout the recipe's documentation provided by Deployer.org for more information.
+
+```php
+// config/deploy.php
+
+'include' => [
+    'recipe/<recipe_name>.php',
+],
+'hooks' => [
+    'start' => ['recipe_name:some:task'],
+],
+'options' => [
+    'some_option_from_recipe_name' => 'my value',
+]
+```
 
 | recipe name | description | |
 | - | - | - |
@@ -28,4 +42,4 @@ To use any of them, simply add `require 'recipe/<recipe_name>.php'` to your `dep
 
 ## Framework recipes from deployphp/deployer
 
-In case you're interested, Deployer also provides a handful of framework based recipes like Symfony, Magento, FuelPHP, etc. In fact, it also provides a Laravel recipe that Laravel Deployer is extending.
+In case you're interested, Deployer also provides a handful of framework-based recipes like Symfony, Magento, FuelPHP, etc. In fact, it also provides a Laravel recipe that Laravel Deployer is extending.

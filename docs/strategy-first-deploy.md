@@ -1,4 +1,6 @@
-# First deploy on a live project
+# First deploy strategy
+
+TODO
 
 Deploying for the first time will create a new folder structure within your deployment path to include:
 * `.dep/` some Deployer configurations.

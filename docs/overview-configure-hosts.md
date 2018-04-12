@@ -1,5 +1,7 @@
 # Configure your hosts
 
+TODO: configure hosts using config file.
+
 ## Basic configurations
 
 When defining a host, you need to provide it with a hostname. It can be the domain of your server or its IP address.
@@ -47,23 +49,6 @@ host('domain.com')
     ->forwardAgent(true)
     ->multiplexing(true)
     ->addSshOption('key', 'value');
-```
-
-## Define your hosts in yaml
-
-Create a `hosts.yml` file...
-
-```yaml
-domain.com:
-  stage: production
-  roles: app
-  deploy_path: ~/app
-```
-
-and import it in your `deploy.php`.
-
-```php
-inventory('hosts.yml');
 ```
 
 There is a lot more you can do with your hosts. Read more on the [official Deployer documentation](https://deployer.org/docs/hosts).

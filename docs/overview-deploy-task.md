@@ -1,5 +1,7 @@
 # What does a deploy do?
 
+TODO: simplify since now it depends on strategy.
+
 The following table describes the default deployment tasks in their execution order. This table does not include any hooks you might have in your `deploy.php` file, e.g. `artisan:migrate` or `npm:install`.
 
 | task | description |

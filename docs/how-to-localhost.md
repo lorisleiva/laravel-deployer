@@ -1,5 +1,7 @@
 # How to deploy directly from server?
 
+TODO: still necessary? Make sure localhost is mentionned in `overview-configure-hosts.md`
+
 When deploying directly from a host, it will still try to connect to itself via SSH which can lead to some extra unecessary burden. To make it easier for ourselves, we can define a `localhost` that will be used when the host matches the current server. You can set up the `localhost` just like any other hosts.
 
 ```php

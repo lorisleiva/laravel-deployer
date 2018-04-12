@@ -1,4 +1,6 @@
-# How to build your assets locally before deploying?
+# Locally-built strategy
+
+TODO
 
 Building assets directly on your server can bring its performances down during deployments. If you'd rather build your application locally and then upload it to your hosts as the next release, you can use the *local deployment strategy* by running:
 

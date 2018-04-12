@@ -1,31 +1,5 @@
 # Available options and defaults
 
-## Setting options
-Options are just another key/value storage used to configure tasks without having to rewrite them. You can set up new one (to use in your own tasks for example) or override some existing ones to edit the behavior of an existing task.
-
-```php
-// Create your own options.
-set('key', 'value');
-
-// Override existing ones.
-set('deploy_path', '/custom/deploy/path');
-
-// You can also set and append to arrays.
-set('shared_files', [ '.env' ]);
-add('shared_files', [ 'foobar.md' ]);
-```
-
-## Getting options
-Options can be retrieve in tasks using the `get()` method, or using mustache notation within the `run` method.
-
-```php
-task('custom:task', function () {
-    $param = get('param');
-    run("cd {{release_path}} && command $param");
-});
-```
-
-## Existing options
 | key | default | description |
 | - | - | - |
 | `deploy_path` | | Where to deploy application on remote host. You should define this variable for all of your hosts. |

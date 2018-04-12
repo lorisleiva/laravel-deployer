@@ -39,7 +39,6 @@ php artisan deploy:list namespace  # List all tasks starting with `namespace:`
 | `debug:task`                | Display the task-tree for a given task |
 | `deploy:clear_paths`        | Cleaning up files and/or directories |
 | `deploy:copy_dirs`          | Copy directories |
-| `deploy:local`              | Deploy your application with local build |
 | `deploy:lock`               | Lock deploy |
 | `deploy:prepare`            | Preparing host for deploy |
 | `deploy:public_disk`        | Make symlink for public disk |

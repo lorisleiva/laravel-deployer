@@ -1,5 +1,7 @@
 # How to deploy with Laravel Forge?
 
+TODO: Update. Again, localhost really necessary?
+
 ## Set up your deploy.php
 [Enabling a localhost access](how-to-localhost.md) is particularly helpful when using [Laravel Forge](https://forge.laravel.com) to maintain your servers. Simply set up your configurations by using the `forge` user and the `/home/forge/your.domain.com` deployment path. If your `~/.ssh/id_rsa` SSH key is already registered within forge, you're good to go. Otherwise you can [configure which SSH key and configs to use](configure-hosts.md#authentication).
 
@@ -18,11 +20,11 @@ localhost()
 ```
 
 **:fire: Pro tips:**
-* When generating your `deploy.php` file, running: 
+* When generating your `config/deploy.php` file, running: 
     ```bash
     php artisan deploy:init your.domain.com -f
     ```
-  will generate an appropriate localhost configuration, use the `forge` user and provide better default values when asking you questions.
+  will use the `forge` user and provide better default values when asking you questions.
 * Combine with the `-a` (`--all`) option to skip any console interaction whilst using a maximum of features — npm, migrations, horizon, etc.
 
 ## Update web directory

@@ -1,20 +1,23 @@
 # How to send Slack notifications?
 
-* First you need to require the recipe `recipe/slack.php` to include its tasks and options.
-* Then you have to provide your `slack_webhook`. More options are available for customizing the messages, the colors, etc. Check the last section for all available options.
-* Then hook the Slack tasks into your deployment flow.
+1. First you need to include the recipe `recipe/slack.php` in your `config/deploy.php` file.
+2. Then you have to provide your `slack_webhook`. More options are available for customizing the messages, the colors, etc. Check the last section for all available options.
+3. Then hook the Slack tasks into your deployment flow.
 
 ```php
-require 'recipe/laravel-deployer.php';
-require 'recipe/slack.php'; 
+// config/deploy.php
 
-// ...
-
-set('slack_webhook', 'YOUR_SLACK_WEBHOOK');
-before('deploy', 'slack:notify');
-before('deploy:local', 'slack:notify');
-after('success', 'slack:notify:success');
-after('deploy:failed', 'slack:notify:failure');
+'include' => [  // 1
+    'recipe/slack.php',
+],
+'options' => [  // 2
+    'slack_webhook' => 'YOUR_SLACK_WEBHOOK',
+],
+'hooks' => [    // 3
+    'start' => ['slack:notify'],
+    'success' => ['slack:notify:success'],
+    'fail' => ['slack:notify:failure'],
+],
 ```
 
 # Available tasks

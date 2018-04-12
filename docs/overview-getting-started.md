@@ -1,4 +1,6 @@
-# Basic configurations 
+# Getting started
+
+TODO
 
 Following the instructions on the README page:
 
