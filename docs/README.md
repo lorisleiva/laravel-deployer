@@ -1,7 +1,7 @@
 # 📚 Documentation
 
 ## 🙃 Overwiew
-* [Getting started](overview-getting-started.md) (TODO)
+* [Getting started](overview-getting-started.md)
 * [Configure your hosts](overview-configure-hosts.md) (TODO)
 * [What does a deploy do?](overview-deploy-task.md) (TODO)
 * [Deployment hooks](overview-hooks.md) (TODO)
