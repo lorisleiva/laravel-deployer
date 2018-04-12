@@ -3,13 +3,13 @@
 ## 🙃 Overwiew
 * [Getting started](overview-getting-started.md)
 * [Configure your hosts](overview-configure-hosts.md)
-* [Choose the right strategy](overview-strategy-choose.md) (TODO)
+* [Choose the right strategy](overview-strategy-choose.md) (TODO: Add more overviews)
 * [Create your own strategy](overview-strategy-create.md) (TODO)
 * [Troubleshooting](troubleshooting.md)
 
 ## 🤔 Strategies
-* [Basic strategy](strategy-basic.md) (TODO)
-* [Locally-built strategy](strategy-local.md) (TODO)
+* [Basic strategy](strategy-basic.md)
+* [Locally-built strategy](strategy-local.md)
 * [First deploy strategy](strategy-first-deploy.md) (TODO)
 * [Git pull only strategy](strategy-git-pull.md) (TODO)
 
