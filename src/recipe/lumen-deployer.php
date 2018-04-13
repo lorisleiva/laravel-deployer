@@ -11,7 +11,6 @@ task('deploy', [
     'deploy:info',
     'deploy:prepare',
     'deploy:lock',
-    'deploy:failed',
     'deploy:release',
     'deploy:update_code',
     'deploy:shared',
