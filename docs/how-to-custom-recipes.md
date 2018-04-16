@@ -2,25 +2,8 @@
 
 ## 1. Create and include your recipe
 
-1. Create a `recipe` folder in your `config` folder (or anywhere you'd like).
-2. Create an `autoload.php` file inside that folder, containing:
-    ```php
-    <?php
-
-    set_include_path(get_include_path() . PATH_SEPARATOR . __DIR__);
-    ```
-3. Autoload this file in your `composer.json`:
-    ```json
-    {
-        "autoload": {
-            "files": [
-                "config/recipe/autoload.php"
-            ]
-        }
-    }
-    ```
-4. Run `composer dumpautoload`.
-5. Create a `my_recipe.php` file inside the `config/recipe` folder, starting with the following code:
+1. Create a `recipe` folder at the root of your project (or anywhere you'd like as long as it does not conflict with namespaces).
+2. Create a `my_recipe.php` file inside that folder, starting with the following code:
     ```php
     <?php
 
@@ -28,16 +11,14 @@
 
     // Recipe content here...
     ```
-6. Add the recipe to your config file:
+3. Add the recipe to your config file:
     ```php
     // config/deploy.php
 
     'include' => [
-        'my_recipe.php',
+        'recipe/my_recipe.php',
     ],
     ```
-
-Note that, once you've added your first recipe, only steps 5 and 6 are relevant.
 
 ## 2. Configure your own options
 
