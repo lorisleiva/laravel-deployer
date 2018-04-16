@@ -9,6 +9,6 @@ class Ssh extends BaseCommand
 
     public function handle()
     {
-        passthru("$this->depBinary ssh");
+        $this->dep('ssh');
     }
 }

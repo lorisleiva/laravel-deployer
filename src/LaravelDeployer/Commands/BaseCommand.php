@@ -109,9 +109,10 @@ class BaseCommand extends Command
     public function process($command)
     {
         $process = new Process($command);
+        $process->setTty(true);
         $process->setTimeout(null);
         $process->setIdleTimeout(null);
-        $process->run(function($type, $buffer) {
+        $process->mustRun(function($type, $buffer) {
             $this->output->write($buffer);
         });
     }
