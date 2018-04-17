@@ -121,12 +121,10 @@ class BaseCommand extends Command
 
     public function isTtySupported()
     {
-        return (bool) @proc_open(
-            'echo 1 >/dev/null', 
+        return (bool) @proc_open('echo 1 >/dev/null', [
             ['file', '/dev/tty', 'r'], 
             ['file', '/dev/tty', 'w'], 
             ['file', '/dev/tty', 'w'], 
-            $pipes
-        );
+        ], $pipes);
     }
 }
