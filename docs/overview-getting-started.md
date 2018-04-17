@@ -19,6 +19,8 @@ You should end up with a `deploy.php` file in your `config/` folder.
 
 Before starting you first deployment, you should go check your `config/deploy.php` file to make sure it suits your deployment flow.
 
+*TODO: How to deploy on my local machine? add localhost section (and all config sections in order).*
+
 ## Check the options
 
 ```php

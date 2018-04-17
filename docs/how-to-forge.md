@@ -1,4 +1,4 @@
-# How to deploy with Laravel Forge?
+# How to set up Laravel Forge?
 
 TODO: Update. Again, localhost really necessary?
 

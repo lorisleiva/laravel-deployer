@@ -1,7 +1,7 @@
 # 📚 Documentation
 
 ## 🙃 Overwiew
-* [Getting started](overview-getting-started.md)
+* [Getting started](overview-getting-started.md) (TODO)
 * [Configure your hosts](overview-configure-hosts.md)
 * [Choose the right strategy](overview-strategy-choose.md) (TODO: Add more overviews)
 * [Create your own strategy](overview-strategy-create.md) (TODO)
@@ -16,8 +16,8 @@
 ## 🤓 How-tos
 
 Server setup
-* [How to deploy directly from server?](how-to-localhost.md) (TODO)
-* [How to deploy with Laravel Forge?](how-to-forge.md) (TODO)
+* [How to set up Laravel Forge?](how-to-forge.md) (TODO)
+* [How to deploy within Laravel Forge's script?](how-to-forge-script.md) (TODO)
 
 Deployment configurations
 * [How to deploy a Lumen application?](how-to-lumen.md)
@@ -29,7 +29,7 @@ Deployment configurations
 Advanced usage
 * [How to create your own tasks and recipes?](how-to-custom-recipes.md)
 * [How to create complex strategies?](how-to-complex-strategies.md) (TODO)
-* [How to use my own deployer file?](how-to-custom-deployer-file.md) (TODO)
+* [How to use your own deployer file?](how-to-custom-deployer-file.md) (TODO)
 * For more advanced documentation, please refer to the [Deployer documentation](https://deployer.org/docs).
 
 ## 🎁 Available resources 
