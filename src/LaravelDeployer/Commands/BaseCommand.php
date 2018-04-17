@@ -110,18 +110,23 @@ class BaseCommand extends Command
     public function process($command)
     {
         $process = new Process($command);
-
-        try {
-            dd(is_writable('/dev/tty'));
-            $process->setTty(false); // TODO: true when available
-        } catch (RuntimeException $e) {
-            $this->output->writeln('Warning: '.$e->getMessage());
-        }
-
+        $process->setTty($this->isTtySupported()); // TODO: disable for phpunit
+        $process->setWorkingDirectory(base_path());
         $process->setTimeout(null);
         $process->setIdleTimeout(null);
         $process->mustRun(function($type, $buffer) {
             $this->output->write($buffer);
         });
+    }
+
+    public function isTtySupported()
+    {
+        return (bool) @proc_open(
+            'echo 1 >/dev/null', 
+            ['file', '/dev/tty', 'r'], 
+            ['file', '/dev/tty', 'w'], 
+            ['file', '/dev/tty', 'w'], 
+            $pipes
+        );
     }
 }
