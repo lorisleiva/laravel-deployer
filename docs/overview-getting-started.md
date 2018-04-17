@@ -68,7 +68,7 @@ Before starting you first deployment, you should go check your `config/deploy.ph
 
 ## Check the hooks
 
-Hooks let you easily customize your deployment by adding tasks into strategic places of the deployment flow. Each of the various strategies call those hooks in deferent way to implement their logic. For example, the `local` strategy calls the `build` hook in a task that is ran locally whereas the `basic` strategy calls the `build` hook directly on the host.
+Hooks let you easily customize your deployment by adding tasks into strategic places of the deployment flow. Each of the various strategies call those hooks in different ways to implement their logic. For example, the `local` strategy calls the `build` hook in a task that is ran locally whereas the `basic` strategy calls the `build` hook directly on the host.
 
 ```php
 // config/deploy.php
