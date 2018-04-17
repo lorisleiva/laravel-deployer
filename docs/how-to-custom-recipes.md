@@ -3,7 +3,9 @@
 ## 1. Create and include your recipe
 
 1. Create a `recipe` folder at the root of your project (or anywhere you'd like as long as it does not conflict with namespaces).
+    
 2. Create a `my_recipe.php` file inside that folder, starting with the following code:
+    
     ```php
     <?php
 
@@ -11,7 +13,9 @@
 
     // Recipe content here...
     ```
+        
 3. Add the recipe to your config file:
+    
     ```php
     // config/deploy.php
 
