@@ -16,8 +16,7 @@
 ## 🤓 How-tos
 
 Server setup
-* [How to set up Laravel Forge?](how-to-forge.md) (TODO)
-* [How to deploy within Laravel Forge's script?](how-to-forge-script.md) (TODO)
+* [How to deploy with Laravel Forge?](how-to-forge.md)
 
 Deployment configurations
 * [How to deploy a Lumen application?](how-to-lumen.md)
