@@ -5,6 +5,7 @@ namespace Lorisleiva\LaravelDeployer\Commands;
 use Illuminate\Console\Command;
 use Lorisleiva\LaravelDeployer\Concerns\ParsesCliParameters;
 use Lorisleiva\LaravelDeployer\ConfigFile;
+use Symfony\Component\Process\Exception\RuntimeException;
 use Symfony\Component\Process\Process;
 
 class BaseCommand extends Command
@@ -109,7 +110,14 @@ class BaseCommand extends Command
     public function process($command)
     {
         $process = new Process($command);
-        $process->setTty(true);
+
+        try {
+            dd(is_writable('/dev/tty'));
+            $process->setTty(false); // TODO: true when available
+        } catch (RuntimeException $e) {
+            $this->output->writeln('Warning: '.$e->getMessage());
+        }
+
         $process->setTimeout(null);
         $process->setIdleTimeout(null);
         $process->mustRun(function($type, $buffer) {
