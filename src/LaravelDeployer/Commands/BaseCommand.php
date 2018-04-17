@@ -19,7 +19,7 @@ class BaseCommand extends Command
         $this->depBinary = base_path('vendor/bin/dep');
 
         $deployerOptions = "
-            {--s|strategy : Default deployement strategy}
+            {--s|strategy= : Default deployement strategy}
             {--p|parallel : Run tasks in parallel}
             {--l|limit= : How many host to run in parallel?}
             {--no-hooks : Run task without after/before hooks}
