@@ -13,6 +13,7 @@ class BaseCommand extends Command
     use ParsesCliParameters;
     
     protected $depBinary;
+    protected $parameters;
     protected $useDeployerOptions = true;
 
     public function __construct()
@@ -43,25 +44,24 @@ class BaseCommand extends Command
 
     public function dep($command)
     {
-        $parameters = $this->parseParameters();
-        $deployFile = $this->getDeployFile($parameters);
+        $this->parameters = $this->parseParameters();
 
-        if (! $deployFile) {
+        if (! $deployFile = $this->getDeployFile()) {
             $this->error("config/deploy.php file not found.");
             $this->error("Please run `php artisan deploy:init` to get started.");
             return;
         }
 
         $basePath = base_path();
-        $parameters = $this->parseParametersAsString($parameters);
+        $parameters = $this->parseParametersAsString($this->parameters);
         $this->process("$this->depBinary --file='$deployFile' $command $parameters");
     }
 
-    public function getDeployFile($parameters)
+    public function getDeployFile()
     {
-        if ($parameters->has('--file')) {
-            $deployFile = $parameters->get('--file');
-            $parameters->forget('--file');
+        if ($this->parameters->has('--file')) {
+            $deployFile = $this->parameters->get('--file');
+            $this->parameters->forget('--file');
             return $deployFile;
         }
 
@@ -75,9 +75,9 @@ class BaseCommand extends Command
 
         $deployFile = $configFile->toDeployFile();
 
-        if ($parameters->has('--strategy')) {
-            $deployFile->updateStrategy($parameters->get('--strategy'));
-            $parameters->forget('--strategy');
+        if ($this->parameters->has('--strategy')) {
+            $deployFile->updateStrategy($this->parameters->get('--strategy'));
+            $this->parameters->forget('--strategy');
         }
 
         return  $deployFile->store();
