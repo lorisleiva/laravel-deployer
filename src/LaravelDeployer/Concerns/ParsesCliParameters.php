@@ -43,11 +43,6 @@ trait ParsesCliParameters
             })
             ->mapWithKeys(function ($value, $key) use (&$i) {
                 return is_bool($value) ? [ $i++ => "--$key" ] : [ "--$key" => $value ];
-            })
-            ->pipe(function ($options) {
-                return ! $options->contains('--no-ansi')
-                    ? $options->push('--ansi')
-                    : $options;
             });
     }
 
