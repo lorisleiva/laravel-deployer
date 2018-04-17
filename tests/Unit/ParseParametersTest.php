@@ -11,11 +11,12 @@ use Symfony\Component\Console\Output\OutputInterface;
 class ParseParametersTest extends TestCase
 {
     /** @test */
-    function it_should_default_to_using_ansi_flag()
+    function it_should_allow_using_the_ansi_flag()
     {
-        $params = $this->simulateAndParseParameters('dummyTask');
+        $params = $this->simulateAndParseParameters('dummyTask --ansi');
 
         $this->assertContains('--ansi', $params);
+        $this->assertNotContains('--no-ansi', $params);
     }
 
     /** @test */
@@ -131,7 +132,7 @@ class ParseParametersTest extends TestCase
 
 class DummyCommand extends BaseCommand
 {
-    protected $signature = 'deploy:dummy {task} {repeat=3} {stage?} {--no-ansi}';
+    protected $signature = 'deploy:dummy {task} {repeat=3} {stage?} {--ansi} {--no-ansi}';
 
     public function handle()
     {
