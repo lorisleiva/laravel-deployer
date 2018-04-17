@@ -1,7 +1,7 @@
 # 📚 Documentation
 
 ## 🙃 Overwiew
-* [Getting started](overview-getting-started.md) (TODO)
+* [Getting started](overview-getting-started.md)
 * [Configure your hosts](overview-configure-hosts.md)
 * [Choose the right strategy](overview-strategy-choose.md) (TODO: Add more overviews)
 * [Create your own strategy](overview-strategy-create.md) (TODO)

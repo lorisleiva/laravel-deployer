@@ -19,96 +19,205 @@ You should end up with a `deploy.php` file in your `config/` folder.
 
 Before starting you first deployment, you should go check your `config/deploy.php` file to make sure it suits your deployment flow.
 
-*TODO: How to deploy on my local machine? add localhost section (and all config sections in order).*
-
-## Check the options
+## Default deployment strategy
 
 ```php
-// config/deploy.php
+    /*
+    |--------------------------------------------------------------------------
+    | Default deployment strategy
+    |--------------------------------------------------------------------------
+    |
+    | This option defines which deployment strategy to use by default on all
+    | of your hosts. Laravel Deployer provides some strategies out-of-box
+    | for you to choose from explained in detail in the documentation.
+    |
+    | Supported: 'basic' and 'local'.
+    |
+    */
 
-'options' => [
-    // The name of your application
-    'application' => env('APP_NAME', 'Laravel'),
-    
-    // The repository of your application
-    'repository' => 'git@gitlab.com:vendor/repository.git',
-],
+    'default' => 'basic',
+```
+
+* [Choose the right strategy](overview-strategy-choose.md)
+
+## Custom deployment strategies
+
+```php
+    /*
+    |--------------------------------------------------------------------------
+    | Custom deployment strategies
+    |--------------------------------------------------------------------------
+    |
+    | Here, you can easily set up new custom strategies as a list of tasks.
+    | Any key of this array are supported in the `default` option above.
+    | Any key matching Laravel Deployer's strategies overrides them.
+    |
+    */
+
+    'strategies' => [
+        'my_local_strategy' => [
+            // ...
+        ],
+        'my_docker_strategy' => [
+            // ...
+        ],
+    ],
+```
+
+* [Create your own strategy](overview-strategy-create.md)
+
+## Hooks
+
+```php
+    /*
+    |--------------------------------------------------------------------------
+    | Hooks
+    |--------------------------------------------------------------------------
+    |
+    | Hooks let you customize your deployments conveniently by pushing tasks 
+    | into strategic places of your deployment flow. Each of the official
+    | strategies invoke hooks in different ways to implement their logic.
+    |
+    */
+   
+    'hooks' => [
+        // Right before we start deploying.
+        'start' => [],
+
+        // Code and composer vendors are ready but nothing is built.
+        'build' => [
+            'npm:install',
+            'npm:production',
+        ],
+
+        // Deployment is done but not live yet (before symlink)
+        'ready' => [
+            'artisan:storage:link',
+            'artisan:view:clear',
+            'artisan:cache:clear',
+            'artisan:config:cache',
+            'artisan:optimize',
+            'artisan:migrate',
+        ],
+
+        // Deployment is done and live
+        'done' => [
+            'fpm:reload',
+        ],
+
+        // Deployment succeeded. Every task succeeded, including the tasks in the `done` hook.
+        'success' => [],
+
+        // Deployment failed. This can happen at any point of the deployment.
+        'fail' => [],
+    ],
+```
+
+* For example, the `local` strategy calls the `build` hook in a task that is ran locally whereas the `basic` strategy calls the `build` hook directly on the host.
+* [How to create your own tasks and recipes?](how-to-custom-recipes.md)
+* [Available tasks](all-tasks.md)
+
+## Deployment options
+
+```php
+    /*
+    |--------------------------------------------------------------------------
+    | Deployment options
+    |--------------------------------------------------------------------------
+    |
+    | Options follow a simple key/value structure and are used within tasks
+    | to make them more configurable and reusable. You can use options to
+    | configure existing tasks or to use whithin your own custom tasks.
+    |
+    */
+   
+    'options' => [
+        // The name of your application
+        'application' => env('APP_NAME', 'Laravel'),
+        
+        // The repository of your application
+        'repository' => 'git@gitlab.com:vendor/repository.git',
+    ],
 ```
 
 * Run `php artisan deploy:configs` to see all options and their value.
-* [Check out all available options](all-options.md)
+* [Available options and defaults](all-options.md)
 
-
-## Check the hosts
-
-```php
-// config/deploy.php
-
-'hosts' => [
-    // Your hostname can be a domain or an IP address.
-    'your.hostname.com' => [
-
-        // The deploy path. Where the code resides in your host.
-        'deploy_path' => '/var/www/html/your.hostname.com',
-
-        // (Optional) Who should Deployer connect as during deployment. 
-        'user' => 'root',
-
-        // (Optional) The stage of your host.
-        // Can be useful to distinguish a production server and a staging server.
-        'stage' => 'prod',
-    ],
-    
-    // You can set up as many hosts as you want.
-],
-```
-
-* Deployer will access your server via SSH as the provided user.
-* More authentication configurations can be found [here](overview-configure-hosts.md).
-
-## Check the hooks
-
-Hooks let you easily customize your deployment by adding tasks into strategic places of the deployment flow. Each of the various strategies call those hooks in different ways to implement their logic. For example, the `local` strategy calls the `build` hook in a task that is ran locally whereas the `basic` strategy calls the `build` hook directly on the host.
+## Hosts
 
 ```php
-// config/deploy.php
+    /*
+    |--------------------------------------------------------------------------
+    | Hosts
+    |--------------------------------------------------------------------------
+    |
+    | Here, you can define any domain or subdomain you want to deploy to.
+    | You can provide them with roles and stages to filter them during
+    | deployment. Read more about how to configure them in the docs.
+    |
+    */
+   
+    'hosts' => [
+        // Your hostname can be a domain or an IP address.
+        'your.hostname.com' => [
 
-'hooks' => [
-    // Right before we start deploying.
-    'start' => [],
+            // The deploy path. Where the code resides in your host.
+            'deploy_path' => '/var/www/html/your.hostname.com',
 
-    // Code and composer vendors are ready but nothing is built.
-    'build' => [
-        'npm:install',
-        'npm:production',
+            // (Optional) Who should Deployer connect as during deployment. 
+            'user' => 'root',
+
+            // (Optional) The stage of your host.
+            // Can be useful to distinguish a production server and a staging server.
+            'stage' => 'prod',
+        ],
+        
+        // You can set up as many hosts as you want.
     ],
-
-    // Deployment is done but not live yet (before symlink)
-    'ready' => [
-        'artisan:storage:link',
-        'artisan:view:clear',
-        'artisan:cache:clear',
-        'artisan:config:cache',
-        'artisan:optimize',
-        'artisan:migrate',
-    ],
-
-    // Deployment is done and live
-    'done' => [
-        'fpm:reload',
-    ],
-
-    // Deployment succeeded. Every task succeeded, including the tasks in the `done` hook.
-    'success' => [],
-
-    // Deployment failed. This can happen at any point of the deployment.
-    'fail' => [],
-],
 ```
 
-* [Check out how to create your own tasks and recipes](how-to-custom-recipes.md).
-* [Check out all available tasks](all-tasks.md).
+* [Configure your hosts](overview-configure-hosts.md)
 
-**:fire: Pro tips:**
-* Run `php artisan deploy:dump strategy:basic` (replace `basic` with the strategy you use) to display the tree of tasks that are executed during deployment including the ones added via hooks.
-* Note that this command can do that for any given task `php artisan deploy:dump mycustom:task`.
+## Localhost
+
+```php
+    /*
+    |--------------------------------------------------------------------------
+    | Localhost
+    |--------------------------------------------------------------------------
+    |
+    | This localhost option give you the ability to deploy directly on your
+    | local machine, without needing any SSH connection. You can use the
+    | same configurations used by hosts to configure your localhost.
+    |
+    */
+
+    'localhost' => [
+        'deploy_path' => '~/Projects/Acme/build',
+        // ...
+    ],
+```
+
+## Include additional Deployer recipes
+
+```php
+    /*
+    |--------------------------------------------------------------------------
+    | Include additional Deployer recipes
+    |--------------------------------------------------------------------------
+    |
+    | Here, you can add any third party recipes to provide additional tasks, 
+    | options and strategies. Therefore, it also allows you to create and
+    | include your own recipes to define more complex deployment flows.
+    |
+    */
+
+    'include' => [
+        'recipe/slack.php',
+        'recipe/my_recipe.php',
+    ],
+```
+
+* [Available recipes](all-recipes.md)
+* [How to create your own tasks and recipes?](how-to-custom-recipes.md)
+* [How to create complex strategies?](how-to-complex-strategies.md)

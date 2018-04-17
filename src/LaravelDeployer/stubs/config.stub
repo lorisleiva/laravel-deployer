@@ -24,7 +24,7 @@ return [
     |
     | Here, you can easily set up new custom strategies as a list of tasks.
     | Any key of this array are supported in the `default` option above.
-    | Any Key matching Laravel Deployer's strategies overrides them.
+    | Any key matching Laravel Deployer's strategies overrides them.
     |
     */
 
@@ -102,7 +102,7 @@ return [
 
     /*
     |--------------------------------------------------------------------------
-    | Include your own Deployer recipes
+    | Include additional Deployer recipes
     |--------------------------------------------------------------------------
     |
     | Here, you can add any third party recipes to provide additional tasks, 

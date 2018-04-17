@@ -37,5 +37,8 @@ In the example below, `dev.domain.com` and `staging.domain.com` will be using th
 | **basic** ([doc](strategy-basic.md)) | Simple deployment process that takes place inside the host intself | ![Overview basic schema](https://user-images.githubusercontent.com/3642397/38679147-4369458c-3e63-11e8-8888-e062dcbbff09.png) |
 | **local** ([doc](strategy-local.md)) | Builds your release locally and upload it to your server when it's ready. | ![Overview local schema](https://user-images.githubusercontent.com/3642397/38679148-43898e82-3e63-11e8-9810-3d5d81116a2a.png) |
 
-
 Learn how to create your own strategy [here](overview-strategy-create.md).
+
+**:fire: Pro tips:**
+* Run `php artisan deploy:dump strategy:basic` (replace `basic` with the strategy you use) to display the tree of tasks that are executed during deployment including the ones added via hooks.
+* Note that this command can do that for any given task `php artisan deploy:dump mycustom:task`.
