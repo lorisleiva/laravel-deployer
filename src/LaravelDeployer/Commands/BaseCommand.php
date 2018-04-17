@@ -54,7 +54,7 @@ class BaseCommand extends Command
 
         $basePath = base_path();
         $parameters = $this->parseParametersAsString($parameters);
-        $this->process("cd $basePath && $this->depBinary --file='$deployFile' $command $parameters");
+        $this->process("$this->depBinary --file='$deployFile' $command $parameters");
     }
 
     public function getDeployFile($parameters)
