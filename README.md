@@ -25,12 +25,6 @@ Laravel Deployer is a lightweight wrapper of [Deployer.org](https://github.com/d
 composer require lorisleiva/laravel-deployer
 ```
 
-As you know, from Laravel 5.5 it will automatically discover the package. Before that, register it manually.
-
-```php
-Lorisleiva\LaravelDeployer\LaravelDeployerServiceProvider::class
-```
-
 ## 2️⃣ Configuration
 In order to generate your deployment configuration file, simply run:
 
