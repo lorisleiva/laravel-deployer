@@ -105,7 +105,6 @@ EOD
                 'foo' => [
                     'bar' => 0,
                     'baz' => 'My app',
-                    'bat' => "env('PLAIN_TEXT')",
                 ]
             ]
         ]);
@@ -117,10 +116,23 @@ set('git_tty', true);
 set('foo', [
     'bar' => 0,
     'baz' => 'My app',
-    'bat' => 'env(\'PLAIN_TEXT\')',
 ]);
 EOD
         , $deployFile);
+    }
+
+    /** @test */
+    function it_does_not_evaluate_env_variables()
+    {
+        $deployFile = (string) new DeployFile([
+            'options' => [
+                'foo' => [
+                    'bar' => "env('PLAIN_TEXT')",
+                ],
+            ],
+        ]);
+
+        $this->assertContains("'bar' => 'env(\'PLAIN_TEXT\')'", $deployFile);
     }
 
     /** @test */
