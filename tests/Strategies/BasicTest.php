@@ -18,7 +18,6 @@ class BasicDeploymentTest extends DeploymentTestCase
         $this->assertContains('Executing task deploy:lock', $output);
         $this->assertContains('Executing task deploy:release', $output);
         $this->assertContains('Executing task deploy:update_code', $output);
-        $this->assertContains('Executing task firstdeploy:shared', $output);
         $this->assertContains('Executing task deploy:shared', $output);
         $this->assertContains('Executing task deploy:vendors', $output);
         $this->assertContains('Executing task deploy:writable', $output);

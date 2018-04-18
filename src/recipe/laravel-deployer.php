@@ -42,11 +42,14 @@ require 'task/npm.php';
 | Available strategies
 |--------------------------------------------------------------------------
 |
-| TODO: Document strategies.
+| This section includes all strategies provided by Laravel Deployer by
+| default. They are registered as tasks using the naming convention
+| "strategy:key" where key is used within the configuration file.
 |
 */
 
 require 'strategy/basic.php';
+require 'strategy/firstdeploy.php';
 require 'strategy/local.php';
 
 /*

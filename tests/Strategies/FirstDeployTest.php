@@ -17,16 +17,16 @@ class FirstDeployTest extends DeploymentTestCase
 
         // And we have a .env file in out rootpath but ignored in our repository.
         $this->runInRoot('touch .env');
-        $this->runInRoot('printf "APP_NAME=FooBar" > .env');
+        $this->runInRoot('echo "APP_NAME=FooBar" > .env');
 
         // When we deploy.
-        $this->artisan('deploy');
+        $this->artisan('deploy', ['-s' => 'firstdeploy']);
 
         // Then the text file has been added to our shared folder.
         $this->assertFileExists(self::SERVER . '/shared/storage/app/public/foobar.txt');
 
         // And the .env file comes from our rootpath.
-        $this->assertStringEqualsFile(self::SERVER . '/.env', 'APP_NAME=FooBar');
+        $this->assertServerFilesEquals(['.env' => 'APP_NAME=FooBar']);
     }
 
     /** @test */
@@ -41,7 +41,7 @@ class FirstDeployTest extends DeploymentTestCase
         $this->assertFileExists(self::REPOSITORY . '/storage/app/public/magic.gif');
 
         // When we deploy.
-        $this->artisan('deploy');
+        $this->artisan('deploy', ['-s' => 'firstdeploy']);
 
         // Then the `magic.gif` file in the shared folder comes from the repository.
         $this->assertFileExists(self::SERVER . '/shared/storage/app/public/magic.gif');
@@ -56,6 +56,8 @@ class FirstDeployTest extends DeploymentTestCase
     {
         // Given we already have a release of our app in the rootpath.
         $this->runInRoot('cp -r ' . self::REPOSITORY . '/* .');
+        $this->runInRoot('touch .env');
+        $this->assertFileExists(self::SERVER . '/.env');
         $this->assertDirectoryExists(self::SERVER . '/app');
         $this->assertDirectoryExists(self::SERVER . '/bootstrap');
         $this->assertDirectoryExists(self::SERVER . '/config');
@@ -63,18 +65,13 @@ class FirstDeployTest extends DeploymentTestCase
         $this->assertDirectoryExists(self::SERVER . '/public');
 
         // When we deploy and then cleanup.
-        $this->artisan('deploy');
-        $this->artisan('deploy:run', [
-            'task' => 'firstdeploy:cleanup'
-        ]);
+        $this->artisan('deploy', ['-s' => 'firstdeploy']);
 
-        // Then we are only left with the `current`, `releases` and `shared` folders.
-        $this->assertEquals(3, $this->runInRoot("ls -1 . | wc -l"));
+        // Then we are only left with the 4 Deployer folders.
+        $this->assertEquals(4, $this->runInRoot("ls -A1 . | wc -l"));
         $this->assertDirectoryExists(self::SERVER . '/current');
         $this->assertDirectoryExists(self::SERVER . '/releases');
         $this->assertDirectoryExists(self::SERVER . '/shared');
-
-        // And the hidden `.dep` folder.
         $this->assertDirectoryExists(self::SERVER . '/.dep');
     }
 }
