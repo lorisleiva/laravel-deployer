@@ -24,10 +24,21 @@ task('firstdeploy:cleanup', function () {
     $filesToKeep = '\.dep\|current\|release\|releases\|shared';
     $filesToDelete = run("echo `ls -A {{deploy_path}} | grep -v '^$filesToKeep$'`");
 
-    writeln("<info>Make sure that \"{{deploy_path}}/current\" is your new server root path!</info>");
-    writeln("<info>$filesToDelete</info>");
+    writeln('');
+    writeln('|' . str_repeat('-', 56));
+    writeln('| <fg=yellow;options=bold>[WARNING] You are about to delete some files</>');
+    writeln('|' .str_repeat('-', 56));
+    writeln('|');
+    writeln('| You are about to delete all files and folders from your');
+    writeln('| deployment path that are not deployer folders, that is:');
+    writeln('| > `.dep`, `current`, `release`, `releases` and `shared`');
+    writeln('| Make sure your server points to the "/current" symlink.');
+    writeln('');
+    writeln("<info>Deleting:</info> $filesToDelete");
+    writeln('<info>From directory:</info> {{deploy_path}}');
+    writeln('');
     
-    $question = "Are you sure you want to delete the following elements?\n$filesToDelete";
+    $question = "Are you sure you want to continue and delete those elements?";
     if (get('debug', false) || askConfirmation($question, false)) {
         run("cd {{deploy_path}} && rm -rf $filesToDelete");
     }
