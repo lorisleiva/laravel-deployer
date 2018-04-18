@@ -23,20 +23,7 @@ task('local:build', function() {
     invoke('deploy:prepare');
     invoke('deploy:release');
     invoke('deploy:update_code');
-
-    foreach (get('shared_dirs') as $dir) {
-        if (test("[ -d {{previous_release}}/$dir ]")) {
-            run("mkdir -p {{release_path}}/$dir");
-            run("rsync -r --ignore-existing {{previous_release}}/$dir {{release_path}}/" . dirname(parse($dir)));
-        }
-    }
-    foreach (get('shared_files') as $file) {
-        if (test("[ -f {{previous_release}}/$file ]")) {
-            run("mkdir -p {{release_path}}/" . dirname(parse($file)));
-            run("rsync --ignore-existing {{previous_release}}/$file {{release_path}}/$file");
-        }
-    }
-
+    copyShared('{{previous_release}}', '{{release_path}}');
     invoke('deploy:shared');
     invoke('deploy:vendors');
     invoke('hook:build');

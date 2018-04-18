@@ -11,3 +11,19 @@ function artisan($command, $showOutput = false) {
         }
     };
 }
+
+function copyShared($from, $to)
+{
+    foreach (get('shared_dirs') as $dir) {
+        if (test("[ -d $from/$dir ]")) {
+            run("mkdir -p $to/$dir");
+            run("rsync -r --ignore-existing $from/$dir $to/" . dirname(parse($dir)));
+        }
+    }
+    foreach (get('shared_files') as $file) {
+        if (test("[ -f $from/$file ]")) {
+            run("mkdir -p $to/" . dirname(parse($file)));
+            run("rsync --ignore-existing $from/$file $to/$file");
+        }
+    }
+}

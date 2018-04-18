@@ -4,19 +4,7 @@ namespace Deployer;
 
 desc('Copying the shared folder from the deploy path if possible');
 task('firstdeploy:shared', function () {
-    foreach (get('shared_dirs') as $dir) {
-        if (test("[ -d {{deploy_path}}/$dir ]")) {
-            run("mkdir -p {{release_path}}/$dir");
-            run("rsync -r --ignore-existing {{deploy_path}}/$dir {{release_path}}/" . dirname(parse($dir)));
-        }
-    }
-
-    foreach (get('shared_files') as $file) {
-        if (test("[ -f {{deploy_path}}/$file ]")) {
-            run("mkdir -p {{release_path}}/" . dirname(parse($file)));
-            run("rsync -r --ignore-existing {{deploy_path}}/$file {{release_path}}/$file");
-        }
-    }
+    copyShared('{{deploy_path}}', '{{release_path}}');
 });
 
 desc('Deletes everything from deploy path that isn\'t from deployer');
