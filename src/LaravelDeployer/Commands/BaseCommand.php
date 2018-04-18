@@ -100,7 +100,7 @@ class BaseCommand extends Command
             ->setWorkingDirectory(base_path())
             ->setTimeout(null)
             ->setIdleTimeout(null)
-            ->mustRun(function($type, $buffer) {
+            ->run(function($type, $buffer) {
                 $this->output->write($buffer);
             });
     }
