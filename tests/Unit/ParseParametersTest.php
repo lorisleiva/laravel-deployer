@@ -115,7 +115,7 @@ class ParseParametersTest extends TestCase
             new ConsoleOutput($this->parseVerbosity($verbosity))
         );
 
-        return $command->parseParametersAsString();
+        return $command->getParametersAsString();
     }
 
     protected function parseVerbosity($verbosity)

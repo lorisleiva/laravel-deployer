@@ -36,7 +36,9 @@ class DeployFile
 
     public function updateStrategy($strategy)
     {
-        $this->data->put('default', $strategy);
+        if (is_string($strategy)) {
+            $this->data->put('default', $strategy);
+        }
 
         return $this;
     }

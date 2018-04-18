@@ -35,6 +35,11 @@ class ConfigFile implements Arrayable
         $this->filesystem = app(Filesystem::class);
     }
 
+    public function get($key, $default = null)
+    {
+        return $this->configs->get($key, $default);
+    }
+
     public function toArray()
     {
         return $this->configs->toArray();

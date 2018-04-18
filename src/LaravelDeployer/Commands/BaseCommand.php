@@ -12,14 +12,12 @@ class BaseCommand extends Command
 {
     use ParsesCliParameters;
     
-    protected $depBinary;
-    protected $parameters;
+    protected $providedFile;
+    protected $providedStrategy;
     protected $useDeployerOptions = true;
 
     public function __construct()
     {
-        $this->depBinary = base_path('vendor/bin/dep');
-
         $deployerOptions = "
             {--s|strategy= : Default deployement strategy}
             {--p|parallel : Run tasks in parallel}
@@ -44,7 +42,8 @@ class BaseCommand extends Command
 
     public function dep($command)
     {
-        $this->parameters = $this->parseParameters();
+        $this->providedFile = $this->getParameters()->pull('--file');
+        $this->providedStrategy = $this->getParameters()->pull('--strategy');
 
         if (! $deployFile = $this->getDeployFile()) {
             $this->error("config/deploy.php file not found.");
@@ -52,46 +51,35 @@ class BaseCommand extends Command
             return;
         }
 
-        $basePath = base_path();
-        $parameters = $this->parseParametersAsString($this->parameters);
-        $this->process("$this->depBinary --file='$deployFile' $command $parameters");
+        $parameters = $this->getParametersAsString();
+        $this->process("vendor/bin/dep --file='$deployFile' $command $parameters");
     }
 
     public function getDeployFile()
     {
-        if ($this->parameters->has('--file')) {
-            $deployFile = $this->parameters->get('--file');
-            $this->parameters->forget('--file');
-            return $deployFile;
+        if ($this->providedFile) {
+            return $this->providedFile;
         }
 
         if ($customDeployFile = $this->getCustomDeployFile()) {
             return $customDeployFile;
         }
 
-        if (! $configFile = $this->getConfigFile()) {
-            return;
+        if ($configFile = $this->getConfigFile()) {
+            return $configFile
+                ->toDeployFile()
+                ->updateStrategy($this->providedStrategy)
+                ->store();
         }
-
-        $deployFile = $configFile->toDeployFile();
-
-        if ($this->parameters->has('--strategy')) {
-            $deployFile->updateStrategy($this->parameters->get('--strategy'));
-            $this->parameters->forget('--strategy');
-        }
-
-        return  $deployFile->store();
     }
 
     public function getConfigFile()
     {
-        if (! file_exists(base_path('config/deploy.php'))) {
-            return null;
+        if (file_exists(base_path('config/deploy.php'))) {
+            return new ConfigFile(
+                config('deploy') ?? include base_path('config/deploy.php')
+            );
         }
-
-        return new ConfigFile(
-            config('deploy') ?? include base_path('config/deploy.php')
-        );
     }
     
     public function getCustomDeployFile()
@@ -100,10 +88,8 @@ class BaseCommand extends Command
             return file_exists(base_path('deploy.php')) ? base_path('deploy.php') : null;
         }
 
-        $customDeployFile = array_get($configFile->toArray(), 'custom_deployer_file');
-
-        if (is_string($customDeployFile)) {
-            return file_exists(base_path($customDeployFile)) ? base_path($customDeployFile) : null;
+        if (is_string($custom = $configFile->get('custom_deployer_file'))) {
+            return file_exists(base_path($custom)) ? base_path($custom) : null;
         }
     }
 
