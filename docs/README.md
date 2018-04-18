@@ -4,7 +4,7 @@
 * [Getting started](overview-getting-started.md)
 * [Configure your hosts](overview-configure-hosts.md)
 * [Choose the right strategy](overview-strategy-choose.md) (TODO: Add more overviews)
-* [Create your own strategy](overview-strategy-create.md) (TODO)
+* [Create your own strategy](overview-strategy-create.md)
 * [Troubleshooting](troubleshooting.md)
 
 ## 🤔 Strategies
@@ -28,7 +28,7 @@ Deployment configurations
 Advanced usage
 * [How to create your own tasks and recipes?](how-to-custom-recipes.md)
 * [How to create complex strategies?](how-to-complex-strategies.md) (TODO)
-* [How to use your own deployer file?](how-to-custom-deployer-file.md) (TODO)
+* [How to use your own deployer file?](how-to-custom-deployer-file.md)
 * For more advanced documentation, please refer to the [Deployer documentation](https://deployer.org/docs).
 
 ## 🎁 Available resources 
