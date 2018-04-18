@@ -54,7 +54,7 @@ Finally, you can set up and override any options locally within a host. In the f
 
 ## Authentication
 
-By default, deployer will use your `~/.ssh/id_rsa` key. If you want a custom SSH set up, use the following options.
+By default, deployer will use your `~/.ssh/id_rsa` key to connect to your host. If you want a custom SSH set up, use the following set of options.
 
 ```php
 // config/deploy.php
@@ -67,7 +67,11 @@ By default, deployer will use your `~/.ssh/id_rsa` key. If you want a custom SSH
         'identityFile' => '~/.ssh/id_rsa',
         'forwardAgent' => true,
         'multiplexing' => true,
-        'sshOptions'   => [ 'key' => 'value' ],
+        'sshOptions'   => [ 
+            'UserKnownHostsFile' => '/dev/null',
+            'StrictHostKeyChecking' => 'no',
+            // ...
+        ],
     ],
 ],
 ```
