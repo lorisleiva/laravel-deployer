@@ -81,6 +81,14 @@ task('my_task', function () {
 });
 ```
 
+You can also invoke other tasks within your task via the `invoke` function.
+
+```php
+task('my_task', function () {
+    invoke('other:task');
+});
+```
+
 ### Simple tasks
 
 For tasks that simply need to execute some script on the server, you can define them in one line. By default all simple tasks cd to {{release_path}}, so you don't need to.

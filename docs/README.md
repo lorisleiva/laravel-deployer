@@ -27,7 +27,7 @@ Deployment configurations
 
 Advanced usage
 * [How to create your own tasks and recipes?](how-to-custom-recipes.md)
-* [How to create complex strategies?](how-to-complex-strategies.md) (TODO)
+* [How to create complex strategies?](how-to-complex-strategies.md)
 * [How to use your own deployer file?](how-to-custom-deployer-file.md)
 * For more advanced documentation, please refer to the [Deployer documentation](https://deployer.org/docs).
 
