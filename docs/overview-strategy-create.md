@@ -31,27 +31,27 @@ You can then use this key to choose a strategy:
 'default' => 'my_strategy',
 ```
 
-Don't forget to add hooks within your strategy if you have tasks defined in them. P.S.: you do not need to add the `start` and `done` hooks as they are predefined for every strategy.
+Don't forget to add hooks within your strategy if you have tasks defined in them.
 
 ```php
 // config/deploy.php
 
 'strategies' => [
     'my_strategy' => [
-        // Tasks hooked to `start` will be called here.
+        'hook:start',           // Tasks hooked to `start` will be called here.
         'deploy:prepare',
         'deploy:lock',
         'deploy:release',
         'deploy:update_code',
         'deploy:shared',
         'deploy:vendors',
-        'hook:build',       // Tasks hooked to `build` will be called here.
+        'hook:build',           // Tasks hooked to `build` will be called here.
         'deploy:writable',
-        'hook:ready',       // Tasks hooked to `ready` will be called here.
+        'hook:ready',           // Tasks hooked to `ready` will be called here.
         'deploy:symlink',
         'deploy:unlock',
         'cleanup',
-        // Tasks hooked to `done` will be called here.
+        'hook:done',            // Tasks hooked to `done` will be called here.
     ],
 ],
 ```

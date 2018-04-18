@@ -2,19 +2,9 @@
 
 namespace Deployer;
 
-/*
-|--------------------------------------------------------------------------
-| Locally-built deployment strategy
-|--------------------------------------------------------------------------
-|
-| This task defines the local strategy, responsible for deploying your app
-| without bothering your host with asset building. This task will build
-| your release locally and upload it to your server when it's ready.
-|
-*/
-
 desc('Local Strategy');
 task('strategy:local', [
+    'hook:start',
     'local:build',
     'deploy:prepare',
     'deploy:lock',
