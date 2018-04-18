@@ -141,8 +141,19 @@ EOD
         $deployFile = (string) new DeployFile([
             'hosts' => [
                 'elegon.io' => [
+                    'hostname' => 'elegon.io',
+                    'roles' => 'app',
                     'stage' => 'prod',
                     'user' => 'forge',
+                    'port' => 22,
+                    'configFile' => '~/.ssh/config',
+                    'identityFile' => '~/.ssh/id_rsa',
+                    'forwardAgent' => true,
+                    'multiplexing' => true,
+                    'sshOptions' => [
+                        'UserKnownHostsFile' => '/dev/null',
+                        'StrictHostKeyChecking' => 'no',
+                    ],
                     'deploy_path' => '/home/forge/elegon.io',
                     'foo' => ['bar' => ['baz' => true]],
                 ],
@@ -155,8 +166,17 @@ EOD
         $this->assertContains(
 <<<EOD
 host('elegon.io')
+    ->hostname('elegon.io')
+    ->roles('app')
     ->stage('prod')
     ->user('forge')
+    ->port(22)
+    ->configFile('~/.ssh/config')
+    ->identityFile('~/.ssh/id_rsa')
+    ->forwardAgent(true)
+    ->multiplexing(true)
+    ->addSshOption('UserKnownHostsFile', '/dev/null')
+    ->addSshOption('StrictHostKeyChecking', 'no')
     ->set('deploy_path', '/home/forge/elegon.io')
     ->set('foo', [
         'bar' => [

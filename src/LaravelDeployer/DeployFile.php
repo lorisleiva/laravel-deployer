@@ -20,6 +20,18 @@ class DeployFile
         'hooks',
     ];
 
+    const SPECIAL_HOST_KEYS = [
+        'hostname',
+        'roles',
+        'stage',
+        'user',
+        'port',
+        'configFile',
+        'identityFile',
+        'forwardAgent',
+        'multiplexing',
+    ];
+
     protected $data;
     protected $filesystem;
 
@@ -157,9 +169,15 @@ class DeployFile
     protected function renderHostOptions($options)
     {
         $options = collect($options)->map(function ($value, $key) {
-            $value = $this->render($value, 1, false);
+            if ($key === 'sshOptions' && is_array($value)) {
+                return collect($value)->map(function ($sshValue, $sshKey) {
+                    $sshValue = $this->render($sshValue, 1, false);
+                    return "    ->addSshOption('$sshKey', $sshValue)";
+                })->implode("\n");
+            }
             
-            return in_array($key, ['stage', 'user'])
+            $value = $this->render($value, 1, false);
+            return in_array($key, static::SPECIAL_HOST_KEYS)
                 ? "    ->$key($value)"
                 : "    ->set('$key', $value)";
         })->implode("\n");
