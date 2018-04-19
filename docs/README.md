@@ -9,9 +9,8 @@
 
 ## 🤔 Strategies
 * [Basic strategy](strategy-basic.md)
-* [First deploy strategy](strategy-first-deploy.md) (TODO)
+* [First deploy strategy](strategy-first-deploy.md)
 * [Locally-built strategy](strategy-local.md)
-* [Git pull only strategy](strategy-git-pull.md) (TODO)
 
 ## 🤓 How-tos
 
