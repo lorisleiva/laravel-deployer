@@ -1,0 +1,61 @@
+<?php
+
+namespace Deployer;
+
+/**
+ * Get global starting time of deployment.
+ * No matter how many hosts are being deployed on.
+ */
+task('get_start_time', function () {
+    set('deploy_start_time', microtime(true));
+})
+    ->local()
+    ->shallow()
+    ->setPrivate();
+
+/**
+ * @override
+ * Include total execution time in success message.
+ */
+task('success', function () {
+    $start = get('deploy_start_time');
+    $message = '🚀  <info>Successfully deployed</info>';
+
+    if (is_null($start)) {
+        return writeln($message);
+    }
+
+    $time = microtime(true) - $start;
+    $unit = $time < 1 ? 'ms' : 's';
+    $time = $time < 1 ? round($time * 1000) : round($time, 2);
+    $timeMessage = " in $time$unit";
+    writeln("$message$timeMessage");
+})
+    ->local()
+    ->shallow()
+    ->setPrivate();
+
+/**
+ * @override
+ * Include strategy in information message.
+ */
+task('deploy:info', function () {
+    $what = '';
+    $branch = get('branch');
+    if (!empty($branch)) {
+        $what = "<fg=magenta>$branch</fg=magenta>";
+    }
+    if (input()->hasOption('tag') && !empty(input()->getOption('tag'))) {
+        $tag = input()->getOption('tag');
+        $what = "tag <fg=magenta>$tag</fg=magenta>";
+    } elseif (input()->hasOption('revision') && !empty(input()->getOption('revision'))) {
+        $revision = input()->getOption('revision');
+        $what = "revision <fg=magenta>$revision</fg=magenta>";
+    }
+    if (empty($what)) {
+        $what = "<fg=magenta>HEAD</fg=magenta>";
+    }
+    writeln("✈︎ Deploying $what on <fg=cyan>{{hostname}}</fg=cyan> with <info>{{strategy}}</info> strategy");
+})
+    ->shallow()
+    ->setPrivate();

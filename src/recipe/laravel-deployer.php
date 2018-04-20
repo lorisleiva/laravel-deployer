@@ -28,6 +28,7 @@ require 'recipe/laravel.php';
 
 require 'task/defaults.php';
 require 'task/helpers.php';
+require 'task/common.php';
 
 require 'task/firstdeploy.php';
 require 'task/fpm.php';
@@ -65,17 +66,21 @@ require 'strategy/local.php';
 
 desc('Deploy your application');
 task('deploy', function() {
-    $strategy = 'strategy:' . get('strategy', 'basic');
-    
-    if (! task($strategy)) {
-        writeln('<error>Strategy not found</error>');
-        return invoke('deploy:fail');
+    try {
+        $strategy = get('strategy');
+        task("strategy:$strategy");
+    } catch (\InvalidArgumentException $e) {
+        throw new \InvalidArgumentException("Strategy `$strategy` not found");
     }
     
     invoke('deploy:info');
-    invoke($strategy);
-    invoke('success');
-});
+    invoke("strategy:$strategy");
+})->shallow();
 
+// Calculate total execution time on success.
+before('deploy', 'get_start_time');
+after('deploy', 'success');
+
+// Unlock when deployment fails.
 fail('deploy', 'deploy:failed');
 after('deploy:failed', 'deploy:unlock');
