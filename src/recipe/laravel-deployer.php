@@ -33,6 +33,7 @@ require 'task/common.php';
 require 'task/fpm.php';
 require 'task/hook.php';
 require 'task/horizon.php';
+require 'task/logs.php';
 require 'task/npm.php';
 
 /*

@@ -16,6 +16,7 @@ class LaravelDeployerServiceProvider extends ServiceProvider
         Commands\DeployList::class,
         Commands\DeployRollback::class,
         Commands\DeployRun::class,
+        Commands\Logs::class,
         Commands\Ssh::class,
     ];
 
