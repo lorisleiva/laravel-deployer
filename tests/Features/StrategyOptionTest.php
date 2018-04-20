@@ -4,7 +4,7 @@ namespace Lorisleiva\LaravelDeployer\Test\Features;
 
 use Lorisleiva\LaravelDeployer\Test\DeploymentTestCase;
 
-class DeployRollbackTest extends DeploymentTestCase
+class StrategyOptionTest extends DeploymentTestCase
 {
     protected $configs = 'basic';
 
