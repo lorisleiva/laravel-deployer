@@ -25,8 +25,18 @@ class DeployInit extends BaseCommand
 
     public function handle()
     {
+        if ($this->configFileExists()) {
+            return;
+        }
+        
         $this->configureBuilder();
         $this->builder->build()->store();
+    }
+
+    public function configFileExists()
+    {
+        return file_exists(base_path('config/deploy.php'))
+            && ! $this->confirm("<fg=red;options=bold>A configuration file already exists.</>\nAre you sure you want to continue and override it?");
     }
 
     public function configureBuilder()
