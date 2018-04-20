@@ -10,24 +10,33 @@ class LogsTest extends DeploymentTestCase
     function it_should_show_the_laravel_log_file_and_hide_error_stack_by_default()
     {
         $this->artisan('deploy');
-        $this->runInRoot('echo "Error A" >> shared/storage/logs/laravel.log');
-        $this->runInRoot('echo "#1 stack" >> shared/storage/logs/laravel.log');
-        $this->runInRoot('echo "#56 stack" >> shared/storage/logs/laravel.log');
-        $this->runInRoot('echo "#1293 stack" >> shared/storage/logs/laravel.log');
-        $this->runInRoot('echo "Error B" >> shared/storage/logs/laravel.log');
-        $this->runInRoot('echo "Error C" >> shared/storage/logs/laravel.log');
-        $this->runInRoot('echo "#iamnotastackerrormkay" >> shared/storage/logs/laravel.log');
-        $this->runInRoot('echo "Me neither #1" >> shared/storage/logs/laravel.log');
+
+        $authorized = [
+            '[2018-04-17 14:02:53] production.ERROR: Error message',
+            'Just a random log that has the word stacktrace',
+            '#iamnotastackerrormkay',
+            'Me neither #1',
+        ];
+
+        $unauthorized = [
+            '[stacktrace]',
+            '#9 /path/to/something(104): Error message',
+            '#10 /path/to/something/else(54): Error message',
+            '"}',
+        ];
+
+        foreach (array_merge($authorized, $unauthorized) as $log) {
+            $this->runInRoot("echo '$log' >> shared/storage/logs/laravel.log");
+        }
 
         $output = $this->artisan('logs');
 
-        $this->assertContains('Error A', $output);
-        $this->assertNotContains('#1 stack', $output);
-        $this->assertNotContains('#2 stack', $output);
-        $this->assertNotContains('#3 stack', $output);
-        $this->assertContains('Error B', $output);
-        $this->assertContains('Error C', $output);
-        $this->assertContains('#iamnotastackerrormkay', $output);
-        $this->assertContains('Me neither #1', $output);
+        foreach ($authorized as $log) {
+            $this->assertContains($log, $output);
+        }
+
+        foreach ($unauthorized as $log) {
+            $this->assertNotContains($log, $output);
+        }
     }
 }

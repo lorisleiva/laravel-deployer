@@ -2,7 +2,7 @@
 
 namespace Deployer;
 
-set('log_command', 'cat storage/logs/laravel.log | grep -v "^#\d"');
+set('log_command', 'cat storage/logs/laravel.log | grep -Ev "^#\d|^\[stacktrace\]$|^\"\}$"');
 
 desc('Read logs from a given host');
 task('logs', function() {
