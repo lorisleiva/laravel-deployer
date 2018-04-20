@@ -31,7 +31,7 @@ Before starting you first deployment, you should go check your `config/deploy.ph
     | of your hosts. Laravel Deployer provides some strategies out-of-box
     | for you to choose from explained in detail in the documentation.
     |
-    | Supported: 'basic' and 'local'.
+    | Supported: 'basic', 'firstdeploy', 'local', 'pull'.
     |
     */
 
