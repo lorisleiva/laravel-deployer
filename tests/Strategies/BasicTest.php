@@ -29,7 +29,7 @@ class BasicDeploymentTest extends DeploymentTestCase
         $this->assertContains('Executing task deploy:symlink', $output);
         $this->assertContains('Executing task deploy:unlock', $output);
         $this->assertContains('Executing task cleanup', $output);
-        $this->assertContains('Successfully deployed!', $output);
+        $this->assertContains('Successfully deployed', $output);
         $this->assertSuccessfulDeployment();
     }
 }

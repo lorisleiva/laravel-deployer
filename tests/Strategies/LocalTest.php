@@ -16,7 +16,7 @@ class LocalDeploymentTest extends DeploymentTestCase
         $this->assertContains('Executing task local:build', $output);
         $this->assertContains('Executing task local:upload', $output);
         $this->assertContains('Executing task local:cleanup', $output);
-        $this->assertContains('Successfully deployed!', $output);
+        $this->assertContains('Successfully deployed', $output);
         $this->assertSuccessfulDeployment();
         $this->assertServerMiss('node_modules');
         $this->assertServerAssetsAreCompiled();
