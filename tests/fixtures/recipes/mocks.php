@@ -22,3 +22,6 @@ task('artisan:view:clear', function() {});
 task('artisan:cache:clear', function() {});
 task('artisan:config:cache', function() {});
 task('artisan:optimize', function() {});
+
+// Mock public info task
+task('deploy:info_debug', ['deploy:info']);

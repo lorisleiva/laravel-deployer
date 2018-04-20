@@ -12,6 +12,7 @@ class BaseCommand extends Command
 {
     use ParsesCliParameters;
     
+    protected $parameters;
     protected $providedFile;
     protected $providedStrategy;
     protected $useDeployerOptions = true;
@@ -42,8 +43,9 @@ class BaseCommand extends Command
 
     public function dep($command)
     {
-        $this->providedFile = $this->getParameters()->pull('--file');
-        $this->providedStrategy = $this->getParameters()->pull('--strategy');
+        $this->parameters = $this->getParameters();
+        $this->providedFile = $this->parameters->pull('--file');
+        $this->providedStrategy = $this->parameters->pull('--strategy');
 
         if (! $deployFile = $this->getDeployFile()) {
             $this->error("config/deploy.php file not found.");
@@ -51,7 +53,7 @@ class BaseCommand extends Command
             return;
         }
 
-        $parameters = $this->getParametersAsString();
+        $parameters = $this->getParametersAsString($this->parameters);
         $this->process("vendor/bin/dep --file='$deployFile' $command $parameters");
     }
 

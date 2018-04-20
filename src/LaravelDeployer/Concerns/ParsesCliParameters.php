@@ -6,20 +6,15 @@ use Symfony\Component\Console\Input\ArrayInput;
 
 trait ParsesCliParameters
 {
-    private $parameters;
-
-    public function getParametersAsString()
+    public function getParametersAsString($parameters = null)
     {
-        return (string) new ArrayInput($this->getParameters()->toArray(), null);
+        $parameters = $parameters ?? $this->getParameters();
+        return (string) new ArrayInput($parameters->toArray(), null);
     }
 
     public function getParameters()
     {
-        if ($this->parameters) {
-            return $this->parameters;
-        }
-
-        return $this->parameters = $this->parseArguments()
+        return $this->parseArguments()
             ->merge($this->parseOptions())
             ->merge($this->parseVerbosityLevel());
     }

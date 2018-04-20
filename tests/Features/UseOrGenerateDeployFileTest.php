@@ -74,7 +74,7 @@ class UseOrGenerateDeployFileTest extends DeploymentTestCase
             localhost()->set('deploy_path', '".static::SERVER."');
             set('strategy', '$strategy');
             task('show:strategy:$strategy', function() {});
-            task('strategy:$strategy', ['deploy:prepare', 'show:strategy:$strategy']);
+            task('strategy:$strategy', ['show:strategy:$strategy']);
         ");
     }
 }
