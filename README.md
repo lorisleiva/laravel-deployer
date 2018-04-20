@@ -44,7 +44,7 @@ php artisan deploy
 
 * If anything goes wrong during the deployment flow, the release will be discarded just like nothing happened.
 * Because we are using zero-downtime deployments, make sure your server’s root path points to the `{{deploy_path}}/current` symlink.
-* If your project has already been deployed, before using Laravel Deployer, you might be interested in this [first deployment strategy](docs/strategy-firstdeploy.md).
+* If your project has already been deployed, before using Laravel Deployer, you might be interested in this [first deployment strategy](docs/strategy-first-deploy.md).
 
 ## 📜 Available commands
 
