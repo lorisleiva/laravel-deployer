@@ -37,6 +37,7 @@ In the example below, `dev.domain.com` and `staging.domain.com` will be using th
 | **basic** ([doc](strategy-basic.md)) | Simple deployment process that takes place inside the host intself | ![Overview basic schema](https://user-images.githubusercontent.com/3642397/38679147-4369458c-3e63-11e8-8888-e062dcbbff09.png) |
 | **firstdeploy** ([doc](strategy-first-deploy.md)) | Simple deployment process optimised for first deployments on already live hosts. | ![Overview firstdeploy schema](https://user-images.githubusercontent.com/3642397/38944793-069f46f2-4335-11e8-9b89-4c9e11e885a4.png) |
 | **local** ([doc](strategy-local.md)) | Builds your release locally and upload it to your server when it's ready. | ![Overview local schema](https://user-images.githubusercontent.com/3642397/38679148-43898e82-3e63-11e8-9810-3d5d81116a2a.png) |
+| **pull** ([doc](strategy-pull.md)) | Simply runs `git pull` in your current folder, therefore does not provide zero-downtime. | ![Overview pull schema](https://user-images.githubusercontent.com/3642397/39048055-7d20fe0c-449c-11e8-87cc-e5d9a9f09066.png) |
 
 Learn how to create your own strategy [here](overview-strategy-create.md).
 
