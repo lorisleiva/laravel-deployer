@@ -21,6 +21,7 @@ class DeployFile
     ];
 
     const SPECIAL_HOST_KEYS = [
+        'become',
         'hostname',
         'roles',
         'stage',
