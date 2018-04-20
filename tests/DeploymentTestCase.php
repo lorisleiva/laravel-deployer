@@ -116,7 +116,7 @@ class DeploymentTestCase extends TestCase
             'public/index.php',
             'resources',
             'routes',
-            'storage/app/public/magic.gif',
+            'storage/app/public/magic.jpg',
             'tests',
             '.env',
             'artisan',

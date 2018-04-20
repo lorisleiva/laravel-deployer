@@ -12,3 +12,13 @@ task('npm:development', function() {
     run('echo "compiled app.css" > {{release_path}}/public/css/app.css');
     run('echo "compiled app.js" > {{release_path}}/public/js/app.js');
 });
+
+// Mock vendors
+task('deploy:vendors', function() {});
+
+// Mock artisan commands
+task('artisan:storage:link', function() {});
+task('artisan:view:clear', function() {});
+task('artisan:cache:clear', function() {});
+task('artisan:config:cache', function() {});
+task('artisan:optimize', function() {});

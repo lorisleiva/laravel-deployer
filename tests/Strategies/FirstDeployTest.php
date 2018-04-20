@@ -32,22 +32,22 @@ class FirstDeployTest extends DeploymentTestCase
     /** @test */
     function in_case_of_conflict_it_takes_items_from_the_release_path()
     {
-        // Given we have a `magic.gif` file on the rootpath
+        // Given we have a `magic.jpg` file on the rootpath
         $this->runInRoot('mkdir -p storage/app/public');
-        $this->runInRoot('touch storage/app/public/magic.gif');
-        $this->assertFileExists(self::SERVER . '/storage/app/public/magic.gif');
+        $this->runInRoot('touch storage/app/public/magic.jpg');
+        $this->assertFileExists(self::SERVER . '/storage/app/public/magic.jpg');
 
-        // And a `magic.gif` file on the repository itself.
-        $this->assertFileExists(self::REPOSITORY . '/storage/app/public/magic.gif');
+        // And a `magic.jpg` file on the repository itself.
+        $this->assertFileExists(self::REPOSITORY . '/storage/app/public/magic.jpg');
 
         // When we deploy.
         $this->artisan('deploy', ['-s' => 'firstdeploy']);
 
-        // Then the `magic.gif` file in the shared folder comes from the repository.
-        $this->assertFileExists(self::SERVER . '/shared/storage/app/public/magic.gif');
+        // Then the `magic.jpg` file in the shared folder comes from the repository.
+        $this->assertFileExists(self::SERVER . '/shared/storage/app/public/magic.jpg');
         $this->assertFileEquals(
-            self::REPOSITORY . '/storage/app/public/magic.gif', 
-            self::SERVER . '/shared/storage/app/public/magic.gif'
+            self::REPOSITORY . '/storage/app/public/magic.jpg', 
+            self::SERVER . '/shared/storage/app/public/magic.jpg'
         );
     }
 
