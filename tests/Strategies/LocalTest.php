@@ -4,7 +4,7 @@ namespace Lorisleiva\LaravelDeployer\Test\Strategies;
 
 use Lorisleiva\LaravelDeployer\Test\DeploymentTestCase;
 
-class LocalDeploymentTest extends DeploymentTestCase
+class LocalTest extends DeploymentTestCase
 {
     protected $configs = 'basic';
 
