@@ -30,13 +30,10 @@ require 'task/defaults.php';
 require 'task/helpers.php';
 require 'task/common.php';
 
-require 'task/firstdeploy.php';
 require 'task/fpm.php';
 require 'task/hook.php';
 require 'task/horizon.php';
-require 'task/local.php';
 require 'task/npm.php';
-
 
 /*
 |--------------------------------------------------------------------------
@@ -66,19 +63,13 @@ require 'strategy/local.php';
 
 desc('Deploy your application');
 task('deploy', function() {
-    try {
-        $strategy = get('strategy');
-        task("strategy:$strategy");
-    } catch (\InvalidArgumentException $e) {
-        throw new \InvalidArgumentException("Strategy `$strategy` not found");
-    }
-    
+    invoke('ld:check_strategy');
     invoke('deploy:info');
-    invoke("strategy:$strategy");
+    invoke('strategy:' . get('strategy'));
 })->shallow();
 
 // Calculate total execution time on success.
-before('deploy', 'get_start_time');
+before('deploy', 'ld:get_start_time');
 after('deploy', 'success');
 
 // Unlock when deployment fails.

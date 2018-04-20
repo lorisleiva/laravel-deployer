@@ -3,10 +3,24 @@
 namespace Deployer;
 
 /**
+ * Throws an exception if current strategy does not exist.
+ */
+task('ld:check_strategy', function () {
+    $strategy = get('strategy');
+    try {
+        task("strategy:$strategy");
+    } catch (\InvalidArgumentException $e) {
+        throw new \InvalidArgumentException("Strategy `$strategy` not found");
+    }
+})
+    ->shallow()
+    ->setPrivate();
+
+/**
  * Get global starting time of deployment.
  * No matter how many hosts are being deployed on.
  */
-task('get_start_time', function () {
+task('ld:get_start_time', function () {
     set('deploy_start_time', microtime(true));
 })
     ->local()
