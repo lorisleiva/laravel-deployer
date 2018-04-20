@@ -58,5 +58,6 @@ deploy:init           # Generate a deploy.php configuration file
 deploy:list           # Lists available tasks
 deploy:rollback       # Rollback to previous release
 deploy:run <task>     # Execute a given task on your hosts
+logs                  # Dump the remote logs of your application
 ssh                   # Connect to host through ssh
 ```
