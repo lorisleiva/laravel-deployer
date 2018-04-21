@@ -7,6 +7,8 @@ use Lorisleiva\LaravelDeployer\Test\DeploymentTestCase;
 
 class DeployInitTest extends DeploymentTestCase
 {
+    protected $configs = null;
+    
     /** @test */
     function it_generates_a_minimal_config_file()
     {
