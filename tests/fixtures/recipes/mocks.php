@@ -25,6 +25,3 @@ task('artisan:optimize', function() {});
 
 // Mock public info task
 task('deploy:info_debug', ['deploy:info']);
-
-// Mock git_tty option
-set('git_tty', false);
