@@ -114,7 +114,7 @@ class DeployInit extends BaseCommand
         }
 
         if($this->confirm('Do you want to reload php-fpm after each deployment?')) {
-            return $this->builder()->reloadFpm($this->askPhpVersion());
+            return $this->builder->reloadFpm($this->askPhpVersion());
         };
     }
 
