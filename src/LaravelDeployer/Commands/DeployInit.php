@@ -61,6 +61,8 @@ class DeployInit extends BaseCommand
 
         if ($this->option('forge')) {
             $this->builder->useForge();
+        } else {
+            $this->builder->reloadFpm();
         }
 
         $this->builder->add('hooks.build', 'npm:install');
@@ -108,8 +110,20 @@ class DeployInit extends BaseCommand
     {
         $question = 'Do you use Laravel Forge to maintain your server?';
         if ($this->option('forge') || $this->confirm($question)) {
-            return $this->builder->useForge();
+            return $this->builder->useForge($this->askPhpVersion());
         }
+
+        if($this->confirm('Do you want to reload php-fpm after each deployment?')) {
+            return $this->builder()->reloadFpm($this->askPhpVersion());
+        };
+    }
+
+    public function askPhpVersion()
+    {
+        return $this->ask(
+            'Which php version are you using? (format: #.#)', 
+            ConfigFileBuilder::DEFAULT_PHP_VERSION
+        );
     }
 
     public function defineDeployementPath()

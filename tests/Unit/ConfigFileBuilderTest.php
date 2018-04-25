@@ -176,7 +176,29 @@ class ConfigFileBuilderTest extends TestCase
                     ],
                 ],
                 'options' => [
-                    'php_fpm_service' => 'php7.1-fpm'
+                    'php_fpm_service' => 'php' . ConfigFileBuilder::DEFAULT_PHP_VERSION . '-fpm'
+                ],
+            ],
+            $config->toArray()
+        );
+    }
+
+    /** @test */
+    function it_can_set_to_reload_php_fpm_after_each_deployment()
+    {
+        $config = (new ConfigFileBuilder)
+            ->reloadFpm('7.0')
+            ->build();
+
+        $this->assertArraySubset(
+            [
+                'hooks' => [
+                    'done' => [
+                        'fpm:reload',
+                    ],
+                ],
+                'options' => [
+                    'php_fpm_service' => 'php7.0-fpm'
                 ],
             ],
             $config->toArray()

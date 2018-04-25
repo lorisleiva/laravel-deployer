@@ -3,6 +3,7 @@
 namespace Lorisleiva\LaravelDeployer\Test\Commands;
 
 use Illuminate\Contracts\Console\Kernel;
+use Lorisleiva\LaravelDeployer\ConfigFileBuilder;
 use Lorisleiva\LaravelDeployer\Test\DeploymentTestCase;
 
 class DeployInitTest extends DeploymentTestCase
@@ -91,7 +92,7 @@ class DeployInitTest extends DeploymentTestCase
             "options" => [
                 "application" => "Laravel",
                 "repository" => "",
-                'php_fpm_service' => 'php7.1-fpm',
+                'php_fpm_service' => 'php' . ConfigFileBuilder::DEFAULT_PHP_VERSION . '-fpm',
             ],
             "hosts" => [
                 "elegon.io" => [

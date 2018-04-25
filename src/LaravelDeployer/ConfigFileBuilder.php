@@ -6,6 +6,8 @@ use Lorisleiva\LaravelDeployer\ConfigFile;
 
 class ConfigFileBuilder
 {
+    const DEFAULT_PHP_VERSION = '7.2';
+
     protected $laravelHooks = [
         'artisan:storage:link',
         'artisan:view:clear',
@@ -144,12 +146,25 @@ class ConfigFileBuilder
      *
      * @return ConfigFileGenerator
      */
-    public function useForge()
+    public function useForge($phpVersion = self::DEFAULT_PHP_VERSION)
     {
-        $this->add('hooks.done', 'fpm:reload');
-        $this->set('options.php_fpm_service', 'php7.1-fpm');
+        $this->reloadFpm($phpVersion);
         $this->setHost('deploy_path', '/home/forge/' . $this->getHostname());
         $this->setHost('user', 'forge');
+
+        return $this;
+    }
+
+    /**
+     * Reload PHP-FPM after every deployment.
+     *
+     * @param string $phpVersion The php-fpm version to reload
+     * @return ConfigFileGenerator
+     */
+    public function reloadFpm($phpVersion = self::DEFAULT_PHP_VERSION)
+    {
+        $this->add('hooks.done', 'fpm:reload');
+        $this->set('options.php_fpm_service', "php$phpVersion-fpm");
 
         return $this;
     }
