@@ -243,7 +243,7 @@ after('hook:build', 'npm:production');
 after('hook:ready', 'artisan:cache:clear');
 after('hook:ready', 'artisan:migrate');
 after('hook:done', 'fpm:reload');
-after('deploy:fail', 'slack:notify:failure');
+after('deploy:failed', 'slack:notify:failure');
 after('success', 'slack:notify:success');
 EOD
         , $deployFile);

@@ -158,7 +158,7 @@ class DeployFile
                         case 'success':
                             return "after('success', '$task');";
                         case 'fail':
-                            return "after('deploy:fail', '$task');";
+                            return "after('deploy:failed', '$task');";
                         default:
                             return "after('hook:$hook', '$task');";
                     }
