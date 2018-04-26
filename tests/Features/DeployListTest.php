@@ -15,7 +15,6 @@ class DeployListTest extends DeploymentTestCase
         $this->assertContains('firstdeploy:cleanup', $output);
         $this->assertContains('firstdeploy:shared', $output);
         $this->assertContains('fpm:reload', $output);
-        $this->assertContains('horizon:terminate', $output);
         $this->assertContains('npm:development', $output);
         $this->assertContains('npm:production', $output);
         $this->assertContains('local:build', $output);
@@ -30,6 +29,7 @@ class DeployListTest extends DeploymentTestCase
         $this->assertContains('artisan:config:cache', $output);
         $this->assertContains('artisan:db:seed', $output);
         $this->assertContains('artisan:down', $output);
+        $this->assertContains('artisan:horizon:terminate', $output);
         $this->assertContains('artisan:migrate', $output);
         $this->assertContains('artisan:migrate:fresh', $output);
         $this->assertContains('artisan:migrate:rollback', $output);
@@ -54,7 +54,6 @@ class DeployListTest extends DeploymentTestCase
         $this->assertContains('deploy:copy_dirs', $output);
         $this->assertContains('deploy:lock', $output);
         $this->assertContains('deploy:prepare', $output);
-        $this->assertContains('deploy:public_disk', $output);
         $this->assertContains('deploy:release', $output);
         $this->assertContains('deploy:shared', $output);
         $this->assertContains('deploy:symlink', $output);
