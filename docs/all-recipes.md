@@ -39,7 +39,3 @@ To use any of them, simply add `'recipe/<recipe_name>.php'` to your includes and
 | `yammer` | Sends messages to yammer including success and failure messages. | [doc](https://github.com/deployphp/recipes/blob/master/docs/yammer.md) |
 | `yarn` | Install Yarn packages. | [doc](https://github.com/deployphp/recipes/blob/master/docs/yarn.md) |
 | `raygun` | Send deployment details to Raygun. | [doc](https://github.com/deployphp/recipes/blob/master/docs/raygun.md) |
-
-## Framework recipes from deployphp/deployer
-
-In case you're interested, Deployer also provides a handful of framework-based recipes like Symfony, Magento, FuelPHP, etc. In fact, it also provides a Laravel recipe that Laravel Deployer is extending.
