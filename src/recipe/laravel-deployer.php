@@ -2,18 +2,7 @@
 
 namespace Deployer;
 
-/*
-|--------------------------------------------------------------------------
-| Official laravel recipe
-|--------------------------------------------------------------------------
-|
-| Provides various artisan commands as deployer tasks starting with the
-| `artisan` namespace, e.g. `artisan:down` to run `php artisan down`,
-| and sets up default options like `shared_files` or `shared_dirs`.
-|
-*/
-
-require 'recipe/laravel.php';
+require 'recipe/common.php';
 
 /*
 |--------------------------------------------------------------------------
@@ -30,9 +19,9 @@ require 'task/defaults.php';
 require 'task/helpers.php';
 require 'task/common.php';
 
+require 'task/artisan.php';
 require 'task/fpm.php';
 require 'task/hook.php';
-require 'task/horizon.php';
 require 'task/logs.php';
 require 'task/npm.php';
 
