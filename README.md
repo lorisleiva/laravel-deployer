@@ -8,7 +8,7 @@ Laravel Deployer is a lightweight wrapper of [Deployer.org](https://github.com/d
 
 <p align="center">
   <a href="docs/README.md"><img src="https://user-images.githubusercontent.com/3642397/38672391-50caf9e2-3e4e-11e8-862f-465d55e7e8d9.png" alt="Documentation button" height="50"></a>   
-  <a href="http://lorisleiva.com/zero-downtime-deployment"><img src="https://user-images.githubusercontent.com/3642397/38672387-508e6f9a-3e4e-11e8-862c-3fc42b54f6d4.png" alt="Blog article button" height="50"></a>
+  <a href="https://www.youtube.com/playlist?list=PLP7iaQb3O2XsexM_5HMrcKNCu0IOcxIDh"><img src="https://user-images.githubusercontent.com/3642397/39360000-a2f5d668-4a1c-11e8-8869-fa7fa027fe96.png" alt="Video tutorials button" height="50"></a>
 </p>
 
 ## ✨ Features
