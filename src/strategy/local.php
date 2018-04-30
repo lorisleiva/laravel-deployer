@@ -34,7 +34,7 @@ set('local_keep_releases', 1);
 set('local_upload_options', [
     'options' => [ 
         '--exclude=.git',
-        '--exclude=vendor',
+        '--exclude=/vendor',
         '--exclude=node_modules',
     ],
 ]);
