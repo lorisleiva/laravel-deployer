@@ -12,7 +12,6 @@ task('strategy:local', [
     'deploy:update_code',
     'local:upload',
     'deploy:shared',
-    'firstdeploy:shared',
     'deploy:vendors',
     'deploy:writable',
     'hook:ready',
