@@ -5,6 +5,7 @@ return [
     'options' => [
         'application' => env('APP_NAME', 'Laravel'),
         'repository' => '{{repo}}',
+        'upload_path' => '{{repo}}',
         'branch' => null,
         'debug' => true,
     ],
