@@ -47,6 +47,8 @@ php artisan deploy -s pull
 | **firstdeploy** ([doc](strategy-first-deploy.md)) | Simple deployment process optimised for first deployments on already live hosts. | ![Overview firstdeploy schema](https://user-images.githubusercontent.com/3642397/38944793-069f46f2-4335-11e8-9b89-4c9e11e885a4.png) |
 | **local** ([doc](strategy-local.md)) | Builds your release locally and upload it to your server when it's ready. | ![Overview local schema](https://user-images.githubusercontent.com/3642397/38679148-43898e82-3e63-11e8-9810-3d5d81116a2a.png) |
 | **pull** ([doc](strategy-pull.md)) | Simply runs `git pull` in your current folder, therefore does not provide zero-downtime. | ![Overview pull schema](https://user-images.githubusercontent.com/3642397/39048055-7d20fe0c-449c-11e8-87cc-e5d9a9f09066.png) |
+| **upload** ([doc](strategy-upload.md)) | Uploads a production-ready folder directly within a new release. | ![Overview upload schema](https://user-images.githubusercontent.com/3642397/41128457-7f1d3026-6aae-11e8-93e2-98a23973df5d.png) |
+
 
 Learn how to create your own strategy [here](overview-strategy-create.md).
 
