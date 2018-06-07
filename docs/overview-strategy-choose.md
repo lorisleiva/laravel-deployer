@@ -30,6 +30,15 @@ In the example below, `dev.domain.com` and `staging.domain.com` will be using th
 ]
 ```
 
+## Choose your strategy when running the command
+
+You can override your default strategy when running `php artisan deploy` by providing the `--strategy` or `-s` option.
+
+```bash
+# This enables you to run a quick git pull update without editing your configurations.
+php artisan deploy -s pull
+```
+
 ## Overview of available strategies
 
 | Strategy | Description | Quick schema |
