@@ -150,7 +150,7 @@ class DeploymentTestCase extends TestCase
     {
         foreach ($files as $file => $expectedContent) {
             $this->assertStringEqualsFile(
-                self::SERVER . '/current/' . $file, 
+                self::SERVER . '/current/' . $file,
                 "$expectedContent\n"
             );
         }

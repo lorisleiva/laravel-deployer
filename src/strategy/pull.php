@@ -13,7 +13,7 @@ task('strategy:pull', [
     'hook:done',
 ]);
 
-/** 
+/**
  * Strategy specific tasks
  */
 

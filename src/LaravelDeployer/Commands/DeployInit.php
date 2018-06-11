@@ -45,7 +45,7 @@ class DeployInit extends BaseCommand
             return $this->allOptions();
         }
 
-        $this->welcomeMessage('🚀',  'Let\'s configure your deployment!');
+        $this->welcomeMessage('🚀', 'Let\'s configure your deployment!');
         $this->defineRepositoryUrl();
         $this->defineHostname();
         $this->defineForge();
@@ -87,7 +87,7 @@ class DeployInit extends BaseCommand
     public function defineRepositoryUrl()
     {
         $repository = $this->ask(
-            'Repository URL', 
+            'Repository URL',
             $this->builder->get('options.repository')
         );
 
@@ -98,7 +98,7 @@ class DeployInit extends BaseCommand
     {
         if (! $hostname = $this->argument('hostname')) {
             $hostname = $this->ask(
-                'Hostname of your deployment server', 
+                'Hostname of your deployment server',
                 $this->builder->getHostname()
             );
         }
@@ -113,7 +113,7 @@ class DeployInit extends BaseCommand
             return $this->builder->useForge($this->askPhpVersion());
         }
 
-        if($this->confirm('Do you want to reload php-fpm after each deployment?')) {
+        if ($this->confirm('Do you want to reload php-fpm after each deployment?')) {
             return $this->builder->reloadFpm($this->askPhpVersion());
         };
     }
@@ -121,7 +121,7 @@ class DeployInit extends BaseCommand
     public function askPhpVersion()
     {
         return $this->ask(
-            'Which php version are you using? (format: #.#)', 
+            'Which php version are you using? (format: #.#)',
             ConfigFileBuilder::DEFAULT_PHP_VERSION
         );
     }
@@ -129,7 +129,7 @@ class DeployInit extends BaseCommand
     public function defineDeployementPath()
     {
         $path = $this->ask(
-            'Deployment path (absolute to the server)', 
+            'Deployment path (absolute to the server)',
             $this->builder->getHost('deploy_path')
         );
 
@@ -139,8 +139,9 @@ class DeployInit extends BaseCommand
     public function defineAdditionalHooks()
     {
         $npm = $this->choice(
-            'Do you want to compile your asset during deployment?', 
-            ['No', 'Yes using `npm run production`', 'Yes using `npm run development`'], 1
+            'Do you want to compile your asset during deployment?',
+            ['No', 'Yes using `npm run production`', 'Yes using `npm run development`'],
+            1
         );
 
         if ($npm !== 'No') {

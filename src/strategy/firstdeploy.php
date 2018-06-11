@@ -22,7 +22,7 @@ task('strategy:firstdeploy', [
     'hook:done',
 ]);
 
-/** 
+/**
  * Strategy specific tasks
  */
 

@@ -51,9 +51,9 @@ class ConfigFile implements Arrayable
     }
 
     /**
-     * Parse the `config.stub` file and copy its content onto a new 
+     * Parse the `config.stub` file and copy its content onto a new
      * `deploy.php` file in the config folder of the Laravel project.
-     * 
+     *
      * @return string
      */
     public function store($path = 'config/deploy.php')

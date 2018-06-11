@@ -22,7 +22,7 @@ task('strategy:local', [
     'hook:done',
 ]);
 
-/** 
+/**
  * Strategy specific options
  */
 
@@ -31,19 +31,19 @@ set('local_cache_repository', __DIR__ . '/../../../../..');
 set('local_keep_releases', 1);
 
 set('local_upload_options', [
-    'options' => [ 
+    'options' => [
         '--exclude=.git',
         '--exclude=/vendor',
         '--exclude=node_modules',
     ],
 ]);
 
-/** 
+/**
  * Strategy specific tasks
  */
 
 desc('Build your application locally');
-task('local:build', function() {
+task('local:build', function () {
     set('deploy_path', get('local_deploy_path'));
     set('previous_release', get('local_cache_repository'));
     set('keep_releases', get('local_keep_releases'));

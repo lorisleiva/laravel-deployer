@@ -7,7 +7,7 @@ namespace Deployer;
  */
 
 set('allow_anonymous_stats', false);
-set('git_tty', false); 
+set('git_tty', false);
 
 /**
  * New Laravel Deployer options.
