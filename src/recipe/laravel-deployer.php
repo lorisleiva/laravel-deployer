@@ -54,7 +54,7 @@ require 'strategy/upload.php';
 */
 
 desc('Deploy your application');
-task('deploy', function() {
+task('deploy', function () {
     invoke('ld:check_strategy');
     invoke('deploy:info');
     invoke('strategy:' . get('strategy'));

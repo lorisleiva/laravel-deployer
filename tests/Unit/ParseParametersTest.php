@@ -111,7 +111,7 @@ class ParseParametersTest extends TestCase
         $command = new DummyCommand;
         $command->setLaravel(app());
         $command->run(
-            new StringInput($commandAsString), 
+            new StringInput($commandAsString),
             new ConsoleOutput($this->parseVerbosity($verbosity))
         );
 
@@ -121,11 +121,16 @@ class ParseParametersTest extends TestCase
     protected function parseVerbosity($verbosity)
     {
         switch ($verbosity) {
-            case '-q': return OutputInterface::VERBOSITY_QUIET;
-            case '-v': return OutputInterface::VERBOSITY_VERBOSE;
-            case '-vv': return OutputInterface::VERBOSITY_VERY_VERBOSE;
-            case '-vvv': return OutputInterface::VERBOSITY_DEBUG;
-            default: return OutputInterface::VERBOSITY_NORMAL;
+            case '-q':
+                return OutputInterface::VERBOSITY_QUIET;
+            case '-v':
+                return OutputInterface::VERBOSITY_VERBOSE;
+            case '-vv':
+                return OutputInterface::VERBOSITY_VERY_VERBOSE;
+            case '-vvv':
+                return OutputInterface::VERBOSITY_DEBUG;
+            default:
+                return OutputInterface::VERBOSITY_NORMAL;
         }
     }
 }

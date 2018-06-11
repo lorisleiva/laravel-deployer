@@ -20,21 +20,21 @@ task('strategy:upload', [
     'hook:done',
 ]);
 
-/** 
+/**
  * Strategy specific options
  */
 
 set('upload_path', __DIR__ . '/../../../../..');
 
 set('upload_options', [
-    'options' => [ 
+    'options' => [
         '--exclude=.git',
         '--exclude=/vendor',
         '--exclude=node_modules',
     ],
 ]);
 
-/** 
+/**
  * Strategy specific tasks
  */
 

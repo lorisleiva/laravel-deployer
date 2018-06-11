@@ -102,7 +102,7 @@ class BaseCommand extends Command
             ->setWorkingDirectory(base_path())
             ->setTimeout(null)
             ->setIdleTimeout(null)
-            ->run(function($type, $buffer) {
+            ->run(function ($type, $buffer) {
                 $this->output->write($buffer);
             });
     }
@@ -114,9 +114,9 @@ class BaseCommand extends Command
         }
 
         return (bool) @proc_open('echo 1 >/dev/null', [
-            ['file', '/dev/tty', 'r'], 
-            ['file', '/dev/tty', 'w'], 
-            ['file', '/dev/tty', 'w'], 
+            ['file', '/dev/tty', 'r'],
+            ['file', '/dev/tty', 'w'],
+            ['file', '/dev/tty', 'w'],
         ], $pipes);
     }
 }

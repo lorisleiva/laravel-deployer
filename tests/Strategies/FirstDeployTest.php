@@ -46,7 +46,7 @@ class FirstDeployTest extends DeploymentTestCase
         // Then the `magic.jpg` file in the shared folder comes from the repository.
         $this->assertFileExists(self::SERVER . '/shared/storage/app/public/magic.jpg');
         $this->assertFileEquals(
-            self::REPOSITORY . '/storage/app/public/magic.jpg', 
+            self::REPOSITORY . '/storage/app/public/magic.jpg',
             self::SERVER . '/shared/storage/app/public/magic.jpg'
         );
     }

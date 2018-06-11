@@ -24,7 +24,7 @@ class ConfigFileBuilderTest extends TestCase
 
     /** @test */
     function it_can_set_nested_configuration_arrays()
-    {    
+    {
         $config = (new ConfigFileBuilder)
             ->set('options.foo', [
                 'bar' => ['baz' => true, 'bat' => 0, 'bal' => 42, 'baj' => 'text'],

@@ -57,9 +57,9 @@ class DeployInitTest extends DeploymentTestCase
     /** @test */
     function it_generates_a_full_config_file_with_forge_defaults()
     {
-        $this->artisan('deploy:init', [ 
-            'hostname' => 'elegon.io', 
-            '--all' => true, 
+        $this->artisan('deploy:init', [
+            'hostname' => 'elegon.io',
+            '--all' => true,
             '--forge' => true,
         ]);
 

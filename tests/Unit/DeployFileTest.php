@@ -74,7 +74,7 @@ class DeployFileBuilderTest extends TestCase
         ]);
 
         $this->assertContains(
-<<<EOD
+            <<<EOD
 desc('Custom A Strategy');
 task('strategy:custom_a', [
     'deploy:prepare',
@@ -82,17 +82,21 @@ task('strategy:custom_a', [
     'deploy:symlink',
 ]);
 EOD
-        , $deployFile);
+            ,
+            $deployFile
+        );
 
         $this->assertContains(
-<<<EOD
+            <<<EOD
 desc('Custom B Strategy');
 task('strategy:custom_b', [
     'deploy:update_code',
     'hook:done',
 ]);
 EOD
-        , $deployFile);
+            ,
+            $deployFile
+        );
     }
 
     /** @test */
@@ -110,7 +114,7 @@ EOD
         ]);
 
         $this->assertContains(
-<<<EOD
+            <<<EOD
 set('repository', 'my/repo.git');
 set('git_tty', true);
 set('foo', [
@@ -118,7 +122,9 @@ set('foo', [
     'baz' => 'My app',
 ]);
 EOD
-        , $deployFile);
+            ,
+            $deployFile
+        );
     }
 
     /** @test */
@@ -164,7 +170,7 @@ EOD
         ]);
 
         $this->assertContains(
-<<<EOD
+            <<<EOD
 host('elegon.io')
     ->hostname('elegon.io')
     ->roles('app')
@@ -184,14 +190,18 @@ host('elegon.io')
         ],
     ]);
 EOD
-        , $deployFile);
+            ,
+            $deployFile
+        );
 
         $this->assertContains(
-<<<EOD
+            <<<EOD
 host('dev.elegon.io')
     ->stage('staging');
 EOD
-        , $deployFile);
+            ,
+            $deployFile
+        );
     }
 
     /** @test */
@@ -207,7 +217,7 @@ EOD
         ]);
 
         $this->assertContains(
-<<<EOD
+            <<<EOD
 localhost()
     ->stage('development')
     ->user('lorisleiva')
@@ -218,7 +228,9 @@ localhost()
         ],
     ]);
 EOD
-        , $deployFile);
+            ,
+            $deployFile
+        );
     }
 
     /** @test */
@@ -236,7 +248,7 @@ EOD
         ]);
 
         $this->assertContains(
-<<<EOD
+            <<<EOD
 after('hook:start', 'slack:notify');
 after('hook:build', 'npm:install');
 after('hook:build', 'npm:production');
@@ -246,7 +258,9 @@ after('hook:done', 'fpm:reload');
 after('deploy:failed', 'slack:notify:failure');
 after('success', 'slack:notify:success');
 EOD
-        , $deployFile);
+            ,
+            $deployFile
+        );
     }
 
     /** @test */
