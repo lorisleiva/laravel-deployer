@@ -56,7 +56,7 @@ class ConfigFile implements Arrayable
      * 
      * @return string
      */
-    public function store($path = 'config/deploy.php')
+    public function store($path = 'config' . DIRECTORY_SEPARATOR . 'deploy.php')
     {
         $path = base_path($path);
 
@@ -77,7 +77,8 @@ class ConfigFile implements Arrayable
      */
     public function __toString()
     {
-        $stub = $this->filesystem->get(__DIR__ . '/stubs/config.stub');
+        $ds = DIRECTORY_SEPARATOR;
+        $stub = $this->filesystem->get(__DIR__ . "{$ds}stubs{$ds}config.stub");
 
         foreach (static::REPLACEMENT_KEYS as $key) {
             $indent = substr_count($key, '.') + 1;

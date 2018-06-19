@@ -54,7 +54,8 @@ class BaseCommand extends Command
         }
 
         $parameters = $this->getParametersAsString($this->parameters);
-        $this->process("vendor/bin/dep --file='$deployFile' $command $parameters");
+        $depBinary = 'vendor' . DIRECTORY_SEPARATOR . 'bin' . DIRECTORY_SEPARATOR . 'dep';
+        $this->process("$depBinary --file='$deployFile' $command $parameters");
     }
 
     public function getDeployFile()
@@ -77,9 +78,11 @@ class BaseCommand extends Command
 
     public function getConfigFile()
     {
-        if (file_exists(base_path('config/deploy.php'))) {
+        $filepath = base_path('config' . DIRECTORY_SEPARATOR . 'deploy.php');
+
+        if (file_exists($filepath)) {
             return new ConfigFile(
-                config('deploy') ?? include base_path('config/deploy.php')
+                config('deploy') ?? include $filepath
             );
         }
     }

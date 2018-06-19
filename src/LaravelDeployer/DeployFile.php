@@ -58,7 +58,8 @@ class DeployFile
 
     public function store()
     {
-        $path = __DIR__ . '/../../.build/deploy.php';
+        $ds = DIRECTORY_SEPARATOR;
+        $path = __DIR__ . "{$ds}..{$ds}..{$ds}.build{$ds}deploy.php";
         $dir = dirname($path);
 
         if (! is_dir($dir)) {
@@ -72,7 +73,8 @@ class DeployFile
 
     public function __toString()
     {
-        $stub = $this->filesystem->get(__DIR__ . '/stubs/deploy.stub');
+        $ds = DIRECTORY_SEPARATOR;
+        $stub = $this->filesystem->get(__DIR__ . "{$ds}stubs{$ds}deploy.stub");
 
         foreach (static::REPLACEMENT_KEYS as $key) {
             $value = call_user_func([$this, 'render' . ucfirst($key)]);
