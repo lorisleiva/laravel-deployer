@@ -3,6 +3,7 @@
 namespace Lorisleiva\LaravelDeployer\Test\Strategies;
 
 use Lorisleiva\LaravelDeployer\Test\DeploymentTestCase;
+use Symfony\Component\Process\Exception\ProcessFailedException;
 
 class PullTest extends DeploymentTestCase
 {
@@ -11,10 +12,16 @@ class PullTest extends DeploymentTestCase
     /** @test */
     function a_pull_deployment_should_fail_when_current_directory_missing()
     {
-        $output = $this->artisan('deploy', ['-s' => 'pull']);
+        try {
+            $this->artisan('deploy', ['-s' => 'pull']);
+        } catch (ProcessFailedException $e) {
+            $output = $e->getMessage();
+            $this->assertContains('Executing task deploy:failed', $output);
+            $this->assertNotContains('Successfully deployed', $output);
+            return;
+        }
 
-        $this->assertContains('Executing task deploy:failed', $output);
-        $this->assertNotContains('Successfully deployed', $output);
+        $this->fail('Expected process to throw a ProcessFailedException');
     }
 
     /** @test */
