@@ -59,7 +59,7 @@ class DeployFile
     public function store()
     {
         $ds = DIRECTORY_SEPARATOR;
-        $path = __DIR__ . "{$ds}..{$ds}..{$ds}.build{$ds}deploy.php";
+        $path = "vendor{$ds}lorisleiva{$ds}laravel-deployer{$ds}.build{$ds}deploy.php";
         $dir = dirname($path);
 
         if (! is_dir($dir)) {
@@ -68,7 +68,7 @@ class DeployFile
 
         $this->filesystem->put($path, (string) $this);
 
-        return realpath($path);
+        return $path;
     }
 
     public function __toString()

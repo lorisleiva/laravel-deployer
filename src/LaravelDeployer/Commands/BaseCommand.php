@@ -55,7 +55,7 @@ class BaseCommand extends Command
 
         $parameters = $this->getParametersAsString($this->parameters);
         $depBinary = 'vendor' . DIRECTORY_SEPARATOR . 'bin' . DIRECTORY_SEPARATOR . 'dep';
-        $this->process("$depBinary --file='$deployFile' $command $parameters");
+        $this->process("$depBinary --file=$deployFile $command $parameters");
     }
 
     public function getDeployFile()
