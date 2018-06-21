@@ -78,7 +78,7 @@ class BaseCommand extends Command
 
     public function getConfigFile()
     {
-        $filepath = base_path('config' . DIRECTORY_SEPARATOR . 'deploy.php');
+        $filepath = config_path('deploy.php');
 
         if (file_exists($filepath)) {
             return new ConfigFile(
@@ -90,11 +90,11 @@ class BaseCommand extends Command
     public function getCustomDeployFile()
     {
         if (! $configFile = $this->getConfigFile()) {
-            return file_exists(base_path('deploy.php')) ? base_path('deploy.php') : null;
+            return file_exists('deploy.php') ? 'deploy.php' : null;
         }
 
         if (is_string($custom = $configFile->get('custom_deployer_file'))) {
-            return file_exists(base_path($custom)) ? base_path($custom) : null;
+            return file_exists($custom) ? $custom : null;
         }
     }
 
