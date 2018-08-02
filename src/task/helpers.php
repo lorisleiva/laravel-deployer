@@ -44,7 +44,7 @@ function artisan($command, $options = [])
             ? '{{deploy_path}}/current/artisan' 
             : '{{release_path}}/artisan';
 
-        $output = run("{{bin/php}} {{release_path}}/artisan $command");
+        $output = run("{{bin/php}} $artisan $command");
         
         if (in_array('showOutput', $options)) {
             writeln("<info>$output</info>");
