@@ -9,6 +9,7 @@ class TestCase extends \Orchestra\Testbench\TestCase
 {
     const BASE_REPOSITORY = __DIR__ . '/fixtures/repository';
     const CONFIGS = __DIR__ . '/fixtures/configs';
+    const GENERATED_DEPLOY_PATH = 'vendor/lorisleiva/laravel-deployer/.build/deploy.php';
 
     protected function getPackageProviders($app)
     {
@@ -31,5 +32,10 @@ class TestCase extends \Orchestra\Testbench\TestCase
         $process = new Process($command);
         $process->mustRun();
         return trim($process->getOutput());
+    }
+
+    public function generatedDeployPath()
+    {
+        return self::BASE_REPOSITORY . '/' . self::GENERATED_DEPLOY_PATH;
     }
 }

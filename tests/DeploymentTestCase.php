@@ -163,4 +163,9 @@ class DeploymentTestCase extends TestCase
             'public/js/app.js' => 'compiled app.js',
         ]);
     }
+
+    public function generatedDeployPath()
+    {
+        return self::REPOSITORY . '/' . self::GENERATED_DEPLOY_PATH;
+    }
 }

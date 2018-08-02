@@ -252,7 +252,7 @@ EOD
     /** @test */
     function it_stores_the_deploy_file_inside_the_laravel_deployer_package()
     {
-        $deployFilePath = __DIR__ . '/../../.build/deploy.php';
+        $deployFilePath = $this->generatedDeployPath();
 
         $this->assertFileNotExists($deployFilePath);
 

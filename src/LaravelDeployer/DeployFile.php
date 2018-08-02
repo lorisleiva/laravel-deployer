@@ -60,13 +60,13 @@ class DeployFile
     {
         $ds = DIRECTORY_SEPARATOR;
         $path = "vendor{$ds}lorisleiva{$ds}laravel-deployer{$ds}.build{$ds}deploy.php";
-        $dir = dirname($path);
+        $dir = dirname(base_path($path));
 
         if (! is_dir($dir)) {
             mkdir($dir, 0777, true);
         }
 
-        $this->filesystem->put($path, (string) $this);
+        $this->filesystem->put(base_path($path), (string) $this);
 
         return $path;
     }

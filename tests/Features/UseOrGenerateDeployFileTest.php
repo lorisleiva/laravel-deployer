@@ -13,7 +13,7 @@ class UseOrGenerateDeployFileTest extends DeploymentTestCase
     {
         $this->artisan('deploy:list');
 
-        $this->assertFileExists(__DIR__ . '/../../.build/deploy.php');
+        $this->assertFileExists($this->generatedDeployPath());
     }
 
     /** @test */
@@ -28,7 +28,7 @@ class UseOrGenerateDeployFileTest extends DeploymentTestCase
         $output = $this->artisan('deploy');
 
         $this->assertContains('strategy:custom_root_deploy_file', $output);
-        $this->assertFileNotExists(__DIR__ . '/../../.build/deploy.php');
+        $this->assertFileNotExists($this->generatedDeployPath());
     }
 
     /** @test */
@@ -40,7 +40,7 @@ class UseOrGenerateDeployFileTest extends DeploymentTestCase
         $output = $this->artisan('deploy');
 
         $this->assertContains('strategy:root_deploy_file', $output);
-        $this->assertFileNotExists(__DIR__ . '/../../.build/deploy.php');
+        $this->assertFileNotExists($this->generatedDeployPath());
     }
 
     /** @test */
