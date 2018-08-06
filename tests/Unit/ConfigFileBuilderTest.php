@@ -104,7 +104,6 @@ class ConfigFileBuilderTest extends TestCase
                     'artisan:view:clear',
                     'artisan:cache:clear',
                     'artisan:config:cache',
-                    'artisan:optimize',
                 ],
             ]],
             $config->toArray()
@@ -145,7 +144,6 @@ class ConfigFileBuilderTest extends TestCase
                     'artisan:view:clear',
                     'artisan:cache:clear',
                     'artisan:config:cache',
-                    'artisan:optimize',
                     'artisan:migrate',
                     'artisan:horizon:terminate',
                 ],
