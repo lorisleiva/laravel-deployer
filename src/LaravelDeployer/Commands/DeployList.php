@@ -14,6 +14,6 @@ class DeployList extends BaseCommand
 
     public function handle()
     {
-        $this->dep('list');
+        return $this->dep('list');
     }
 }

@@ -9,6 +9,6 @@ class DeployCurrent extends BaseCommand
 
     public function handle()
     {
-        $this->dep('config:current');
+        return $this->dep('config:current');
     }
 }

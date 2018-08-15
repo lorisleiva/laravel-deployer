@@ -55,7 +55,7 @@ class BaseCommand extends Command
 
         $parameters = $this->getParametersAsString($this->parameters);
         $depBinary = 'vendor' . DIRECTORY_SEPARATOR . 'bin' . DIRECTORY_SEPARATOR . 'dep';
-        $this->process("$depBinary --file=$deployFile $command $parameters");
+        return $this->process("$depBinary --file=$deployFile $command $parameters");
     }
 
     public function getDeployFile()
@@ -100,7 +100,7 @@ class BaseCommand extends Command
 
     public function process($command)
     {
-        $process = (new Process($command))
+        return (new Process($command))
             ->setTty($this->isTtySupported())
             ->setWorkingDirectory(base_path())
             ->setTimeout(null)

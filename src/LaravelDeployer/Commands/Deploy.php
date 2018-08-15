@@ -9,6 +9,6 @@ class Deploy extends BaseCommand
 
     public function handle()
     {
-        $this->dep('deploy');
+        return $this->dep('deploy');
     }
 }
