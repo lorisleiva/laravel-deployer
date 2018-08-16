@@ -26,13 +26,20 @@ task('strategy:upload', [
 
 set('upload_path', __DIR__ . '/../../../../..');
 
-set('upload_options', [
-    'options' => [ 
+set('upload_vendors', false);
+
+set('upload_options', function () { 
+    $options = [
         '--exclude=.git',
-        '--exclude=/vendor',
         '--exclude=node_modules',
-    ],
-]);
+    ];
+
+    if (! get('upload_vendors')) {
+        $options[] = '--exclude=/vendor';
+    }
+
+    return compact('options'); 
+});
 
 /** 
  * Strategy specific tasks

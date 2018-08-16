@@ -24,4 +24,19 @@ class UploadTest extends DeploymentTestCase
         $this->assertServerMiss('node_modules');
         $this->assertServerAssetsAreCompiled();
     }
+
+    /** @test */
+    function the_vendor_folder_should_be_uploaded_when_option_upload_vendors_is_true()
+    {
+        // Mock npm install and npm run development.
+        $this->runInRepository('mkdir -p vendor');
+        $this->runInRepository('echo "I have been build manually and uploaded" > vendor/foobar.txt');
+
+        $output = $this->artisan('deploy', ['-s' => 'upload', '-o' => 'upload_vendors=true']);
+
+        $this->assertSuccessfulDeployment();
+        $this->assertServerFilesEquals([
+            'vendor/foobar.txt' => 'I have been build manually and uploaded'
+        ]);
+    }
 }

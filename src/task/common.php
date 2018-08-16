@@ -73,3 +73,19 @@ task('deploy:info', function () {
 })
     ->shallow()
     ->setPrivate();
+
+/**
+ * @override
+ * Skip composer install if we are uploading with the upload_vendors option set to true.
+ */
+desc('Installing vendors');
+task('deploy:vendors', function () {
+    if (get('strategy') === 'upload' && get('upload_vendors')) {
+        return writeln("<fg=yellow;options=bold;>Warning: </><fg=yellow;>option `upload_vendors` is set to true. Skipping...</>");
+    }
+
+    if (!commandExist('unzip')) {
+        writeln('<comment>To speed up composer installation setup "unzip" command with PHP zip extension https://goo.gl/sxzFcD</comment>');
+    }
+    run('cd {{release_path}} && {{bin/composer}} {{composer_options}}');
+});
