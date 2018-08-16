@@ -9,6 +9,6 @@ class DeployDump extends BaseCommand
 
     public function handle()
     {
-        $this->dep('debug:task');
+        return $this->dep('debug:task');
     }
 }

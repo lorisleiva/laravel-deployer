@@ -9,6 +9,6 @@ class Ssh extends BaseCommand
 
     public function handle()
     {
-        $this->dep('ssh');
+        return $this->dep('ssh');
     }
 }

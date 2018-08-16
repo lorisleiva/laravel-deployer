@@ -10,6 +10,6 @@ class DeployRun extends BaseCommand
     public function handle()
     {
         // Task will be executed as a direct command of `dep`.
-        $this->dep('');
+        return $this->dep('');
     }
 }

@@ -9,6 +9,6 @@ class DeployHosts extends BaseCommand
 
     public function handle()
     {
-        $this->dep('config:hosts');
+        return $this->dep('config:hosts');
     }
 }

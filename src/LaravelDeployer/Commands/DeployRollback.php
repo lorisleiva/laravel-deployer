@@ -9,6 +9,6 @@ class DeployRollback extends BaseCommand
 
     public function handle()
     {
-        $this->dep('rollback');
+        return $this->dep('rollback');
     }
 }

@@ -9,6 +9,6 @@ class Logs extends BaseCommand
 
     public function handle()
     {
-        $this->dep('logs');
+        return $this->dep('logs');
     }
 }

@@ -9,6 +9,6 @@ class DeployConfigs extends BaseCommand
 
     public function handle()
     {
-        $this->dep('config:dump');
+        return $this->dep('config:dump');
     }
 }
