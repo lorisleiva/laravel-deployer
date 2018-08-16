@@ -24,9 +24,11 @@ The default path being uploaded to your server is the root of your application. 
 ],
 ```
 
-By default, the upload excludes the following folders:
+By default, the upload excludes the `vendor` folder at the root of your project and performs a `deploy:vendors` (i.e. a composer install) instead. If you wish to decouple your hosts from your composer dependencies, you can disable this behavior by setting the `upload_vendors` option to `true`. This option will (during an upload strategy only) skip the `deploy:vendors` task and will not exclude the `vendor` folder from the `rsync` command. You can [read more about the pros and cons of both approaches in this thread](https://github.com/lorisleiva/laravel-deployer/issues/18#issuecomment-396293695).
+
+Therefore, by default, the upload excludes the following folders:
 * The `.git` folder since its irrelevant to the server's release.
-* The `vendor` folder since its more efficient to do a `deploy:vendors` directly on the server.
+* The `vendor` folder (**unless `upload_vendors` is set to `true`**) since its more efficient to do a `deploy:vendors` directly on the server.
 * The `node_modules` folder since the assets have been already compiled locally.
 
 ```php
@@ -36,7 +38,7 @@ By default, the upload excludes the following folders:
     'upload_options' => [
         'options' => [ 
             '--exclude=.git',
-            '--exclude=vendor',
+            '--exclude=/vendor', // unless `upload_vendors` is set to `true`
             '--exclude=node_modules',
         ],
     ],
