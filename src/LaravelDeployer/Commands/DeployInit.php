@@ -141,7 +141,7 @@ class DeployInit extends BaseCommand
     public function defineAdditionalHooks()
     {
         $npm = $this->choice(
-            'Do you want to compile your asset during deployment?', 
+            'Do you want to compile your asset during deployment with NPM?',
             ['No', 'Yes using `npm run production`', 'Yes using `npm run development`'], 1
         );
 
@@ -149,6 +149,19 @@ class DeployInit extends BaseCommand
             $build = $npm === 'Yes using `npm run production`' ? 'production' : 'development';
             $this->builder->add('hooks.build', 'npm:install');
             $this->builder->add('hooks.build', "npm:$build");
+        }
+
+        if ($npm === 'No') {
+            $yarn = $this->choice(
+                'Do you want to compile your asset during deployment with YARN?',
+                ['No', 'Yes using `yarn production`', 'Yes using `yarn development`'], 1
+            );
+
+            if ($yarn !== 'No') {
+                $build = $yarn === 'Yes using `yarn production`' ? 'production' : 'development';
+                $this->builder->add('hooks.build', 'yarn:install');
+                $this->builder->add('hooks.build', "yarn:$build");
+            }
         }
         
         if ($this->confirm('Do you want to migrate during deployment?', true)) {
