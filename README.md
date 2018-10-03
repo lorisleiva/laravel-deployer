@@ -2,8 +2,6 @@
 
 Laravel Deployer is a lightweight wrapper of [Deployer.org](https://github.com/deployphp/deployer) giving Artisan the power of zero-downtime deployment.
 
-> Version `0.2` is out. [See what's new](https://github.com/lorisleiva/laravel-deployer/releases/tag/v0.2.0).
-
 ![Console showing php artisan deploy](https://user-images.githubusercontent.com/3642397/38672390-50ad0194-3e4e-11e8-93c2-d28de8659117.png)
 
 <p align="center">
