@@ -145,26 +145,15 @@ class DeployInit extends BaseCommand
             [
                 'No',
                 'Yes using `npm run production`',
-                'Yes using `npm run development`',
                 'Yes using `yarn production`',
-                'Yes using `yarn development`',
             ], 1
         );
-
-        if ($npm === 'Yes using `npm run production`') {
-            $this->addHooksCompileAssets('npm', 'production');
-        }
-
-        if ($npm === 'Yes using `npm run development`') {
-            $this->addHooksCompileAssets('npm', 'development');
-        }
-
-        if ($npm === 'Yes using `yarn production`') {
-            $this->addHooksCompileAssets('yarn', 'production');
-        }
-
-        if ($npm === 'Yes using `yarn development`') {
-            $this->addHooksCompileAssets('yarn', 'development');
+        
+        if ($npm !== 'No') {
+            $manager = $npm === 'Yes using `npm run production`' ? 'npm' : 'yarn';
+            $this->builder->add('hooks.build', "$manager:install");
+            $this->builder->add('hooks.build', "$manager:production");
+  
         }
 
         if ($this->confirm('Do you want to migrate during deployment?', true)) {
@@ -174,11 +163,5 @@ class DeployInit extends BaseCommand
         if ($this->confirm('Do you want to terminate horizon after each deployment?')) {
             $this->builder->add('hooks.ready', 'artisan:horizon:terminate');
         }
-    }
-
-    private function addHooksCompileAssets($manager, $environment)
-    {
-        $this->builder->add('hooks.build', "$manager:install");
-        $this->builder->add('hooks.build', "$manager:$environment");
     }
 }
