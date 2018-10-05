@@ -141,20 +141,25 @@ class DeployInit extends BaseCommand
     public function defineAdditionalHooks()
     {
         $npm = $this->choice(
-            'Do you want to compile your asset during deployment?', 
-            ['No', 'Yes using `npm run production`', 'Yes using `npm run development`'], 1
+            'Do you want to compile your asset during deployment with npm/yarn?',
+            [
+                'No',
+                'Yes using `npm run production`',
+                'Yes using `yarn production`',
+            ], 1
         );
-
-        if ($npm !== 'No') {
-            $build = $npm === 'Yes using `npm run production`' ? 'production' : 'development';
-            $this->builder->add('hooks.build', 'npm:install');
-            $this->builder->add('hooks.build', "npm:$build");
-        }
         
+        if ($npm !== 'No') {
+            $manager = $npm === 'Yes using `npm run production`' ? 'npm' : 'yarn';
+            $this->builder->add('hooks.build', "$manager:install");
+            $this->builder->add('hooks.build', "$manager:production");
+  
+        }
+
         if ($this->confirm('Do you want to migrate during deployment?', true)) {
             $this->builder->add('hooks.ready', 'artisan:migrate');
         }
-        
+
         if ($this->confirm('Do you want to terminate horizon after each deployment?')) {
             $this->builder->add('hooks.ready', 'artisan:horizon:terminate');
         }

@@ -58,3 +58,6 @@ php artisan deploy:list namespace  # List all tasks starting with `namespace:`
 | `npm:development`           | Execute npm run development |
 | `npm:install`               | Install npm packages |
 | `npm:production`            | Execute npm run production |
+| `yarn:development`           | Execute yarn development |
+| `yarn:install`               | Install yarn packages |
+| `yarn:production`            | Execute yarn production |

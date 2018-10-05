@@ -40,6 +40,7 @@
 | `bin/composer` | | Composer binary.
 | `bin/symlink` | | Symlink binary.
 | `bin/npm` | | Npm binary.
+| `bin/yarn` | | Yarn binary.
 | `laravel_version` | | Version of Laravel used.
 | `php_fpm_service` | | Name of the php-fpm service. |
 | `php_fpm_command` | `echo "" \| sudo -S /usr/sbin/service {{php_fpm_service}} reload` | Command used to reload the php-fpm service. |
