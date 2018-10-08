@@ -24,6 +24,7 @@ require 'task/fpm.php';
 require 'task/hook.php';
 require 'task/logs.php';
 require 'task/npm.php';
+require 'task/yarn.php';
 
 /*
 |--------------------------------------------------------------------------
