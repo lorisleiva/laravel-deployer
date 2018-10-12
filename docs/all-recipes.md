@@ -37,5 +37,5 @@ To use any of them, simply add `'recipe/<recipe_name>.php'` to your includes and
 | `sentry` | Sends messages to Sentry. | [doc](https://github.com/deployphp/recipes/blob/master/docs/sentry.md) |
 | `slack` | Sends messages to slack including success and failure messages. | [doc](https://github.com/deployphp/recipes/blob/master/docs/slack.md) |
 | `yammer` | Sends messages to yammer including success and failure messages. | [doc](https://github.com/deployphp/recipes/blob/master/docs/yammer.md) |
-| `yarn` | Install Yarn packages. | [doc](https://github.com/deployphp/recipes/blob/master/docs/yarn.md) |
+| `yarn` | **(included).** Install Yarn packages. | [doc](https://github.com/deployphp/recipes/blob/master/docs/yarn.md) |
 | `raygun` | Send deployment details to Raygun. | [doc](https://github.com/deployphp/recipes/blob/master/docs/raygun.md) |
