@@ -21,8 +21,7 @@ Server setup
 
 Deployment configurations
 * [How to deploy a Lumen application?](how-to-lumen.md)
-* [How to compile assets on deploy using npm?](how-to-npm.md)
-* [How to compile assets on deploy using yarn?](how-to-yarn.md)
+* [How to compile assets on deploy using npm (or yarn)?](how-to-npm.md)
 * [How to send Slack notifications?](how-to-slack.md)
 * [How to reload php-fpm?](how-to-reload-fpm.md)
 * [How to terminate horizon?](how-to-horizon.md)
