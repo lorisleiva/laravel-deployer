@@ -1,6 +1,6 @@
 # 📚 Documentation
 
-## 🙃 Overwiew
+## 🙃 Overview
 * [Getting started](overview-getting-started.md)
 * [Configure your hosts](overview-configure-hosts.md)
 * [Choose the right strategy](overview-strategy-choose.md)
