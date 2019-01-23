@@ -212,4 +212,46 @@ class ConfigFileBuilderTest extends TestCase
 
         $this->assertEquals('some/repository.git', $repo);
     }
+
+    /** @test */
+    function it_can_be_set_to_clear_telescope_entries()
+    {
+        $config = (new ConfigFileBuilder)
+            ->add('hooks.ready', 'artisan:telescope:clear')
+            ->build();
+
+        $this->assertArraySubset(
+            ['hooks' => [
+                'ready' => [
+                    'artisan:storage:link',
+                    'artisan:view:clear',
+                    'artisan:cache:clear',
+                    'artisan:config:cache',
+                    'artisan:telescope:clear',
+                ],
+            ]],
+            $config->toArray()
+        );
+    }
+
+    /** @test */
+    function it_can_be_set_to_prune_telescope_entries()
+    {
+        $config = (new ConfigFileBuilder)
+            ->add('hooks.ready', 'artisan:telescope:prune')
+            ->build();
+
+        $this->assertArraySubset(
+            ['hooks' => [
+                'ready' => [
+                    'artisan:storage:link',
+                    'artisan:view:clear',
+                    'artisan:cache:clear',
+                    'artisan:config:cache',
+                    'artisan:telescope:prune',
+                ],
+            ]],
+            $config->toArray()
+        );
+    }
 }

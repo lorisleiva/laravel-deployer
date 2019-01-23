@@ -71,6 +71,7 @@ class DeployInit extends BaseCommand
         $this->builder->add('hooks.build', 'npm:production');
         $this->builder->add('hooks.ready', 'artisan:migrate');
         $this->builder->add('hooks.ready', 'artisan:horizon:terminate');
+        $this->builder->add('hooks.ready', 'artisan:telescope:prune');
     }
 
     public function welcomeMessage($emoji, $message)
@@ -163,5 +164,20 @@ class DeployInit extends BaseCommand
         if ($this->confirm('Do you want to terminate horizon after each deployment?')) {
             $this->builder->add('hooks.ready', 'artisan:horizon:terminate');
         }
+
+        $telescope = $this->choice(
+            'Do you want to clear telescope entries after each deployment?',
+            [
+                'No',
+                'Yes all entries',
+                'Yes stale entries only',
+            ], 0
+        );
+
+        if ($telescope !== 'No') {
+            $command = $telescope === 'Yes all entries' ? 'clear' : 'prune';
+            $this->builder->add('hooks.ready', "artisan.telescope:$command");
+        }
+
     }
 }

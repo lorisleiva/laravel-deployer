@@ -46,3 +46,9 @@ task('artisan:storage:link', artisan('storage:link', ['min' => 5.3]));
 
 desc('Execute artisan horizon:terminate');
 task('artisan:horizon:terminate', artisan('horizon:terminate'));
+
+desc('Execute artisan telescope:clear');
+task('artisan:telescope:clear', artisan('telescope:clear'));
+
+desc('Execute artisan telescope:prune');
+task('artisan:telescope:prune', artisan('telescope:prune'));
