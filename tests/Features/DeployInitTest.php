@@ -80,7 +80,6 @@ class DeployInitTest extends DeploymentTestCase
                     "artisan:config:cache",
                     "artisan:migrate",
                     "artisan:horizon:terminate",
-                    "artisan:telescope:prune",
                 ],
                 "done" => [
                     'fpm:reload',
