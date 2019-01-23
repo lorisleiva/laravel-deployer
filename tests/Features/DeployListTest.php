@@ -40,6 +40,8 @@ class DeployListTest extends DeploymentTestCase
         $this->assertContains('artisan:storage:link', $output);
         $this->assertContains('artisan:up', $output);
         $this->assertContains('artisan:view:clear', $output);
+        $this->assertContains('artisan:telescope:clear', $output);
+        $this->assertContains('artisan:telescope:prune', $output);
 
         // Config
         $this->assertContains('config:current', $output);

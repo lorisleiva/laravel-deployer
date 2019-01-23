@@ -163,5 +163,6 @@ class DeployInit extends BaseCommand
         if ($this->confirm('Do you want to terminate horizon after each deployment?')) {
             $this->builder->add('hooks.ready', 'artisan:horizon:terminate');
         }
+
     }
 }

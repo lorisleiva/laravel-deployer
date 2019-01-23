@@ -33,6 +33,8 @@ php artisan deploy:list namespace  # List all tasks starting with `namespace:`
 | `artisan:storage:link`      | Execute artisan storage:link |
 | `artisan:up`                | Disable maintenance mode |
 | `artisan:view:clear`        | Execute artisan view:clear |
+| `artisan:telescope:clear`   | Execute artisan telescope:clear |
+| `artisan:telescope:prune`   | Execute artisan telescope:prune |
 | `config:current`            | Show current paths |
 | `config:dump`               | Print host configuration |
 | `config:hosts`              | Print all hosts |
