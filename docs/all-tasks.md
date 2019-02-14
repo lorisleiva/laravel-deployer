@@ -20,6 +20,7 @@ php artisan deploy:list namespace  # List all tasks starting with `namespace:`
 | `ssh`                       | Connect to host through ssh |
 | `artisan:cache:clear`       | Execute artisan cache:clear |
 | `artisan:config:cache`      | Execute artisan config:cache |
+| `artisan:config:clear`      | Execute artisan config:clear |
 | `artisan:db:seed`           | Execute artisan db:seed |
 | `artisan:down`              | Enable maintenance mode |
 | `artisan:horizon:terminate` | Execute artisan horizon:terminate |

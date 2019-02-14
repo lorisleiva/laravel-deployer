@@ -27,6 +27,7 @@ class DeployListTest extends DeploymentTestCase
         // Artisan
         $this->assertContains('artisan:cache:clear', $output);
         $this->assertContains('artisan:config:cache', $output);
+        $this->assertContains('artisan:config:clear', $output);
         $this->assertContains('artisan:db:seed', $output);
         $this->assertContains('artisan:down', $output);
         $this->assertContains('artisan:horizon:terminate', $output);
