@@ -127,7 +127,7 @@ Before starting you first deployment, you should go check your `config/deploy.ph
     |
     | Options follow a simple key/value structure and are used within tasks
     | to make them more configurable and reusable. You can use options to
-    | configure existing tasks or to use whithin your own custom tasks.
+    | configure existing tasks or to use within your own custom tasks.
     |
     */
    
