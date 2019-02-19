@@ -30,7 +30,7 @@
 | `use_relative_symlink` | | Whether to use relative symlinks. By default deployer will detect if the system supports relative symlinks and use them. |
 | `use_atomic_symlink` | | Whether to use atomic symlinks. By default deployer will detect if system supports atomic symlinks and use them. |
 | `composer_action` | `install` | Composer action. |
-| `composer_options` | `{{composer_action}} --verbose --prefer-dist --no-progress --no-interaction --no-dev --optimize-autoloader` | Options for Composer including the action. This is what is used by the `deploy:vendors` task. |
+| `composer_options` | `{{composer_action}} --verbose --prefer-dist --no-progress --no-interaction --no-dev --optimize-autoloader --no-suggest` | Options for Composer including the action. This is what is used by the `deploy:vendors` task. |
 | `env` | `[]` | Array of environment variables. |
 | `releases_list` | `[...]` | List the names of the existings releases. |
 | `release_name` | | Function that returns the name of the next release. Override to provide your own release_name logic (e.g YmdHis format). |
