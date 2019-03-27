@@ -41,13 +41,5 @@
                 "Lorisleiva\\LaravelDeployer\\LaravelDeployerServiceProvider"
             ]
         }
-    },
-    "archive": {
-        "exclude": [
-            "/docs",
-            "/tests",
-            "/composer.lock",
-            "/phpunit.xml"
-        ]
     }
 }
