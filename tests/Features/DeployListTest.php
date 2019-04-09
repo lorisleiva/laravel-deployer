@@ -43,6 +43,7 @@ class DeployListTest extends DeploymentTestCase
         $this->assertContains('artisan:view:clear', $output);
         $this->assertContains('artisan:telescope:clear', $output);
         $this->assertContains('artisan:telescope:prune', $output);
+        $this->assertContains('artisan:nova:publish', $output);
 
         // Config
         $this->assertContains('config:current', $output);

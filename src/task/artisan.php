@@ -55,3 +55,6 @@ task('artisan:telescope:clear', artisan('telescope:clear'));
 
 desc('Execute artisan telescope:prune');
 task('artisan:telescope:prune', artisan('telescope:prune'));
+
+desc('Execute artisan nova:publish');
+task('artisan:nova:publish', artisan('nova:publish'));
