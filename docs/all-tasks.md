@@ -36,6 +36,7 @@ php artisan deploy:list namespace  # List all tasks starting with `namespace:`
 | `artisan:view:clear`        | Execute artisan view:clear |
 | `artisan:telescope:clear`   | Execute artisan telescope:clear |
 | `artisan:telescope:prune`   | Execute artisan telescope:prune |
+| `artisan:nova:publish`      | Execute artisan nova:publish |
 | `config:current`            | Show current paths |
 | `config:dump`               | Print host configuration |
 | `config:hosts`              | Print all hosts |
