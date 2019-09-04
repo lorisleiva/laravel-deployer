@@ -27,7 +27,7 @@ class UseOrGenerateDeployFileTest extends DeploymentTestCase
 
         $output = $this->artisan('deploy');
 
-        $this->assertContains('strategy:custom_root_deploy_file', $output);
+        $this->assertStringContainsString('strategy:custom_root_deploy_file', $output);
         $this->assertFileNotExists($this->generatedDeployPath());
     }
 
@@ -39,7 +39,7 @@ class UseOrGenerateDeployFileTest extends DeploymentTestCase
 
         $output = $this->artisan('deploy');
 
-        $this->assertContains('strategy:root_deploy_file', $output);
+        $this->assertStringContainsString('strategy:root_deploy_file', $output);
         $this->assertFileNotExists($this->generatedDeployPath());
     }
 
@@ -52,7 +52,7 @@ class UseOrGenerateDeployFileTest extends DeploymentTestCase
             '--file' => 'option_deploy.php',
         ]);
 
-        $this->assertContains('strategy:deploy_file_given_as_an_option', $output);
+        $this->assertStringContainsString('strategy:deploy_file_given_as_an_option', $output);
     }
 
     /** @test */
@@ -62,8 +62,8 @@ class UseOrGenerateDeployFileTest extends DeploymentTestCase
 
         $output = $this->artisan('deploy');
 
-        $this->assertContains('config/deploy.php file not found', $output);
-        $this->assertNotContains('Executing task deploy', $output);
+        $this->assertStringContainsString('config/deploy.php file not found', $output);
+        $this->assertStringNotContainsString('Executing task deploy', $output);
     }
 
     public function fakeDeployFile($strategy, $path)

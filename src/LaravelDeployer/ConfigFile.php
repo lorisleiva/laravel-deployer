@@ -2,8 +2,9 @@
 
 namespace Lorisleiva\LaravelDeployer;
 
-use Illuminate\Contracts\Support\Arrayable;
+use Illuminate\Support\Arr;
 use Illuminate\Filesystem\Filesystem;
+use Illuminate\Contracts\Support\Arrayable;
 use Lorisleiva\LaravelDeployer\Concerns\RendersCode;
 
 class ConfigFile implements Arrayable
@@ -82,7 +83,7 @@ class ConfigFile implements Arrayable
 
         foreach (static::REPLACEMENT_KEYS as $key) {
             $indent = substr_count($key, '.') + 1;
-            $value = $this->render(\Arr::get($this->configs, $key), $indent);
+            $value = $this->render(Arr::get($this->configs, $key), $indent);
             $stub = preg_replace('/{{' . $key . '}}/', $value, $stub);
         };
 

@@ -19,13 +19,13 @@ class DeploymentTestCase extends TestCase
         }
     }
 
-    public function setUp()
+    public function setUp(): void
     {
         parent::setUp();
         $this->resetTempDirectory();
     }
 
-    public function tearDown()
+    public function tearDown(): void
     {
         parent::tearDown();
         $this->cleanupTempDirectory();

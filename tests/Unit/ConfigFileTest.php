@@ -2,9 +2,10 @@
 
 namespace Lorisleiva\LaravelDeployer\Test\Unit;
 
+use Illuminate\Support\Arr;
 use Lorisleiva\LaravelDeployer\ConfigFile;
-use Lorisleiva\LaravelDeployer\ConfigFileBuilder;
 use Lorisleiva\LaravelDeployer\Test\TestCase;
+use Lorisleiva\LaravelDeployer\ConfigFileBuilder;
 
 class ConfigFileTest extends TestCase
 {
@@ -48,7 +49,7 @@ class ConfigFileTest extends TestCase
         $evaluatedString = eval($string);
 
         $expectedArray = $config->toArray();
-        array_set($expectedArray, 'options.application', 'Laravel');
+        Arr::set($expectedArray, 'options.application', 'Laravel');
 
         $this->assertEquals($evaluatedString, $expectedArray);
     }

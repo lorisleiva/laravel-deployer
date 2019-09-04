@@ -2,6 +2,7 @@
 
 namespace Lorisleiva\LaravelDeployer;
 
+use Illuminate\Support\Arr;
 use Lorisleiva\LaravelDeployer\ConfigFile;
 
 class ConfigFileBuilder
@@ -61,7 +62,7 @@ class ConfigFileBuilder
      */
     public function get($key, $default = null)
     {
-        return \Arr::get($this->configs, $key, $default);
+        return Arr::get($this->configs, $key, $default);
     }
 
     /**
@@ -71,7 +72,7 @@ class ConfigFileBuilder
      */
     public function set($key, $value)
     {
-        \Arr::set($this->configs, $key, $value);
+        Arr::set($this->configs, $key, $value);
 
         return $this;
     }
@@ -83,11 +84,11 @@ class ConfigFileBuilder
      */
     public function add($key, $value)
     {
-        $array = \Arr::get($this->configs, $key);
+        $array = Arr::get($this->configs, $key);
 
         if (is_array($array)) {
             $array[] = $value;
-            \Arr::set($this->configs, $key, $array);
+            Arr::set($this->configs, $key, $array);
         }
 
 
@@ -101,7 +102,7 @@ class ConfigFileBuilder
      */
     public function getHost($key)
     {
-        return \Arr::get(head($this->configs['hosts']), $key);
+        return Arr::get(head($this->configs['hosts']), $key);
     }
 
     /**

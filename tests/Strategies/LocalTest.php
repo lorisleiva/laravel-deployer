@@ -13,10 +13,10 @@ class LocalTest extends DeploymentTestCase
     {
         $output = $this->artisan('deploy', ['-s' => 'local']);
 
-        $this->assertContains('Executing task local:build', $output);
-        $this->assertContains('Executing task local:upload', $output);
-        $this->assertContains('Executing task local:cleanup', $output);
-        $this->assertContains('Successfully deployed', $output);
+        $this->assertStringContainsString('Executing task local:build', $output);
+        $this->assertStringContainsString('Executing task local:upload', $output);
+        $this->assertStringContainsString('Executing task local:cleanup', $output);
+        $this->assertStringContainsString('Successfully deployed', $output);
         $this->assertSuccessfulDeployment();
         $this->assertServerMiss('node_modules');
         $this->assertServerAssetsAreCompiled();

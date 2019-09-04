@@ -13,8 +13,8 @@ class DeployRollbackTest extends DeploymentTestCase
     {
         $output = $this->artisan('deploy:rollback');
 
-        $this->assertContains('Executing task rollback', $output);
-        $this->assertContains('No more releases you can revert to', $output);
+        $this->assertStringContainsString('Executing task rollback', $output);
+        $this->assertStringContainsString('No more releases you can revert to', $output);
     }
 
     /** @test */

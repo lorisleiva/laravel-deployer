@@ -16,8 +16,8 @@ class PullTest extends DeploymentTestCase
             $this->artisan('deploy', ['-s' => 'pull']);
         } catch (ProcessFailedException $e) {
             $output = $e->getMessage();
-            $this->assertContains('Executing task deploy:failed', $output);
-            $this->assertNotContains('Successfully deployed', $output);
+            $this->assertStringContainsString('Executing task deploy:failed', $output);
+            $this->assertStringNotContainsString('Successfully deployed', $output);
             return;
         }
 
@@ -40,7 +40,7 @@ class PullTest extends DeploymentTestCase
 
         // And we do a successful deploy with the `pull` strategy
         $output = $this->artisan('deploy', ['-s' => 'pull']);
-        $this->assertContains('Successfully deployed', $output);
+        $this->assertStringContainsString('Successfully deployed', $output);
 
         // Then the unicorn.txt is present on the current directory.
         $this->assertServerHas('unicorn.txt');
@@ -49,8 +49,8 @@ class PullTest extends DeploymentTestCase
         $this->assertEquals(1, $this->runInRoot("ls -A1 releases | wc -l"));
 
         // And no assets have been built
-        $this->assertNotContains('Executing task npm:install', $output);
-        $this->assertNotContains('Executing task npm:development', $output);
-        $this->assertNotContains('Executing task npm:production', $output);
+        $this->assertStringNotContainsString('Executing task npm:install', $output);
+        $this->assertStringNotContainsString('Executing task npm:development', $output);
+        $this->assertStringNotContainsString('Executing task npm:production', $output);
     }
 }

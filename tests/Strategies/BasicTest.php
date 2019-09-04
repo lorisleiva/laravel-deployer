@@ -13,23 +13,23 @@ class BasicTest extends DeploymentTestCase
     {
         $output = $this->artisan('deploy');
 
-        $this->assertContains('Deploying HEAD on localhost', $output);
-        $this->assertContains('Executing task deploy:prepare', $output);
-        $this->assertContains('Executing task deploy:lock', $output);
-        $this->assertContains('Executing task deploy:release', $output);
-        $this->assertContains('Executing task deploy:update_code', $output);
-        $this->assertContains('Executing task deploy:shared', $output);
-        $this->assertContains('Executing task deploy:vendors', $output);
-        $this->assertContains('Executing task deploy:writable', $output);
-        $this->assertContains('Executing task artisan:storage:link', $output);
-        $this->assertContains('Executing task artisan:view:clear', $output);
-        $this->assertContains('Executing task artisan:cache:clear', $output);
-        $this->assertContains('Executing task artisan:config:cache', $output);
-        $this->assertContains('Executing task artisan:optimize', $output);
-        $this->assertContains('Executing task deploy:symlink', $output);
-        $this->assertContains('Executing task deploy:unlock', $output);
-        $this->assertContains('Executing task cleanup', $output);
-        $this->assertContains('Successfully deployed', $output);
+        $this->assertStringContainsString('Deploying HEAD on localhost', $output);
+        $this->assertStringContainsString('Executing task deploy:prepare', $output);
+        $this->assertStringContainsString('Executing task deploy:lock', $output);
+        $this->assertStringContainsString('Executing task deploy:release', $output);
+        $this->assertStringContainsString('Executing task deploy:update_code', $output);
+        $this->assertStringContainsString('Executing task deploy:shared', $output);
+        $this->assertStringContainsString('Executing task deploy:vendors', $output);
+        $this->assertStringContainsString('Executing task deploy:writable', $output);
+        $this->assertStringContainsString('Executing task artisan:storage:link', $output);
+        $this->assertStringContainsString('Executing task artisan:view:clear', $output);
+        $this->assertStringContainsString('Executing task artisan:cache:clear', $output);
+        $this->assertStringContainsString('Executing task artisan:config:cache', $output);
+        $this->assertStringContainsString('Executing task artisan:optimize', $output);
+        $this->assertStringContainsString('Executing task deploy:symlink', $output);
+        $this->assertStringContainsString('Executing task deploy:unlock', $output);
+        $this->assertStringContainsString('Executing task cleanup', $output);
+        $this->assertStringContainsString('Successfully deployed', $output);
         $this->assertSuccessfulDeployment();
     }
 }

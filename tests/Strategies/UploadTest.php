@@ -18,8 +18,8 @@ class UploadTest extends DeploymentTestCase
 
         $output = $this->artisan('deploy', ['-s' => 'upload']);
 
-        $this->assertContains('Executing task upload', $output);
-        $this->assertContains('Successfully deployed', $output);
+        $this->assertStringContainsString('Executing task upload', $output);
+        $this->assertStringContainsString('Successfully deployed', $output);
         $this->assertSuccessfulDeployment();
         $this->assertServerMiss('node_modules');
         $this->assertServerAssetsAreCompiled();
