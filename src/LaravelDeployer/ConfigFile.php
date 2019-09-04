@@ -82,7 +82,7 @@ class ConfigFile implements Arrayable
 
         foreach (static::REPLACEMENT_KEYS as $key) {
             $indent = substr_count($key, '.') + 1;
-            $value = $this->render(array_get($this->configs, $key), $indent);
+            $value = $this->render(\Arr::get($this->configs, $key), $indent);
             $stub = preg_replace('/{{' . $key . '}}/', $value, $stub);
         };
 
