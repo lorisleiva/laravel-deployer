@@ -64,7 +64,7 @@ php artisan deploy
 
 3. Finally, if you edit anything in your `config/deploy.php` file locally, your server's `current` directory won't be aware of those changes. Therefore a deployment within Laravel Forge will use the old deployment configurations.
     
-    As a work around, whenever your deployment configurations change, you can either run `php artisan deploy` manually (not vie Laravel Forge) or `git pull` directly in the `current` folder before deploying via Laravel Forge. Bear in mind that the latter doesn't offer zero-downtime deployment.
+    As a work around, whenever your deployment configurations change, you can either run `php artisan deploy` manually (not via Laravel Forge) or `git pull` directly in the `current` folder before deploying via Laravel Forge. Bear in mind that the latter doesn't offer zero-downtime deployment.
 
 ## Extra things to configure
 * If you wish to reload php-fpm after each deployment like Forge does by default, you will need to use the `fpm:reload` task and set up your version of php-fpm within the `php_fpm_service` option. Read more [here](how-to-reload-fpm.md).
