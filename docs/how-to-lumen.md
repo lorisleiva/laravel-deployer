@@ -1,6 +1,12 @@
 # How to deploy a Lumen application?
 
-Some default artisan commands when deploying a Laravel application are not relevant to a Lumen application. Therefore, when deploying a Lumen application, you need to remove unsupported artisan commands from the `ready` hook.
+First, you need to register the service provider in your `bootstrap/app.php`.
+
+```php
+$app->register(Lorisleiva\LaravelDeployer\LaravelDeployerServiceProvider::class);
+```
+
+Then, note that some default artisan commands when deploying a Laravel application are not relevant to a Lumen application. Therefore, when deploying a Lumen application, you need to remove unsupported artisan commands from the `ready` hook.
 
 In your `config/deploy.php` file, use the following tasks in your `ready` hook:
 
