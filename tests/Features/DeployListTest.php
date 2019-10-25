@@ -41,9 +41,12 @@ class DeployListTest extends DeploymentTestCase
         $this->assertStringContainsString('artisan:storage:link', $output);
         $this->assertStringContainsString('artisan:up', $output);
         $this->assertStringContainsString('artisan:view:clear', $output);
+        $this->assertStringContainsString('artisan:view:cache', $output);
         $this->assertStringContainsString('artisan:telescope:clear', $output);
         $this->assertStringContainsString('artisan:telescope:prune', $output);
         $this->assertStringContainsString('artisan:nova:publish', $output);
+        $this->assertStringContainsString('artisan:event:clear', $output);
+        $this->assertStringContainsString('artisan:event:cache', $output);
 
         // Config
         $this->assertStringContainsString('config:current', $output);
