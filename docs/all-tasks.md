@@ -23,6 +23,8 @@ php artisan deploy:list namespace  # List all tasks starting with `namespace:`
 | `artisan:config:clear`      | Execute artisan config:clear |
 | `artisan:db:seed`           | Execute artisan db:seed |
 | `artisan:down`              | Enable maintenance mode |
+| `artisan:event:cache`       | Execure artisan event:cache |
+| `artisan:event:clear`       | Execure artisan event:clear |
 | `artisan:horizon:terminate` | Execute artisan horizon:terminate |
 | `artisan:migrate`           | Execute artisan migrate |
 | `artisan:migrate:fresh`     | Execute artisan migrate:fresh |
@@ -33,6 +35,7 @@ php artisan deploy:list namespace  # List all tasks starting with `namespace:`
 | `artisan:route:cache`       | Execute artisan route:cache |
 | `artisan:storage:link`      | Execute artisan storage:link |
 | `artisan:up`                | Disable maintenance mode |
+| `artisan:view:cache`        | Execute artisan view:cache |
 | `artisan:view:clear`        | Execute artisan view:clear |
 | `artisan:telescope:clear`   | Execute artisan telescope:clear |
 | `artisan:telescope:prune`   | Execute artisan telescope:prune |
