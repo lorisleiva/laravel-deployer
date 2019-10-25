@@ -38,6 +38,9 @@ task('artisan:route:cache', artisan('route:cache'));
 desc('Execute artisan view:clear');
 task('artisan:view:clear', artisan('view:clear'));
 
+desc('Execute artisan view:cache');
+task('artisan:view:cache', artisan('view:cache', ['min' => 5.6]));
+
 desc('Execute artisan optimize');
 task('artisan:optimize', artisan('optimize', ['max' => 5.4]));
 
@@ -58,3 +61,9 @@ task('artisan:telescope:prune', artisan('telescope:prune'));
 
 desc('Execute artisan nova:publish');
 task('artisan:nova:publish', artisan('nova:publish'));
+
+desc('Execute artisan event:clear');
+task('artisan:event:clear', artisan('event:clear', ['min' => '5.8.9']));
+
+desc('Execute artisan event:cache');
+task('artisan:event:cache', artisan('event:cache', ['min' => '5.8.9']));
