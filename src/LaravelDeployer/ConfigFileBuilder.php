@@ -7,7 +7,7 @@ use Lorisleiva\LaravelDeployer\ConfigFile;
 
 class ConfigFileBuilder
 {
-    const DEFAULT_PHP_VERSION = '7.2';
+    const DEFAULT_PHP_VERSION = '7.3';
 
     protected $laravelHooks = [
         'artisan:storage:link',
