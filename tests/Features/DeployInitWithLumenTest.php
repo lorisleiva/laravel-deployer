@@ -7,6 +7,8 @@ use Lorisleiva\LaravelDeployer\Test\DeploymentTestCase;
 
 class DeployInitWithLumenTest extends DeploymentTestCase
 {
+    protected $configs = null;
+
     /** @test */
     function it_generates_a_config_file_without_artisan_tasks_not_supported_by_lumen()
     {
@@ -25,7 +27,6 @@ class DeployInitWithLumenTest extends DeploymentTestCase
                 ],
                 "ready" => [
                     "artisan:cache:clear",
-                    "artisan:optimize",
                     "artisan:migrate",
                 ],
                 "done" => [],
