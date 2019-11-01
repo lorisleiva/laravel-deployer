@@ -19,7 +19,6 @@ In your `config/deploy.php` file, use the following tasks in your `ready` hook:
         // 'artisan:view:clear',    <-- Not supported by Lumen
         'artisan:cache:clear',
         // 'artisan:config:cache',  <-- Not supported by Lumen
-        'artisan:optimize',
     ],
 ],
 ```

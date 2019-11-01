@@ -42,7 +42,10 @@ desc('Execute artisan view:cache');
 task('artisan:view:cache', artisan('view:cache', ['min' => 5.6]));
 
 desc('Execute artisan optimize');
-task('artisan:optimize', artisan('optimize', ['max' => 5.4]));
+task('artisan:optimize', artisan('optimize', ['min' => 5.7]));
+
+desc('Execute artisan optimize:clean');
+task('artisan:optimize:clean', artisan('optimize:clean', ['min' => 5.7]));
 
 desc('Execute artisan queue:restart');
 task('artisan:queue:restart', artisan('queue:restart'));

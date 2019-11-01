@@ -96,7 +96,6 @@ Before starting you first deployment, you should go check your `config/deploy.ph
             'artisan:view:clear',
             'artisan:cache:clear',
             'artisan:config:cache',
-            'artisan:optimize',
             'artisan:migrate',
         ],
 

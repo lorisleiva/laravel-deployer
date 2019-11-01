@@ -31,6 +31,7 @@ php artisan deploy:list namespace  # List all tasks starting with `namespace:`
 | `artisan:migrate:rollback`  | Execute artisan migrate:rollback |
 | `artisan:migrate:status`    | Execute artisan migrate:status |
 | `artisan:optimize`          | Execute artisan optimize |
+| `artisan:optimize:clean`    | Execute artisan optimize:clean |
 | `artisan:queue:restart`     | Execute artisan queue:restart |
 | `artisan:route:cache`       | Execute artisan route:cache |
 | `artisan:storage:link`      | Execute artisan storage:link |

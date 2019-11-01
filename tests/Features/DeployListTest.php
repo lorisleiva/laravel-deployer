@@ -36,6 +36,7 @@ class DeployListTest extends DeploymentTestCase
         $this->assertStringContainsString('artisan:migrate:rollback', $output);
         $this->assertStringContainsString('artisan:migrate:status', $output);
         $this->assertStringContainsString('artisan:optimize', $output);
+        $this->assertStringContainsString('artisan:optimize:clean', $output);
         $this->assertStringContainsString('artisan:queue:restart', $output);
         $this->assertStringContainsString('artisan:route:cache', $output);
         $this->assertStringContainsString('artisan:storage:link', $output);
