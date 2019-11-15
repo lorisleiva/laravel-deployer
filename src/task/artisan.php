@@ -53,8 +53,14 @@ task('artisan:queue:restart', artisan('queue:restart'));
 desc('Execute artisan storage:link');
 task('artisan:storage:link', artisan('storage:link', ['min' => 5.3]));
 
+desc('Execute artisan horizon:assets');
+task('artisan:horizon:assets', artisan('horizon:assets'));
+
 desc('Execute artisan horizon:terminate');
 task('artisan:horizon:terminate', artisan('horizon:terminate'));
+
+desc('Execute artisan telescope:publish');
+task('artisan:telescope:publish', artisan('telescope:publish'));
 
 desc('Execute artisan telescope:clear');
 task('artisan:telescope:clear', artisan('telescope:clear'));
