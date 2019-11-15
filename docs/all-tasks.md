@@ -25,6 +25,7 @@ php artisan deploy:list namespace  # List all tasks starting with `namespace:`
 | `artisan:down`              | Enable maintenance mode |
 | `artisan:event:cache`       | Execure artisan event:cache |
 | `artisan:event:clear`       | Execure artisan event:clear |
+| `artisan:horizon:assets`    | Execute artisan horizon:assets |
 | `artisan:horizon:terminate` | Execute artisan horizon:terminate |
 | `artisan:migrate`           | Execute artisan migrate |
 | `artisan:migrate:fresh`     | Execute artisan migrate:fresh |
@@ -40,6 +41,7 @@ php artisan deploy:list namespace  # List all tasks starting with `namespace:`
 | `artisan:view:clear`        | Execute artisan view:clear |
 | `artisan:telescope:clear`   | Execute artisan telescope:clear |
 | `artisan:telescope:prune`   | Execute artisan telescope:prune |
+| `artisan:telescope:publish` | Execute artisan telescope:publish |
 | `artisan:nova:publish`      | Execute artisan nova:publish |
 | `config:current`            | Show current paths |
 | `config:dump`               | Print host configuration |

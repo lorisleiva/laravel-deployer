@@ -30,6 +30,7 @@ class DeployListTest extends DeploymentTestCase
         $this->assertStringContainsString('artisan:config:clear', $output);
         $this->assertStringContainsString('artisan:db:seed', $output);
         $this->assertStringContainsString('artisan:down', $output);
+        $this->assertStringContainsString('artisan:horizon:assets', $output);
         $this->assertStringContainsString('artisan:horizon:terminate', $output);
         $this->assertStringContainsString('artisan:migrate', $output);
         $this->assertStringContainsString('artisan:migrate:fresh', $output);
@@ -45,6 +46,7 @@ class DeployListTest extends DeploymentTestCase
         $this->assertStringContainsString('artisan:view:cache', $output);
         $this->assertStringContainsString('artisan:telescope:clear', $output);
         $this->assertStringContainsString('artisan:telescope:prune', $output);
+        $this->assertStringContainsString('artisan:telescope:publish', $output);
         $this->assertStringContainsString('artisan:nova:publish', $output);
         $this->assertStringContainsString('artisan:event:clear', $output);
         $this->assertStringContainsString('artisan:event:cache', $output);
