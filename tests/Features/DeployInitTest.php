@@ -36,6 +36,7 @@ class DeployInitTest extends DeploymentTestCase
                 "done" => [],
                 "fail" => [],
                 "success" => [],
+                "rollback" => [],
             ],
             "options" => [
                 "application" => "Laravel",
@@ -86,6 +87,9 @@ class DeployInitTest extends DeploymentTestCase
                 ],
                 "fail" => [],
                 "success" => [],
+                "rollback" => [
+                    'fpm:reload',
+                ],
             ],
             "options" => [
                 "application" => "Laravel",

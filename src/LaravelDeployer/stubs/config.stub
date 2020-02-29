@@ -59,6 +59,9 @@ return [
         
         // Deployment failed.
         'fail' => {{hooks.fail}},
+        
+        // After a deployment has been rolled back.
+        'rollback' => {{hooks.rollback}},
     ],
 
     /*

@@ -24,12 +24,13 @@ class ConfigFileBuilder
         'default' => 'basic',
         'strategies' => [],
         'hooks' => [
-            'start'   => [],
-            'build'   => [],
-            'ready'   => [],
-            'done'    => [],
+            'start' => [],
+            'build' => [],
+            'ready' => [],
+            'done' => [],
             'success' => [],
-            'fail'    => [],
+            'fail' => [],
+            'rollback' => [],
         ],
         'options' => [
             'application' => "env('APP_NAME', 'Laravel')",
@@ -163,6 +164,7 @@ class ConfigFileBuilder
     public function reloadFpm($phpVersion = self::DEFAULT_PHP_VERSION)
     {
         $this->add('hooks.done', 'fpm:reload');
+        $this->add('hooks.rollback', 'fpm:reload');
         $this->set('options.php_fpm_service', "php$phpVersion-fpm");
 
         return $this;

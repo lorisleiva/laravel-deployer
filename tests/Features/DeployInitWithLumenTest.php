@@ -32,6 +32,7 @@ class DeployInitWithLumenTest extends DeploymentTestCase
                 "done" => [],
                 "fail" => [],
                 "success" => [],
+                "rollback" => [],
             ],
             "options" => [
                 "application" => "Laravel",

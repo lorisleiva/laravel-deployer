@@ -68,3 +68,6 @@ after('deploy', 'success');
 // Unlock when deployment fails.
 fail('deploy', 'deploy:failed');
 after('deploy:failed', 'deploy:unlock');
+
+// Add rollback hook.
+after('rollback', 'hook:rollback');

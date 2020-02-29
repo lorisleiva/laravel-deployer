@@ -20,6 +20,7 @@ class ConfigFile implements Arrayable
         'hooks.done',
         'hooks.success',
         'hooks.fail',
+        'hooks.rollback',
         'options',
         'hosts',
         'localhost',
