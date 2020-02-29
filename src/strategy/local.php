@@ -52,7 +52,7 @@ task('local:build', function() {
     invoke('deploy:release');
     invoke('deploy:update_code');
     copyShared('{{previous_release}}', '{{release_path}}');
-    invoke('deploy:shared');
+    // invoke('deploy:shared');
     invoke('deploy:vendors');
     invoke('hook:build');
     invoke('deploy:symlink');
