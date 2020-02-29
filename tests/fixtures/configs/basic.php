@@ -7,6 +7,8 @@ return [
         'repository' => '{{repo}}',
         'upload_path' => '{{repo}}',
         'writable_mode' => 'chmod',
+        'local_deploy_path' => '{{tmp}}/local_build',
+        'local_cache_repository' => '{{repo}}',
         'branch' => null,
         'debug' => true,
     ],

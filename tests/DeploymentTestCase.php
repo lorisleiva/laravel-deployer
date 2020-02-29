@@ -60,6 +60,7 @@ class DeploymentTestCase extends TestCase
         if ($configFile = realpath(static::CONFIGS . '/' . $this->configs . '.php')) {
             $this->runInRepository("cp $configFile config/deploy.php");
             $this->updateConfigFile(function ($content) {
+                $content = str_replace('{{tmp}}', static::TMP, $content);
                 $content = str_replace('{{repo}}', static::REPOSITORY, $content);
                 return str_replace('{{server}}', static::SERVER, $content);
             });
