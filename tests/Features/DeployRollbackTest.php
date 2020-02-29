@@ -9,7 +9,7 @@ class DeployRollbackTest extends DeploymentTestCase
     protected $configs = 'basic';
 
     /** @test */
-    function a_rollback_with_no_previous_release_should_do_nothing_but_warn_user()
+    function a_rollback_with_no_previous_release_should_do_nothing_but_warn_the_user()
     {
         $output = $this->artisan('deploy:rollback');
 
@@ -42,9 +42,10 @@ class DeployRollbackTest extends DeploymentTestCase
 
         /* Rollback */
 
-        $this->artisan('deploy:rollback');
+        $output = $this->artisan('deploy:rollback');
 
         $this->assertSuccessfulDeployment();
         $this->assertServerHas('unicorn.txt');
+        $this->assertStringContainsString('Executing task fpm:reload', $output);
     }
 }
