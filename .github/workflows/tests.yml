@@ -2,31 +2,41 @@ name: Tests
 
 on: [push]
 
-run-tests: &run-tests
-- uses: actions/checkout@v2
-- name: Validate composer.json and composer.lock
-  run: composer validate
-- name: Cache dependencies
-  uses: actions/cache@v1
-  with:
-    path: /composer/cache/files
-    key: dependencies-composer-${{ hashFiles('composer.json') }}
-- name: Install dependencies
-  run: composer install --prefer-dist --no-progress --no-suggest
-- name: Run tests
-  run: phpunit
-
 jobs:
   phpunit73:
     name: "Tests on PHP 7.3"
     runs-on: ubuntu-latest
     container: 
       image: lorisleiva/laravel-docker:7.3
-    steps: *run-tests
+    steps:
+    - uses: actions/checkout@v2
+    - name: Validate composer.json and composer.lock
+      run: composer validate
+    - name: Cache dependencies
+      uses: actions/cache@v1
+      with:
+        path: /composer/cache/files
+        key: dependencies-composer-${{ hashFiles('composer.json') }}
+    - name: Install dependencies
+      run: composer install --prefer-dist --no-progress --no-suggest
+    - name: Run tests
+      run: phpunit
       
   phpunit74:
     name: "Tests on PHP 7.4"
     runs-on: ubuntu-latest
     container: 
       image: lorisleiva/laravel-docker:7.4
-    steps: *run-tests
+    steps:
+    - uses: actions/checkout@v2
+    - name: Validate composer.json and composer.lock
+      run: composer validate
+    - name: Cache dependencies
+      uses: actions/cache@v1
+      with:
+        path: /composer/cache/files
+        key: dependencies-composer-${{ hashFiles('composer.json') }}
+    - name: Install dependencies
+      run: composer install --prefer-dist --no-progress --no-suggest
+    - name: Run tests
+      run: phpunit
