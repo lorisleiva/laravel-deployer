@@ -226,12 +226,13 @@ EOD
     {
         $deployFile = (string) new DeployFile([
             'hooks' => [
-                'start'   => ['slack:notify'],
-                'build'   => ['npm:install', 'npm:production'],
-                'ready'   => ['artisan:cache:clear', 'artisan:migrate'],
-                'done'    => ['fpm:reload'],
-                'fail'    => ['slack:notify:failure'],
-                'success' => ['slack:notify:success'],
+                'start'    => ['slack:notify'],
+                'build'    => ['npm:install', 'npm:production'],
+                'ready'    => ['artisan:cache:clear', 'artisan:migrate'],
+                'done'     => ['fpm:reload'],
+                'fail'     => ['slack:notify:failure'],
+                'success'  => ['slack:notify:success'],
+                'rollback' => ['fpm:reload'],
             ]
         ]);
 
@@ -245,6 +246,7 @@ after('hook:ready', 'artisan:migrate');
 after('hook:done', 'fpm:reload');
 after('deploy:failed', 'slack:notify:failure');
 after('success', 'slack:notify:success');
+after('hook:rollback', 'fpm:reload');
 EOD
         , $deployFile);
     }
