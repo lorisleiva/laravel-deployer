@@ -109,6 +109,11 @@ Before starting you first deployment, you should go check your `config/deploy.ph
 
         // Deployment failed. This can happen at any point of the deployment.
         'fail' => [],
+
+        // After a deployment has been rolled back.
+        'rollback' => [
+            'fpm:reload',
+        ],
     ],
 ```
 
