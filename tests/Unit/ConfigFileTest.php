@@ -28,6 +28,7 @@ class ConfigFileTest extends TestCase
                 'done'    => [],
                 'fail'    => [],
                 'success' => [],
+                'rollback' => [],
             ],
             'options' => [
                 'application' => "env('APP_NAME', 'Laravel')",

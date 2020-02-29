@@ -30,6 +30,9 @@ return [
             'artisan:config:cache',
             'artisan:optimize',
         ],
+        'rollback' => [
+            'fpm:reload',
+        ],
     ],
 
     'include' => [
