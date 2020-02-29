@@ -6,7 +6,7 @@ return [
         'application' => env('APP_NAME', 'Laravel'),
         'repository' => '{{repo}}',
         'upload_path' => '{{repo}}',
-        'writable_mode' => 'chgrp',
+        'writable_mode' => 'chmod',
         'local_deploy_path' => '{{tmp}}/local_build',
         'local_cache_repository' => '{{repo}}',
         'local_deploy_shared' => false,
