@@ -5,7 +5,7 @@ return [
     'options' => [
         'application' => env('APP_NAME', 'Laravel'),
         'repository' => '{{repo}}',
-        'writable_mode' => 'chmod',
+        'writable_mode' => 'chown',
         'branch' => null,
         'debug' => true,
     ],
