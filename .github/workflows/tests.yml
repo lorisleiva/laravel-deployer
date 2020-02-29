@@ -15,7 +15,7 @@ jobs:
     - name: Cache dependencies
       uses: actions/cache@v1
       with:
-        path: $COMPOSER_HOME/cache/files
+        path: /composer/cache/files
         key: dependencies-composer-${{ hashFiles('composer.json') }}
     - name: Install dependencies
       run: composer install --prefer-dist --no-progress --no-suggest
@@ -34,7 +34,7 @@ jobs:
     - name: Cache dependencies
       uses: actions/cache@v1
       with:
-        path: $COMPOSER_HOME/cache/files
+        path: /composer/cache/files
         key: dependencies-composer-${{ hashFiles('composer.json') }}
     - name: Install dependencies
       run: composer install --prefer-dist --no-progress --no-suggest
