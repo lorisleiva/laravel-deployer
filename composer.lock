@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "4dd4eafc92d988d845029f414c52d27a",
+    "content-hash": "92ea65b928956aa61fc7701b914ccb88",
     "packages": [
         {
             "name": "deployer/deployer",
@@ -418,12 +418,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/laravel/framework.git",
-                "reference": "89a2627bb6210062f3896f61d59bae268992b0c6"
+                "reference": "568c1b32b329b8f22c60e286e55d8bc4354055f3"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/laravel/framework/zipball/89a2627bb6210062f3896f61d59bae268992b0c6",
-                "reference": "89a2627bb6210062f3896f61d59bae268992b0c6",
+                "url": "https://api.github.com/repos/laravel/framework/zipball/568c1b32b329b8f22c60e286e55d8bc4354055f3",
+                "reference": "568c1b32b329b8f22c60e286e55d8bc4354055f3",
                 "shasum": ""
             },
             "require": {
@@ -561,7 +561,7 @@
                 "framework",
                 "laravel"
             ],
-            "time": "2020-02-29T13:51:27+00:00"
+            "time": "2020-02-29T19:41:55+00:00"
         },
         {
             "name": "league/commonmark",
