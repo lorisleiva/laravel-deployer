@@ -43,16 +43,24 @@ class BaseCommand extends Command
 
     public function dep($command)
     {
+        // Merge arguments and options.
         $this->parameters = $this->getParameters();
         $this->providedFile = $this->parameters->pull('--file');
         $this->providedStrategy = $this->parameters->pull('--strategy');
 
+        // Force Ansi mode if not specified.
+        if ($this->parameters->intersect(['--ansi', '--no-ansi'])->isEmpty()) {
+            $this->parameters->push('--ansi');
+        }
+
+        // Fetch deploy config file.
         if (! $deployFile = $this->getDeployFile()) {
             $this->error("config/deploy.php file not found.");
             $this->error("Please run `php artisan deploy:init` to get started.");
             return;
         }
 
+        // Delegate to DeployerPHP with the right parameters.
         $parameters = $this->getParametersAsString($this->parameters);
         $depBinary = 'vendor' . DIRECTORY_SEPARATOR . 'bin' . DIRECTORY_SEPARATOR . 'dep';
         return $this->process("$depBinary --file=$deployFile $command $parameters");
