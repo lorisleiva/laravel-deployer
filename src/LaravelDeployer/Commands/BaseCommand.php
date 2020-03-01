@@ -98,28 +98,22 @@ class BaseCommand extends Command
         }
     }
 
-    public function process($command)
+    public function process(string $command)
     {
-        return (new Process($command))
+        return Process::fromShellCommandline($command)
             ->setTty($this->isTtySupported())
             ->setWorkingDirectory(base_path())
             ->setTimeout(null)
             ->setIdleTimeout(null)
             ->mustRun(function($type, $buffer) {
                 $this->output->write($buffer);
-            });
+            })
+            ->getExitCode();
     }
 
     public function isTtySupported()
     {
-        if (env('APP_ENV') === 'testing') {
-            return false;
-        }
-
-        return (bool) @proc_open('echo 1 >/dev/null', [
-            ['file', '/dev/tty', 'r'], 
-            ['file', '/dev/tty', 'w'], 
-            ['file', '/dev/tty', 'w'], 
-        ], $pipes);
+        return ! env('APP_ENV') === 'testing'
+            && Process::isTtySupported();
     }
 }
