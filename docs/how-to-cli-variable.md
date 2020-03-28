@@ -50,4 +50,4 @@ You can even go one step further and provide a dynamic deploy path based on the 
 ]
 ```
 
-If you'd like to know more about how to set up dynamic feature deployment using GitLab pipelines, you can read [this amazing answer](https://github.com/lorisleiva/laravel-deployer/issues/159#issuecomment-603734655) from @pixelplant detailing the process.
+If you'd like to know more about how to set up dynamic feature deployment using GitLab pipelines, you can read [this amazing answer](https://github.com/lorisleiva/laravel-deployer/issues/159#issuecomment-603734655) from [@pixelplant](https://github.com/pixelplant) detailing the process.
