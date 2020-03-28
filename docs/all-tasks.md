@@ -26,6 +26,7 @@ php artisan deploy:list namespace  # List all tasks starting with `namespace:`
 | `artisan:event:cache`       | Execure artisan event:cache |
 | `artisan:event:clear`       | Execure artisan event:clear |
 | `artisan:horizon:assets`    | Execute artisan horizon:assets |
+| `artisan:horizon:publish`   | Execute artisan horizon:publish |
 | `artisan:horizon:terminate` | Execute artisan horizon:terminate |
 | `artisan:migrate`           | Execute artisan migrate |
 | `artisan:migrate:fresh`     | Execute artisan migrate:fresh |

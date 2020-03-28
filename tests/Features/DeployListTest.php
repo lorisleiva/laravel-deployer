@@ -31,6 +31,7 @@ class DeployListTest extends DeploymentTestCase
         $this->assertStringContainsString('artisan:db:seed', $output);
         $this->assertStringContainsString('artisan:down', $output);
         $this->assertStringContainsString('artisan:horizon:assets', $output);
+        $this->assertStringContainsString('artisan:horizon:publish', $output);
         $this->assertStringContainsString('artisan:horizon:terminate', $output);
         $this->assertStringContainsString('artisan:migrate', $output);
         $this->assertStringContainsString('artisan:migrate:fresh', $output);
