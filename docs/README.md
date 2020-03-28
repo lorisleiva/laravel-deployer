@@ -25,6 +25,7 @@ Deployment configurations
 * [How to send Slack notifications?](how-to-slack.md)
 * [How to reload php-fpm?](how-to-reload-fpm.md)
 * [How to terminate horizon?](how-to-horizon.md)
+* [How to pass CLI variables to deployer?](how-to-cli-variable.md)
 
 Advanced usage
 * [How to create your own tasks and recipes?](how-to-custom-recipes.md)
