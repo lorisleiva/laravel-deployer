@@ -56,6 +56,9 @@ task('artisan:storage:link', artisan('storage:link', ['min' => 5.3]));
 desc('Execute artisan horizon:assets');
 task('artisan:horizon:assets', artisan('horizon:assets'));
 
+desc('Execute artisan horizon:publish');
+task('artisan:horizon:publish', artisan('horizon:publish'));
+
 desc('Execute artisan horizon:terminate');
 task('artisan:horizon:terminate', artisan('horizon:terminate'));
 
