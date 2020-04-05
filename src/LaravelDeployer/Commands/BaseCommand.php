@@ -11,7 +11,7 @@ use Symfony\Component\Process\Process;
 class BaseCommand extends Command
 {
     use ParsesCliParameters;
-    
+
     protected $parameters;
     protected $providedFile;
     protected $providedStrategy;
@@ -37,7 +37,7 @@ class BaseCommand extends Command
         if ($this->useDeployerOptions) {
             $this->signature .= $deployerOptions;
         }
-        
+
         parent::__construct();
     }
 
@@ -49,7 +49,7 @@ class BaseCommand extends Command
         $this->providedStrategy = $this->parameters->pull('--strategy');
 
         // Force Ansi mode if not specified.
-        if ($this->parameters->intersect(['--ansi', '--no-ansi'])->isEmpty()) {
+        if (! $this->parameters->contains('--ansi') && ! $this->parameters->contains('--no-ansi')) {
             $this->parameters->push('--ansi');
         }
 
@@ -94,7 +94,7 @@ class BaseCommand extends Command
             );
         }
     }
-    
+
     public function getCustomDeployFile()
     {
         if (! $configFile = $this->getConfigFile()) {
