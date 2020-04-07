@@ -121,7 +121,6 @@ class BaseCommand extends Command
 
     public function isTtySupported()
     {
-        return ! (env('APP_ENV') === 'testing')
-            && Process::isTtySupported();
+        return config('app.env') !== 'testing' && Process::isTtySupported();
     }
 }
