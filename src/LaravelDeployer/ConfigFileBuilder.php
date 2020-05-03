@@ -12,7 +12,6 @@ class ConfigFileBuilder
     protected $laravelHooks = [
         'artisan:storage:link',
         'artisan:view:clear',
-        'artisan:cache:clear',
         'artisan:config:cache',
     ];
 
