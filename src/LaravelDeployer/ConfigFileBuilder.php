@@ -17,7 +17,6 @@ class ConfigFileBuilder
     ];
 
     protected $lumenHooks = [
-        'artisan:cache:clear',
     ];
 
     protected $configs = [
