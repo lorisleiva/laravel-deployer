@@ -19,7 +19,6 @@ return [
             'npm:development',
         ],
         'ready' => [
-            'artisan:cache:clear',
             'artisan:optimize',
         ],
     ],
