@@ -32,11 +32,11 @@ class LogsTest extends DeploymentTestCase
         $output = $this->artisan('logs');
 
         foreach ($authorized as $log) {
-            $this->assertContains($log, $output);
+            $this->assertStringContainsString($log, $output);
         }
 
         foreach ($unauthorized as $log) {
-            $this->assertNotContains($log, $output);
+            $this->assertStringNotContainsString($log, $output);
         }
     }
 }

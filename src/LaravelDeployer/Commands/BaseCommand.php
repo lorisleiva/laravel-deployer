@@ -11,7 +11,7 @@ use Symfony\Component\Process\Process;
 class BaseCommand extends Command
 {
     use ParsesCliParameters;
-    
+
     protected $parameters;
     protected $providedFile;
     protected $providedStrategy;
@@ -37,22 +37,30 @@ class BaseCommand extends Command
         if ($this->useDeployerOptions) {
             $this->signature .= $deployerOptions;
         }
-        
+
         parent::__construct();
     }
 
     public function dep($command)
     {
+        // Merge arguments and options.
         $this->parameters = $this->getParameters();
         $this->providedFile = $this->parameters->pull('--file');
         $this->providedStrategy = $this->parameters->pull('--strategy');
 
+        // Force Ansi mode if not specified.
+        if (! $this->parameters->contains('--ansi') && ! $this->parameters->contains('--no-ansi')) {
+            $this->parameters->push('--ansi');
+        }
+
+        // Fetch deploy config file.
         if (! $deployFile = $this->getDeployFile()) {
             $this->error("config/deploy.php file not found.");
             $this->error("Please run `php artisan deploy:init` to get started.");
             return;
         }
 
+        // Delegate to DeployerPHP with the right parameters.
         $parameters = $this->getParametersAsString($this->parameters);
         $depBinary = 'vendor' . DIRECTORY_SEPARATOR . 'bin' . DIRECTORY_SEPARATOR . 'dep';
         return $this->process("$depBinary --file=$deployFile $command $parameters");
@@ -86,7 +94,7 @@ class BaseCommand extends Command
             );
         }
     }
-    
+
     public function getCustomDeployFile()
     {
         if (! $configFile = $this->getConfigFile()) {
@@ -98,28 +106,21 @@ class BaseCommand extends Command
         }
     }
 
-    public function process($command)
+    public function process(string $command)
     {
-        return (new Process($command))
+        return Process::fromShellCommandline($command)
             ->setTty($this->isTtySupported())
             ->setWorkingDirectory(base_path())
             ->setTimeout(null)
             ->setIdleTimeout(null)
             ->mustRun(function($type, $buffer) {
                 $this->output->write($buffer);
-            });
+            })
+            ->getExitCode();
     }
 
     public function isTtySupported()
     {
-        if (env('APP_ENV') === 'testing') {
-            return false;
-        }
-
-        return (bool) @proc_open('echo 1 >/dev/null', [
-            ['file', '/dev/tty', 'r'], 
-            ['file', '/dev/tty', 'w'], 
-            ['file', '/dev/tty', 'w'], 
-        ], $pipes);
+        return config('app.env') !== 'testing' && Process::isTtySupported();
     }
 }

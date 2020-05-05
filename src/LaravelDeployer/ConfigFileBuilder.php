@@ -2,11 +2,12 @@
 
 namespace Lorisleiva\LaravelDeployer;
 
+use Illuminate\Support\Arr;
 use Lorisleiva\LaravelDeployer\ConfigFile;
 
 class ConfigFileBuilder
 {
-    const DEFAULT_PHP_VERSION = '7.2';
+    const DEFAULT_PHP_VERSION = '7.3';
 
     protected $laravelHooks = [
         'artisan:storage:link',
@@ -21,12 +22,13 @@ class ConfigFileBuilder
         'default' => 'basic',
         'strategies' => [],
         'hooks' => [
-            'start'   => [],
-            'build'   => [],
-            'ready'   => [],
-            'done'    => [],
+            'start' => [],
+            'build' => [],
+            'ready' => [],
+            'done' => [],
             'success' => [],
-            'fail'    => [],
+            'fail' => [],
+            'rollback' => [],
         ],
         'options' => [
             'application' => "env('APP_NAME', 'Laravel')",
@@ -59,7 +61,7 @@ class ConfigFileBuilder
      */
     public function get($key, $default = null)
     {
-        return array_get($this->configs, $key, $default);
+        return Arr::get($this->configs, $key, $default);
     }
 
     /**
@@ -69,7 +71,7 @@ class ConfigFileBuilder
      */
     public function set($key, $value)
     {
-        array_set($this->configs, $key, $value);
+        Arr::set($this->configs, $key, $value);
 
         return $this;
     }
@@ -81,11 +83,11 @@ class ConfigFileBuilder
      */
     public function add($key, $value)
     {
-        $array = array_get($this->configs, $key);
+        $array = Arr::get($this->configs, $key);
 
         if (is_array($array)) {
             $array[] = $value;
-            array_set($this->configs, $key, $array);
+            Arr::set($this->configs, $key, $array);
         }
 
 
@@ -99,7 +101,7 @@ class ConfigFileBuilder
      */
     public function getHost($key)
     {
-        return array_get(head($this->configs['hosts']), $key);
+        return Arr::get(head($this->configs['hosts']), $key);
     }
 
     /**
@@ -160,6 +162,7 @@ class ConfigFileBuilder
     public function reloadFpm($phpVersion = self::DEFAULT_PHP_VERSION)
     {
         $this->add('hooks.done', 'fpm:reload');
+        $this->add('hooks.rollback', 'fpm:reload');
         $this->set('options.php_fpm_service', "php$phpVersion-fpm");
 
         return $this;

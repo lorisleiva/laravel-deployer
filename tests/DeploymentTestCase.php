@@ -19,13 +19,13 @@ class DeploymentTestCase extends TestCase
         }
     }
 
-    public function setUp()
+    public function setUp(): void
     {
         parent::setUp();
         $this->resetTempDirectory();
     }
 
-    public function tearDown()
+    public function tearDown(): void
     {
         parent::tearDown();
         $this->cleanupTempDirectory();
@@ -60,6 +60,7 @@ class DeploymentTestCase extends TestCase
         if ($configFile = realpath(static::CONFIGS . '/' . $this->configs . '.php')) {
             $this->runInRepository("cp $configFile config/deploy.php");
             $this->updateConfigFile(function ($content) {
+                $content = str_replace('{{tmp}}', static::TMP, $content);
                 $content = str_replace('{{repo}}', static::REPOSITORY, $content);
                 return str_replace('{{server}}', static::SERVER, $content);
             });

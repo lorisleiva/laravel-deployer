@@ -2,8 +2,9 @@
 
 namespace Lorisleiva\LaravelDeployer;
 
-use Illuminate\Contracts\Support\Arrayable;
+use Illuminate\Support\Str;
 use Illuminate\Filesystem\Filesystem;
+use Illuminate\Contracts\Support\Arrayable;
 use Lorisleiva\LaravelDeployer\Concerns\RendersCode;
 
 class DeployFile
@@ -114,8 +115,8 @@ class DeployFile
                 })->implode("\n");
             })
             ->map(function ($tasks, $strategy) {
-                $title = title_case(str_replace('_', ' ', $strategy)) . ' Strategy';
-                $slug = snake_case($strategy);
+                $title = Str::title(str_replace('_', ' ', $strategy)) . ' Strategy';
+                $slug = Str::snake($strategy);
 
                 return "desc('$title');\ntask('strategy:$slug', [\n$tasks\n]);";
             })

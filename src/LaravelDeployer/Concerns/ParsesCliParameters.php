@@ -22,8 +22,8 @@ trait ParsesCliParameters
     public function parseArguments()
     {
         return collect($this->arguments())
-            ->reject(function ($value) {
-                return ! $value && ! is_string($value) && ! is_numeric($value);
+            ->filter(function ($value) {
+                return $value || is_string($value) || is_numeric($value);
             })
             ->pipe(function ($arguments) {
                 $command = $arguments->get('command');

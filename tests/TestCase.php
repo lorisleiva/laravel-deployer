@@ -27,9 +27,9 @@ class TestCase extends \Orchestra\Testbench\TestCase
         return Artisan::output();
     }
 
-    public function exec($command)
+    public function exec(string $command)
     {
-        $process = new Process($command);
+        $process = Process::fromShellCommandline($command);
         $process->mustRun();
         return trim($process->getOutput());
     }

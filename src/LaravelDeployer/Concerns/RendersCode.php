@@ -2,6 +2,8 @@
 
 namespace Lorisleiva\LaravelDeployer\Concerns;
 
+use Illuminate\Support\Str;
+
 trait RendersCode
 {
     protected function render($value, $indent = 1, $allow_env = true)
@@ -10,7 +12,7 @@ trait RendersCode
             case 'array':
                 return $this->renderArray($value, $indent, $allow_env);
             case 'string':
-                return (starts_with($value, 'env(') && $allow_env)
+                return (Str::startsWith($value, 'env(') && $allow_env)
                     ? $value
                     : "'" . addslashes($value) . "'";
             case 'boolean':

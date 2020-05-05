@@ -111,6 +111,7 @@ class DeployInit extends BaseCommand
     public function defineForge()
     {
         $question = 'Do you use Laravel Forge to maintain your server?';
+        
         if ($this->option('forge') || $this->confirm($question)) {
             return $this->builder->useForge($this->askPhpVersion());
         }
@@ -153,7 +154,6 @@ class DeployInit extends BaseCommand
             $manager = $npm === 'Yes using `npm run production`' ? 'npm' : 'yarn';
             $this->builder->add('hooks.build', "$manager:install");
             $this->builder->add('hooks.build', "$manager:production");
-  
         }
 
         if ($this->confirm('Do you want to migrate during deployment?', true)) {
@@ -163,6 +163,5 @@ class DeployInit extends BaseCommand
         if ($this->confirm('Do you want to terminate horizon after each deployment?')) {
             $this->builder->add('hooks.ready', 'artisan:horizon:terminate');
         }
-
     }
 }

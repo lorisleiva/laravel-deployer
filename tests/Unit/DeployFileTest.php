@@ -12,8 +12,8 @@ class DeployFileBuilderTest extends TestCase
     {
         $deployFile = (string) new DeployFile();
 
-        $this->assertContains("namespace Deployer;", $deployFile);
-        $this->assertContains("require 'recipe/laravel-deployer.php';", $deployFile);
+        $this->assertStringContainsString("namespace Deployer;", $deployFile);
+        $this->assertStringContainsString("require 'recipe/laravel-deployer.php';", $deployFile);
     }
 
     /** @test */
@@ -31,7 +31,7 @@ class DeployFileBuilderTest extends TestCase
             'default' => 'docker'
         ]);
 
-        $this->assertContains("set('strategy', 'docker');", $deployFile);
+        $this->assertStringContainsString("set('strategy', 'docker');", $deployFile);
     }
 
     /** @test */
@@ -39,7 +39,7 @@ class DeployFileBuilderTest extends TestCase
     {
         $deployFile = (string) new DeployFile();
 
-        $this->assertContains("set('strategy', 'basic');", $deployFile);
+        $this->assertStringContainsString("set('strategy', 'basic');", $deployFile);
     }
 
     /** @test */
@@ -52,8 +52,8 @@ class DeployFileBuilderTest extends TestCase
             ]
         ]);
 
-        $this->assertContains("require 'recipe/foo.php';", $deployFile);
-        $this->assertContains("require 'recipe/bar.php';", $deployFile);
+        $this->assertStringContainsString("require 'recipe/foo.php';", $deployFile);
+        $this->assertStringContainsString("require 'recipe/bar.php';", $deployFile);
     }
 
     /** @test */
@@ -73,7 +73,7 @@ class DeployFileBuilderTest extends TestCase
             ]
         ]);
 
-        $this->assertContains(
+        $this->assertStringContainsString(
 <<<EOD
 desc('Custom A Strategy');
 task('strategy:custom_a', [
@@ -84,7 +84,7 @@ task('strategy:custom_a', [
 EOD
         , $deployFile);
 
-        $this->assertContains(
+        $this->assertStringContainsString(
 <<<EOD
 desc('Custom B Strategy');
 task('strategy:custom_b', [
@@ -109,7 +109,7 @@ EOD
             ]
         ]);
 
-        $this->assertContains(
+        $this->assertStringContainsString(
 <<<EOD
 set('repository', 'my/repo.git');
 set('git_tty', true);
@@ -132,7 +132,7 @@ EOD
             ],
         ]);
 
-        $this->assertContains("'bar' => 'env(\'PLAIN_TEXT\')'", $deployFile);
+        $this->assertStringContainsString("'bar' => 'env(\'PLAIN_TEXT\')'", $deployFile);
     }
 
     /** @test */
@@ -163,7 +163,7 @@ EOD
             ]
         ]);
 
-        $this->assertContains(
+        $this->assertStringContainsString(
 <<<EOD
 host('elegon.io')
     ->hostname('elegon.io')
@@ -186,7 +186,7 @@ host('elegon.io')
 EOD
         , $deployFile);
 
-        $this->assertContains(
+        $this->assertStringContainsString(
 <<<EOD
 host('dev.elegon.io')
     ->stage('staging');
@@ -206,7 +206,7 @@ EOD
             ]
         ]);
 
-        $this->assertContains(
+        $this->assertStringContainsString(
 <<<EOD
 localhost()
     ->stage('development')
@@ -226,16 +226,17 @@ EOD
     {
         $deployFile = (string) new DeployFile([
             'hooks' => [
-                'start'   => ['slack:notify'],
-                'build'   => ['npm:install', 'npm:production'],
-                'ready'   => ['artisan:cache:clear', 'artisan:migrate'],
-                'done'    => ['fpm:reload'],
-                'fail'    => ['slack:notify:failure'],
-                'success' => ['slack:notify:success'],
+                'start'    => ['slack:notify'],
+                'build'    => ['npm:install', 'npm:production'],
+                'ready'    => ['artisan:cache:clear', 'artisan:migrate'],
+                'done'     => ['fpm:reload'],
+                'fail'     => ['slack:notify:failure'],
+                'success'  => ['slack:notify:success'],
+                'rollback' => ['fpm:reload'],
             ]
         ]);
 
-        $this->assertContains(
+        $this->assertStringContainsString(
 <<<EOD
 after('hook:start', 'slack:notify');
 after('hook:build', 'npm:install');
@@ -245,6 +246,7 @@ after('hook:ready', 'artisan:migrate');
 after('hook:done', 'fpm:reload');
 after('deploy:failed', 'slack:notify:failure');
 after('success', 'slack:notify:success');
+after('hook:rollback', 'fpm:reload');
 EOD
         , $deployFile);
     }

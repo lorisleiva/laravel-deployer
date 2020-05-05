@@ -29,6 +29,7 @@ task('strategy:local', [
 set('local_deploy_path', __DIR__ . '/../../.build');
 set('local_cache_repository', __DIR__ . '/../../../../..');
 set('local_keep_releases', 1);
+set('local_deploy_shared', true);
 
 set('local_upload_options', [
     'options' => [ 
@@ -52,7 +53,9 @@ task('local:build', function() {
     invoke('deploy:release');
     invoke('deploy:update_code');
     copyShared('{{previous_release}}', '{{release_path}}');
-    invoke('deploy:shared');
+    if (get('local_deploy_shared')) {
+        invoke('deploy:shared');
+    }
     invoke('deploy:vendors');
     invoke('hook:build');
     invoke('deploy:symlink');

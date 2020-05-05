@@ -14,7 +14,7 @@ class ConfigFileBuilderTest extends TestCase
             ->set('options.repository', 'ssh://git@github.com:lorisleiva/laravel-deployer.git')
             ->build();
 
-        $this->assertArraySubset(
+        $this->assertConfigHas(
             ['options' => [
                 'repository' => 'ssh://git@github.com:lorisleiva/laravel-deployer.git',
             ]],
@@ -32,7 +32,7 @@ class ConfigFileBuilderTest extends TestCase
             ])
             ->build();
 
-        $this->assertArraySubset(
+        $this->assertConfigHas(
             ['options' => [
                 'foo' => [
                     'bar' => [
@@ -60,7 +60,7 @@ class ConfigFileBuilderTest extends TestCase
             ->setHost('name', 'elegon.io')
             ->build();
 
-        $this->assertArraySubset(
+        $this->assertConfigHas(
             ['hosts' => [
                 'elegon.io' => [],
             ]],
@@ -79,7 +79,7 @@ class ConfigFileBuilderTest extends TestCase
             ->setHost('foo', 'bar')
             ->build();
 
-        $this->assertArraySubset(
+        $this->assertConfigHas(
             ['hosts' => [
                 'elegon.io' => [
                     'deploy_path' => '/home/forge/elegon.io',
@@ -97,7 +97,7 @@ class ConfigFileBuilderTest extends TestCase
     {
         $config = (new ConfigFileBuilder)->build();
 
-        $this->assertArraySubset(
+        $this->assertConfigHas(
             ['hooks' => [
                 'ready' => [
                     'artisan:storage:link',
@@ -117,7 +117,7 @@ class ConfigFileBuilderTest extends TestCase
             ->add('hooks.build', 'npm:development')
             ->build();
 
-        $this->assertArraySubset(
+        $this->assertConfigHas(
             ['hooks' => [
                 'build' => [
                     'npm:install',
@@ -136,7 +136,7 @@ class ConfigFileBuilderTest extends TestCase
             ->add('hooks.ready', 'artisan:horizon:terminate')
             ->build();
 
-        $this->assertArraySubset(
+        $this->assertConfigHas(
             ['hooks' => [
                 'ready' => [
                     'artisan:storage:link',
@@ -158,7 +158,7 @@ class ConfigFileBuilderTest extends TestCase
             ->useForge()
             ->build();
 
-        $this->assertArraySubset(
+        $this->assertConfigHas(
             [
                 'hosts' => [
                     'elegon.io' => [
@@ -186,7 +186,7 @@ class ConfigFileBuilderTest extends TestCase
             ->reloadFpm('7.0')
             ->build();
 
-        $this->assertArraySubset(
+        $this->assertConfigHas(
             [
                 'hooks' => [
                     'done' => [
@@ -218,7 +218,7 @@ class ConfigFileBuilderTest extends TestCase
             ->add('hooks.ready', 'artisan:telescope:clear')
             ->build();
 
-        $this->assertArraySubset(
+        $this->assertConfigHas(
             ['hooks' => [
                 'ready' => [
                     'artisan:storage:link',
@@ -238,7 +238,7 @@ class ConfigFileBuilderTest extends TestCase
             ->add('hooks.ready', 'artisan:telescope:prune')
             ->build();
 
-        $this->assertArraySubset(
+        $this->assertConfigHas(
             ['hooks' => [
                 'ready' => [
                     'artisan:storage:link',
@@ -249,5 +249,28 @@ class ConfigFileBuilderTest extends TestCase
             ]],
             $config->toArray()
         );
+    }
+
+    public function assertConfigHas($subset, $array)
+    {
+        return $this->assertEquals([], static::array_diff_assoc_recursive($subset, $array));
+    }
+
+    public static function array_diff_assoc_recursive($array1, $array2) {
+        $difference=array();
+        foreach($array1 as $key => $value) {
+            if( is_array($value) ) {
+                if( !isset($array2[$key]) || !is_array($array2[$key]) ) {
+                    $difference[$key] = $value;
+                } else {
+                    $new_diff = static::array_diff_assoc_recursive($value, $array2[$key]);
+                    if( !empty($new_diff) )
+                        $difference[$key] = $new_diff;
+                }
+            } else if( !array_key_exists($key,$array2) || $array2[$key] !== $value ) {
+                $difference[$key] = $value;
+            }
+        }
+        return $difference;
     }
 }

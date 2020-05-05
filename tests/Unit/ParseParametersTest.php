@@ -15,8 +15,8 @@ class ParseParametersTest extends TestCase
     {
         $params = $this->simulateAndParseParameters('dummyTask --ansi');
 
-        $this->assertContains('--ansi', $params);
-        $this->assertNotContains('--no-ansi', $params);
+        $this->assertStringContainsString('--ansi', $params);
+        $this->assertStringNotContainsString('--no-ansi', $params);
     }
 
     /** @test */
@@ -24,8 +24,8 @@ class ParseParametersTest extends TestCase
     {
         $params = $this->simulateAndParseParameters('dummyTask --no-ansi');
 
-        $this->assertContains('--no-ansi', $params);
-        $this->assertNotContains('--ansi', $params);
+        $this->assertStringContainsString('--no-ansi', $params);
+        $this->assertStringNotContainsString('--ansi', $params);
     }
 
     /** @test */
@@ -33,7 +33,7 @@ class ParseParametersTest extends TestCase
     {
         $params = $this->simulateAndParseParameters('dummyTask 4 prod');
 
-        $this->assertContains('dummyTask 4 prod', $params);
+        $this->assertStringContainsString('dummyTask 4 prod', $params);
     }
 
     /** @test */
@@ -42,8 +42,8 @@ class ParseParametersTest extends TestCase
         $params = $this->simulateAndParseParameters('dummyTask');
 
         // If optional argument was kept, it would add an extra space.
-        $this->assertNotContains('  ', $params);
-        $this->assertContains('dummyTask 3', $params);
+        $this->assertStringNotContainsString('  ', $params);
+        $this->assertStringContainsString('dummyTask 3', $params);
     }
 
     /** @test */
@@ -63,16 +63,16 @@ class ParseParametersTest extends TestCase
             "
         );
 
-        $this->assertContains("--parallel", $params);
-        $this->assertContains("--limit=3", $params);
-        $this->assertContains("--no-hooks", $params);
-        $this->assertContains("--log='./custom.log'", $params);
-        $this->assertContains("--roles=app", $params);
-        $this->assertContains("--hosts='dev.example.com:example.com'", $params);
-        $this->assertContains("--file='./custom/file.php'", $params);
-        $this->assertContains("--tag='v1.2.1'", $params);
-        $this->assertContains("--revision=c3110a562339a20eaa4c99e", $params);
-        $this->assertContains("--branch=develop", $params);
+        $this->assertStringContainsString("--parallel", $params);
+        $this->assertStringContainsString("--limit=3", $params);
+        $this->assertStringContainsString("--no-hooks", $params);
+        $this->assertStringContainsString("--log='./custom.log'", $params);
+        $this->assertStringContainsString("--roles=app", $params);
+        $this->assertStringContainsString("--hosts='dev.example.com:example.com'", $params);
+        $this->assertStringContainsString("--file='./custom/file.php'", $params);
+        $this->assertStringContainsString("--tag='v1.2.1'", $params);
+        $this->assertStringContainsString("--revision=c3110a562339a20eaa4c99e", $params);
+        $this->assertStringContainsString("--branch=develop", $params);
     }
 
     /** @test */
@@ -82,8 +82,8 @@ class ParseParametersTest extends TestCase
             "dummyTask -o ssh_multiplexing=true -o branch=develop"
         );
 
-        $this->assertContains("--option='ssh_multiplexing=true'", $params);
-        $this->assertContains("--option='branch=develop'", $params);
+        $this->assertStringContainsString("--option='ssh_multiplexing=true'", $params);
+        $this->assertStringContainsString("--option='branch=develop'", $params);
     }
 
     /** @test */
@@ -94,16 +94,16 @@ class ParseParametersTest extends TestCase
         $paramsVV = $this->simulateAndParseParameters('dummyTask', '-vv');
         $paramsVVV = $this->simulateAndParseParameters('dummyTask', '-vvv');
 
-        $this->assertNotContains("-v", $params);
+        $this->assertStringNotContainsString("-v", $params);
 
-        $this->assertContains("-v", $paramsV);
-        $this->assertNotContains("-vv", $paramsV);
-        $this->assertNotContains("--verbose", $paramsV);
+        $this->assertStringContainsString("-v", $paramsV);
+        $this->assertStringNotContainsString("-vv", $paramsV);
+        $this->assertStringNotContainsString("--verbose", $paramsV);
 
-        $this->assertContains("-vv", $paramsVV);
-        $this->assertNotContains("-vvv", $paramsVV);
+        $this->assertStringContainsString("-vv", $paramsVV);
+        $this->assertStringNotContainsString("-vvv", $paramsVV);
         
-        $this->assertContains("-vvv", $paramsVVV);
+        $this->assertStringContainsString("-vvv", $paramsVVV);
     }
 
     protected function simulateAndParseParameters($commandAsString, $verbosity = null)
