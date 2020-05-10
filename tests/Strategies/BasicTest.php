@@ -23,7 +23,6 @@ class BasicTest extends DeploymentTestCase
         $this->assertStringContainsString('Executing task deploy:writable', $output);
         $this->assertStringContainsString('Executing task artisan:storage:link', $output);
         $this->assertStringContainsString('Executing task artisan:view:clear', $output);
-        $this->assertStringContainsString('Executing task artisan:cache:clear', $output);
         $this->assertStringContainsString('Executing task artisan:config:cache', $output);
         $this->assertStringContainsString('Executing task artisan:optimize', $output);
         $this->assertStringContainsString('Executing task deploy:symlink', $output);

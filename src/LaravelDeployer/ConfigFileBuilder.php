@@ -16,6 +16,7 @@ class ConfigFileBuilder
     ];
 
     protected $lumenHooks = [
+        //
     ];
 
     protected $configs = [
