@@ -102,7 +102,6 @@ class ConfigFileBuilderTest extends TestCase
                 'ready' => [
                     'artisan:storage:link',
                     'artisan:view:clear',
-                    'artisan:cache:clear',
                     'artisan:config:cache',
                 ],
             ]],
@@ -142,7 +141,6 @@ class ConfigFileBuilderTest extends TestCase
                 'ready' => [
                     'artisan:storage:link',
                     'artisan:view:clear',
-                    'artisan:cache:clear',
                     'artisan:config:cache',
                     'artisan:migrate',
                     'artisan:horizon:terminate',
@@ -225,7 +223,6 @@ class ConfigFileBuilderTest extends TestCase
                 'ready' => [
                     'artisan:storage:link',
                     'artisan:view:clear',
-                    'artisan:cache:clear',
                     'artisan:config:cache',
                     'artisan:telescope:clear',
                 ],
@@ -246,7 +243,6 @@ class ConfigFileBuilderTest extends TestCase
                 'ready' => [
                     'artisan:storage:link',
                     'artisan:view:clear',
-                    'artisan:cache:clear',
                     'artisan:config:cache',
                     'artisan:telescope:prune',
                 ],

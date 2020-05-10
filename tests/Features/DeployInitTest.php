@@ -29,7 +29,6 @@ class DeployInitTest extends DeploymentTestCase
                 "ready" => [
                     "artisan:storage:link",
                     "artisan:view:clear",
-                    "artisan:cache:clear",
                     "artisan:config:cache",
                     "artisan:migrate",
                 ],
@@ -77,7 +76,6 @@ class DeployInitTest extends DeploymentTestCase
                 "ready" => [
                     "artisan:storage:link",
                     "artisan:view:clear",
-                    "artisan:cache:clear",
                     "artisan:config:cache",
                     "artisan:migrate",
                     "artisan:horizon:terminate",

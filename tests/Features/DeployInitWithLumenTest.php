@@ -26,7 +26,6 @@ class DeployInitWithLumenTest extends DeploymentTestCase
                     "npm:production",
                 ],
                 "ready" => [
-                    "artisan:cache:clear",
                     "artisan:migrate",
                 ],
                 "done" => [],

@@ -21,7 +21,6 @@ class ConfigFileTest extends TestCase
                 'ready'   => [
                     'artisan:storage:link',
                     'artisan:view:clear',
-                    'artisan:cache:clear',
                     'artisan:config:cache',
                     'artisan:optimize',
                 ],
