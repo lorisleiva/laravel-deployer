@@ -30,8 +30,9 @@ jobs:
           key: dependencies-php-${{ matrix.php }}-composer-${{ hashFiles('composer.json') }}
 
       - name: Install dependencies
-        run: composer install --prefer-dist --no-progress --no-suggest --no-interaction
+        run: |
+          composer install --prefer-dist --no-progress --no-suggest --no-interaction
 
       - name: Run tests
         run: phpunit
-      
+
