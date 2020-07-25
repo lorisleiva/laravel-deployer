@@ -1,6 +1,6 @@
 # 🚀 Laravel Deployer
 
-[![Actions Status](https://github.com/lorisleiva/laravel-deployer/workflows/tests/badge.svg)](https://github.com/lorisleiva/laravel-deployer/actions)
+[![Actions Status](https://github.com/lorisleiva/laravel-deployer/workflows/Tests/badge.svg)](https://github.com/lorisleiva/laravel-deployer/actions)
 
 Laravel Deployer is a lightweight wrapper of [Deployer.org](https://github.com/deployphp/deployer) giving Artisan the power of zero-downtime deployment.
 
