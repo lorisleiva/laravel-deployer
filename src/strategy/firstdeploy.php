@@ -22,7 +22,7 @@ task('strategy:firstdeploy', [
     'hook:done',
 ]);
 
-/** 
+/**
  * Strategy specific tasks
  */
 
@@ -49,9 +49,9 @@ task('firstdeploy:cleanup', function () {
     writeln("<info>Deleting:</info> $filesToDelete");
     writeln('<info>From directory:</info> {{deploy_path}}');
     writeln('');
-    
+
     $question = "Are you sure you want to continue and delete those elements?";
     if (get('debug', false) || askConfirmation($question, false)) {
-        run("cd {{deploy_path}} && rm -rf $filesToDelete");
+        run("cd \"{{deploy_path}}\" && rm -rf $filesToDelete");
     }
 });
