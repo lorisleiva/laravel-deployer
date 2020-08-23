@@ -49,15 +49,15 @@ class ConfigFileBuilder
     public function __construct()
     {
         $basePath = base_path();
-        $this->set('options.repository', exec("cd $basePath && git config --get remote.origin.url") ?? '');
-        
+        $this->set('options.repository', exec("cd \"$basePath\" && git config --get remote.origin.url") ?? '');
+
         $lumen = preg_match('/Lumen/', app()->version());
         $this->set('hooks.ready', $lumen ? $this->lumenHooks : $this->laravelHooks);
     }
 
     /**
      * Return the configuration value at the given key.
-     * 
+     *
      * @return mixed
      */
     public function get($key, $default = null)
@@ -67,7 +67,7 @@ class ConfigFileBuilder
 
     /**
      * Update the configuration array with the given key/value pair.
-     * 
+     *
      * @return ConfigFileGenerator
      */
     public function set($key, $value)
@@ -79,7 +79,7 @@ class ConfigFileBuilder
 
     /**
      * Append the given value to the configuration array at the given key.
-     * 
+     *
      * @return ConfigFileGenerator
      */
     public function add($key, $value)
@@ -97,7 +97,7 @@ class ConfigFileBuilder
 
     /**
      * Return current host configurations at the given key.
-     * 
+     *
      * @return mixed
      */
     public function getHost($key)
@@ -107,7 +107,7 @@ class ConfigFileBuilder
 
     /**
      * Return the name of the first host in the configurations.
-     * 
+     *
      * @return string
      */
     public function getHostname()
@@ -117,7 +117,7 @@ class ConfigFileBuilder
 
     /**
      * Update the host configurations with the given key/value pair.
-     * 
+     *
      * @return ConfigFileGenerator
      */
     public function setHost($key, $value)
@@ -136,7 +136,7 @@ class ConfigFileBuilder
         $this->configs['hosts'][$value] = $this->configs['hosts'][$hostname];
         unset($this->configs['hosts'][$hostname]);
         $this->setHost('deploy_path', "/var/www/$value");
-        
+
         return $this;
     }
 
@@ -172,7 +172,7 @@ class ConfigFileBuilder
     /**
      * Build a config file object based on the information
      * collected so far.
-     * 
+     *
      * @return ConfigFile
      */
     public function build()

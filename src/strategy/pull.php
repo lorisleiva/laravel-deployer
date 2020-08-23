@@ -13,7 +13,7 @@ task('strategy:pull', [
     'hook:done',
 ]);
 
-/** 
+/**
  * Strategy specific tasks
  */
 
@@ -23,5 +23,5 @@ task('pull:update_code', function () {
         throw new \Exception("There is no `current` folder to execute a `git pull` from.\nPlease choose another strategy to deploy your application before using the `pull` strategy");
     }
 
-    run('cd {{deploy_path}}/current && git pull');
+    run('cd "{{deploy_path}}/current" && git pull');
 });
