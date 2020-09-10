@@ -10,10 +10,11 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
+        laravel: [8.*, 7.*, 6.*, 5.8]
         php: [7.4, 7.3] # Add 7.2 and 7.1 if you want
         os: [ubuntu-latest]
 
-    name: PHP${{ matrix.php }} on ${{ matrix.os }}
+    name: Laravel ${{ matrix.laravel }} PHP${{ matrix.php }} on ${{ matrix.os }}
     container:
       image: lorisleiva/laravel-docker:${{ matrix.php }}
     steps:
@@ -27,10 +28,11 @@ jobs:
         uses: actions/cache@v1
         with:
           path: ~/.composer/cache/files
-          key: dependencies-php-${{ matrix.php }}-composer-${{ hashFiles('composer.json') }}
+          key: dependencies-laravel-${{ matrix.laravel }}-php-${{ matrix.php }}-composer-${{ hashFiles('composer.json') }}
 
       - name: Install dependencies
         run: |
+          composer require --prefer-dist --no-progress --no-suggest --no-interaction "illuminate/support:${{ matrix.laravel }}"
           composer install --prefer-dist --no-progress --no-suggest --no-interaction
 
       - name: Run tests
