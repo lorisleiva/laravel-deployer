@@ -49,7 +49,7 @@ class ConfigFileBuilder
     public function __construct()
     {
         $basePath = base_path();
-        $this->set('options.repository', exec("cd \"$basePath\" && git config --get remote.origin.url") ?? '');
+        $this->set('options.repository', exec("cd $basePath && git config --get remote.origin.url") ?? '');
 
         $lumen = preg_match('/Lumen/', app()->version());
         $this->set('hooks.ready', $lumen ? $this->lumenHooks : $this->laravelHooks);
