@@ -6,7 +6,7 @@ If you have a Daemon running `php artisan horizon`, you might want to terminate 
 // config/deploy.php
     
 'hooks' => [
-    'ready' => [
+    'done' => [
         // ...
         'artisan:horizon:terminate',
     ],
