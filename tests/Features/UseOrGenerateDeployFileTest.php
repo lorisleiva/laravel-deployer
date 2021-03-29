@@ -28,7 +28,7 @@ class UseOrGenerateDeployFileTest extends DeploymentTestCase
         $output = $this->artisan('deploy');
 
         $this->assertStringContainsString('strategy:custom_root_deploy_file', $output);
-        $this->assertFileNotExists($this->generatedDeployPath());
+        $this->assertFileDoesNotExist($this->generatedDeployPath());
     }
 
     /** @test */
@@ -40,7 +40,7 @@ class UseOrGenerateDeployFileTest extends DeploymentTestCase
         $output = $this->artisan('deploy');
 
         $this->assertStringContainsString('strategy:root_deploy_file', $output);
-        $this->assertFileNotExists($this->generatedDeployPath());
+        $this->assertFileDoesNotExist($this->generatedDeployPath());
     }
 
     /** @test */

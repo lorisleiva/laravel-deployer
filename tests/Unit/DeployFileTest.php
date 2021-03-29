@@ -256,7 +256,7 @@ EOD
     {
         $deployFilePath = $this->generatedDeployPath();
 
-        $this->assertFileNotExists($deployFilePath);
+        $this->assertFileDoesNotExist($deployFilePath);
 
         (new DeployFile())->store();
 

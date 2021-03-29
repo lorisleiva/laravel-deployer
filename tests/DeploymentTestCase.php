@@ -143,7 +143,7 @@ class DeploymentTestCase extends TestCase
         $files = is_array($files[0]) ? $files[0] : $files;
 
         foreach ($files as $file) {
-            $this->assertFileNotExists(self::SERVER . '/current/' . $file);
+            $this->assertFileDoesNotExist(self::SERVER . '/current/' . $file);
         }
     }
 
@@ -151,7 +151,7 @@ class DeploymentTestCase extends TestCase
     {
         foreach ($files as $file => $expectedContent) {
             $this->assertStringEqualsFile(
-                self::SERVER . '/current/' . $file, 
+                self::SERVER . '/current/' . $file,
                 "$expectedContent\n"
             );
         }

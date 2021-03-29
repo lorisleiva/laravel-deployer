@@ -7,7 +7,7 @@ use Lorisleiva\LaravelDeployer\ConfigFile;
 
 class ConfigFileBuilder
 {
-    const DEFAULT_PHP_VERSION = '7.3';
+    const DEFAULT_PHP_VERSION = '8.0';
 
     protected $laravelHooks = [
         'artisan:storage:link',
@@ -58,6 +58,8 @@ class ConfigFileBuilder
     /**
      * Return the configuration value at the given key.
      *
+     * @param $key
+     * @param null $default
      * @return mixed
      */
     public function get($key, $default = null)
@@ -68,7 +70,9 @@ class ConfigFileBuilder
     /**
      * Update the configuration array with the given key/value pair.
      *
-     * @return ConfigFileGenerator
+     * @param $key
+     * @param $value
+     * @return ConfigFileBuilder
      */
     public function set($key, $value)
     {
@@ -80,7 +84,9 @@ class ConfigFileBuilder
     /**
      * Append the given value to the configuration array at the given key.
      *
-     * @return ConfigFileGenerator
+     * @param $key
+     * @param $value
+     * @return ConfigFileBuilder
      */
     public function add($key, $value)
     {
@@ -98,6 +104,7 @@ class ConfigFileBuilder
     /**
      * Return current host configurations at the given key.
      *
+     * @param $key
      * @return mixed
      */
     public function getHost($key)
@@ -118,7 +125,7 @@ class ConfigFileBuilder
     /**
      * Update the host configurations with the given key/value pair.
      *
-     * @return ConfigFileGenerator
+     * @return ConfigFileBuilder
      */
     public function setHost($key, $value)
     {
@@ -143,7 +150,8 @@ class ConfigFileBuilder
     /**
      * Set up defaults values more suitable for forge servers.
      *
-     * @return ConfigFileGenerator
+     * @param string $phpVersion
+     * @return ConfigFileBuilder
      */
     public function useForge($phpVersion = self::DEFAULT_PHP_VERSION)
     {
@@ -158,7 +166,7 @@ class ConfigFileBuilder
      * Reload PHP-FPM after every deployment.
      *
      * @param string $phpVersion The php-fpm version to reload
-     * @return ConfigFileGenerator
+     * @return ConfigFileBuilder
      */
     public function reloadFpm($phpVersion = self::DEFAULT_PHP_VERSION)
     {
