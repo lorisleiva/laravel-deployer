@@ -1,6 +1,6 @@
 <?php
 
-namespace Lorisleiva\LaravelDeployer\Test\Commands;
+namespace Lorisleiva\LaravelDeployer\Test\Features;
 
 use Illuminate\Contracts\Console\Kernel;
 use Lorisleiva\LaravelDeployer\Test\DeploymentTestCase;

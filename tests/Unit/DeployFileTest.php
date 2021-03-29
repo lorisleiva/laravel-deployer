@@ -5,7 +5,7 @@ namespace Lorisleiva\LaravelDeployer\Test\Unit;
 use Lorisleiva\LaravelDeployer\DeployFile;
 use Lorisleiva\LaravelDeployer\Test\TestCase;
 
-class DeployFileBuilderTest extends TestCase
+class DeployFileTest extends TestCase
 {
     /** @test */
     function it_adds_laravel_deployer_recipe_by_default()

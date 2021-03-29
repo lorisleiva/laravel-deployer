@@ -1,6 +1,6 @@
 <?php
 
-namespace Lorisleiva\LaravelDeployer\Test\Commands;
+namespace Lorisleiva\LaravelDeployer\Test\Features;
 
 use Illuminate\Contracts\Console\Kernel;
 use Lorisleiva\LaravelDeployer\ConfigFileBuilder;
@@ -9,7 +9,7 @@ use Lorisleiva\LaravelDeployer\Test\DeploymentTestCase;
 class DeployInitTest extends DeploymentTestCase
 {
     protected $configs = null;
-    
+
     /** @test */
     function it_generates_a_minimal_config_file()
     {
@@ -56,9 +56,9 @@ class DeployInitTest extends DeploymentTestCase
     /** @test */
     function it_generates_a_full_config_file_with_forge_defaults()
     {
-        $this->artisan('deploy:init', [ 
-            'hostname' => 'elegon.io', 
-            '--all' => true, 
+        $this->artisan('deploy:init', [
+            'hostname' => 'elegon.io',
+            '--all' => true,
             '--forge' => true,
         ]);
 
