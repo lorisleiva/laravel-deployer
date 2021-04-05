@@ -1,63 +1,22 @@
 # 🚀 Laravel Deployer
 
-[![Actions Status](https://github.com/lorisleiva/laravel-deployer/workflows/Tests/badge.svg)](https://github.com/lorisleiva/laravel-deployer/actions)
+> Looking for the old Laravel Deployer? [Click here](https://github.com/lorisleiva/laravel-deployer/tree/old).
 
-Laravel Deployer is a lightweight wrapper of [Deployer.org](https://github.com/deployphp/deployer) giving Artisan the power of zero-downtime deployment.
+Laravel Deployer is no longer the package it used to be. Since that package was created, [Deployer](https://github.com/deployphp/deployer) has become better and better at integrating with Laravel to the point that I will now put my efforts into maintaining Deployer directly for Laravel users rather than mirroring its changes on a different repo after each release. You can [read more about this decision here](https://twitter.com/lorismatic/status/1376519608207867907?s=20).
 
-![Console showing php artisan deploy](https://user-images.githubusercontent.com/3642397/38672390-50ad0194-3e4e-11e8-93c2-d28de8659117.png)
+I'm currently working on a series of tutorials to help Laravel users deploy their application using Deployer directly. In the meantime, here's a quick guide to get started with Deployer 7.
 
-<p align="center">
-  <a href="docs/README.md"><img src="https://user-images.githubusercontent.com/3642397/38672391-50caf9e2-3e4e-11e8-862f-465d55e7e8d9.png" alt="Documentation button" height="50"></a>   
-  <a href="https://www.youtube.com/playlist?list=PLP7iaQb3O2XsexM_5HMrcKNCu0IOcxIDh"><img src="https://user-images.githubusercontent.com/3642397/39360000-a2f5d668-4a1c-11e8-8869-fa7fa027fe96.png" alt="Video tutorials button" height="50"></a>
-</p>
+## Deploy your Laravel application using Deployer 7
 
-## ✨ Features
-* **Simple** setup process
-* **Zero downtime** deployments
-* Ready-to-use tasks for Laravel
-* Choose your **deployment strategy**
-* Agentless, it's just SSH
-* Something went wrong? **Rollback** to the previous release
-
-## 1️⃣ Installation
-
-```bash
-composer require lorisleiva/laravel-deployer
-```
-
-## 2️⃣ Configuration
-In order to generate your deployment configuration file, simply run:
-
-```bash
-php artisan deploy:init
-```
-
-* It will ask you a few questions to help you get started and generate a `config/deploy.php` file.
-* Read more about the available options, tasks, strategies; about how to customize your hosts, your deployment flow and much more in the [documentation](docs/README.md).
-
-## 3️⃣ Deployment
-When you’re ready to deploy, run:
-
-```bash
-php artisan deploy
-```
-
-* If anything goes wrong during the deployment flow, the release will be discarded just like nothing happened.
-* Because we are using zero-downtime deployments, make sure your server’s root path points to the `{{deploy_path}}/current` symlink.
-* If your project has already been deployed, before using Laravel Deployer, you might be interested in this [first deployment strategy](docs/strategy-first-deploy.md).
-
-## 📜 Available commands
-
-```bash
-deploy                # Deploy your application
-deploy:configs        # Print host configuration
-deploy:current        # Show current paths
-deploy:dump <task>    # Display the task-tree for a given task
-deploy:hosts          # Print all hosts
-deploy:init           # Generate a deploy.php configuration file
-deploy:list           # Lists available tasks
-deploy:rollback       # Rollback to previous release
-deploy:run <task>     # Execute a given task on your hosts
-logs                  # Dump the remote logs of your application
-ssh                   # Connect to host through ssh
-```
+- Add [Deployer](https://github.com/deployphp/deployer) to your dependencies.
+  ```shell
+  composer require deployer/deployer:^7.0
+  ```
+- Copy/paste the [`deploy.yaml`](./deploy.yaml) or [`deploy.php`](./deploy.php) file of this repository to the root of your project.
+- Update the `deploy.yaml` or `deploy.php` with your own server details.
+- Run `dep deploy` to deploy once.
+- Run `dep ssh` to connect to your server via SSH.
+- Run `cp .env.example && php artisan key:generate` to initialize your `.env` file.
+- Run `vim .env` and update your production environment variables.
+- Exit your server — `exit`.
+- Run `dep deploy` once more now that your `.env` file is all set up.

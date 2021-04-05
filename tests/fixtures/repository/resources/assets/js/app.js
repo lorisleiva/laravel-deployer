@@ -1,1 +1,0 @@
-window._ = require('lodash');
