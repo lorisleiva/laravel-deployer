@@ -11,9 +11,9 @@ set('repository', 'git@github.com:lorisleiva/mylaravelapp.git');
 set('php_fpm_version', '8.0');
 
 host('prod')
-    ->set('remote_user', 'loris')
+    ->set('remote_user', 'root')
     ->set('hostname', 'mylaravelapp.com')
-    ->set('deploy_path', '~/{{application}}');
+    ->set('deploy_path', '/var/www/mylaravelapp.com');
 
 task('deploy', [
     'deploy:prepare',
