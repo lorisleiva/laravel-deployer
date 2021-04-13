@@ -1,0 +1,34 @@
+import:
+  - recipe/laravel.php
+  - contrib/php-fpm.php
+  - contrib/npm.php
+
+config:
+  application: 'blog-jollygood'
+  repository: 'git@github.com:lorisleiva/blog-jollygood.git'
+  php_fpm_version: '8.0'
+
+hosts:
+  prod:
+    remote_user: root
+    hostname: jollygood.app
+    deploy_path: '/var/www/jollygood.app'
+
+tasks:
+  deploy:
+    - deploy:prepare
+    - deploy:vendors
+    - artisan:storage:link
+    - artisan:view:cache
+    - artisan:config:cache
+    - artisan:migrate
+    - npm:install
+    - npm:run:prod
+    - deploy:publish
+    - php-fpm:reload
+  npm:run:prod:
+    script:
+      - 'cd {{release_path}} && npm run prod'
+
+after:
+  deploy:failed: deploy:unlock
