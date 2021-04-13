@@ -6,13 +6,13 @@ require 'recipe/laravel.php';
 require 'contrib/php-fpm.php';
 require 'contrib/npm.php';
 
-set('application', 'mylaravelapp');
-set('repository', 'git@github.com:lorisleiva/mylaravelapp.git');
+set('application', 'blog-jollygood');
+set('repository', 'git@github.com:lorisleiva/blog-jollygood.git');
 set('php_fpm_version', '8.0');
 
 host('prod')
     ->set('remote_user', 'root')
-    ->set('hostname', 'mylaravelapp.com')
+    ->set('hostname', 'jollygood.app')
     ->set('deploy_path', '/var/www/{{hostname}}');
 
 task('deploy', [

@@ -4,14 +4,14 @@ import:
   - contrib/npm.php
 
 config:
-  application: 'mylaravelapp'
-  repository: 'git@github.com:lorisleiva/mylaravelapp.git'
+  application: 'blog-jollygood'
+  repository: 'git@github.com:lorisleiva/blog-jollygood.git'
   php_fpm_version: '8.0'
 
 hosts:
   prod:
     remote_user: root
-    hostname: mylaravelapp.com
+    hostname: jollygood.app
     deploy_path: '/var/www/{{hostname}}'
 
 tasks:
