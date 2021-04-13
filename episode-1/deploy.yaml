@@ -12,7 +12,7 @@ hosts:
   prod:
     remote_user: root
     hostname: jollygood.app
-    deploy_path: '/var/www/jollygood.app'
+    deploy_path: '/var/www/{{hostname}}'
 
 tasks:
   deploy:
