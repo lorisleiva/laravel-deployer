@@ -44,9 +44,11 @@ task('app:input', function () {
     writeln("Your secret ingredient is safe with me.");
 });
 
-desc('Demo prompting with options.');
-task('app:option', function () {
-    $force = input()->getOption('force', false);
-    $fruit = $force ? 'strawberry' : ask("What's your favourite fruit?", 'strawberry');
+set('should_prompt', true);
+
+desc('Demo bypassing prompts.');
+task('app:bypass:prompt', function () {
+    $shouldPrompt = get('should_prompt', true);
+    $fruit = $shouldPrompt ? ask("What's your favourite fruit?", 'strawberry') : 'strawberry';
     writeln("You're favourite fruit is: $fruit");
 });
