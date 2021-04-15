@@ -1,0 +1,45 @@
+import:
+  - recipe/laravel.php
+  - contrib/php-fpm.php
+  - contrib/npm.php
+  - deploy/my-first-recipe.php
+  - deploy/webhook.php
+
+config:
+  application: 'blog-jollygood'
+  repository: 'git@github.com:lorisleiva/blog-jollygood.git'
+  php_fpm_version: '8.0'
+  webhook_url: 'https://octo.hk/DL8v1dKM4hinXhTWXIX8'
+
+hosts:
+  prod:
+    remote_user: root
+    hostname: jollygood.app
+    deploy_path: '/var/www/{{hostname}}'
+    labels:
+      mode: api
+
+tasks:
+  deploy:
+    - deploy:prepare
+    - deploy:vendors
+    - artisan:storage:link
+    - artisan:view:cache
+    - artisan:config:cache
+    - artisan:migrate
+    - npm:install
+    - npm:run:prod
+    - deploy:publish
+    - php-fpm:reload
+  npm:run:prod:
+    script:
+      - 'cd {{release_or_current_path}} && npm run prod'
+
+before:
+  deploy: webhook:started
+
+after:
+  deploy:success: webhook:successful
+  deploy:failed:
+    - deploy:unlock
+    - webhook:failed
