@@ -4,7 +4,11 @@
 
 Laravel Deployer is no longer the package it used to be. Since that package was created, [Deployer](https://github.com/deployphp/deployer) has become better and better at integrating with Laravel to the point that I will now put my efforts into maintaining Deployer directly for Laravel users rather than mirroring its changes on a different repo after each release. You can [read more about this decision here](https://twitter.com/lorismatic/status/1376519608207867907?s=20).
 
-I'm currently working on a series of tutorials to help Laravel users deploy their application using Deployer directly. In the meantime, here's a quick guide to get started with Deployer 7.
+I've written a series of tutorials to help Laravel users deploy their application using Deployer directly.
+
+[Deploy your Laravel app from scratch](https://lorisleiva.com/deploy-your-laravel-app-from-scratch).
+
+If you prefer a quick guide to get started with Deployer 7, I've added one for you below.
 
 ## Deploy your Laravel application using Deployer 7
 
