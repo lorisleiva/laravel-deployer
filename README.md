@@ -20,7 +20,7 @@ If you prefer a quick guide to get started with Deployer 7, I've added one for y
 - Update the `deploy.yaml` or `deploy.php` with your own server details.
 - Run `dep deploy` to deploy once.
 - Run `dep ssh` to connect to your server via SSH.
-- Run `cp .env.example && php artisan key:generate` to initialize your `.env` file.
+- Run `cp .env.example .env && php artisan key:generate` to initialize your `.env` file.
 - Run `vim .env` and update your production environment variables.
 - Exit your server — `exit`.
 - Run `dep deploy` once more now that your `.env` file is all set up.
