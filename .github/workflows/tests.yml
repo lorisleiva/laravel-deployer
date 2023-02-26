@@ -8,8 +8,8 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        laravel: [8.*, 7.*, 6.*]
-        php: [7.4, 7.3]
+        laravel: [10.*, 9.*, 8.*, 7.*, 6.*]
+        php: [8.2, 8.1, 8, 7.4, 7.3]
         os: [ubuntu-latest]
     name: Laravel ${{ matrix.laravel }} PHP${{ matrix.php }} on ${{ matrix.os }}
     container:
