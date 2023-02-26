@@ -4,3 +4,4 @@
 /tests/fixtures/tmp/
 .phpunit.result.cache
 composer.lock
+/.ddev
